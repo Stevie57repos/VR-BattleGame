@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9682257d9976bf04cb5297c3092bd509, type: 3}
+  m_Name: EnemyOne
+  m_EditorClassIdentifier: 
+  CharacterPrefab: {fileID: 862203817120338297, guid: 2072324c9c6856d4a88d5c0fea7f4b2b,
+    type: 3}
+  NameCharacter: EnemyOne
+  Health: 30
+  MaxHealth: 30
+  Mana: 10
+  MaxMana: 10

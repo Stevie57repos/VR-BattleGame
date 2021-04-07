@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d9ee67e4d6c64b4d85e94ad41c49f8c, type: 3}
+  m_Name: Strong Defend
+  m_EditorClassIdentifier: 
+  name: Strong Defend
+  type: 1
+  value: 2
+  cost: 6
+  singleUse: 0
+  art: {fileID: 21300000, guid: 8f58d70dcafcd864fb8f4eb4cf7f38a7, type: 3}
+  soundRelease: {fileID: 8300000, guid: 07a5c54d2703fd04f9df8e37346d5f4d, type: 3}
+  soundFlying: {fileID: 8300000, guid: b8e8f3c9c7b65364e9df3c3d0b520cce, type: 3}
+  soundHit: {fileID: 8300000, guid: 3758606f4abd0eb45ac236de2ef6f656, type: 3}

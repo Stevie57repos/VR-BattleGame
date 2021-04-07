@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d9ee67e4d6c64b4d85e94ad41c49f8c, type: 3}
+  m_Name: Strong Attack
+  m_EditorClassIdentifier: 
+  name: Strong Attack
+  type: 0
+  value: 6
+  cost: 2
+  singleUse: 0
+  art: {fileID: 21300000, guid: 4c88b9044e189b1498b60addba6f9fe8, type: 3}
+  soundRelease: {fileID: 8300000, guid: 98f8a2fa1e659d842998b7083afaf9c3, type: 3}
+  soundFlying: {fileID: 8300000, guid: b8e8f3c9c7b65364e9df3c3d0b520cce, type: 3}
+  soundHit: {fileID: 8300000, guid: 3758606f4abd0eb45ac236de2ef6f656, type: 3}

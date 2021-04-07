@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: M_Spell_Curse
+  m_Shader: {fileID: -6465566751694194690, guid: 3443d5e3dc617ec45a9050170ed16e0c,
+    type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs: []
+    m_Floats:
+    - Vector1_50A2A90F: 20
+    - Vector1_B6D58D17: 1
+    - Vector1_BF40D3FC: 5
+    m_Colors:
+    - Color_B23CC27C: {r: 0.84077126, g: 0.21812463, b: 0.7324855, a: 1}
+    - Vector2_26906B12: {r: 0, g: 0.5, b: 0, a: 0}
+    - Vector2_2BB30FA9: {r: 0.1, g: -0.5, b: 0, a: 0}
