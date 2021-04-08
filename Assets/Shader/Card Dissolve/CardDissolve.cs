@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CardDissolve : MonoBehaviour
 {
-    [SerializeField] private Renderer cardRenderer = new Renderer();
+    [SerializeField] private Renderer _cardRenderer = new Renderer();
 
     [SerializeField] float timeElapsed = 0f;
     [SerializeField] float lerpDuration = 3.5f;
@@ -40,7 +40,7 @@ public class CardDissolve : MonoBehaviour
         {
             //Debug.Log("running lerp");
             valueToLerp = Mathf.Lerp(startValue, endValue, timeElapsed / lerpDuration);
-            cardRenderer.material.SetFloat("_Dissolve", (1f - valueToLerp ));
+            _cardRenderer.material.SetFloat("_Dissolve", (1f - valueToLerp ));
             timeElapsed += Time.deltaTime;
 
             yield return null;
@@ -67,7 +67,7 @@ public class CardDissolve : MonoBehaviour
         {
             //Debug.Log("running lerp");
             valueToLerp = Mathf.Lerp(startValue, endValue, timeElapsed / lerpDuration);
-            cardRenderer.material.SetFloat("_Dissolve", valueToLerp);
+            _cardRenderer.material.SetFloat("_Dissolve", valueToLerp);
             timeElapsed += Time.deltaTime;
 
             yield return null;

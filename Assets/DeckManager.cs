@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class DeckManager : MonoBehaviour
 {
+    public GameManager_BS gameManager;
+
     [SerializeField] private GameObject _cardPrefab;
-    [SerializeField] private DeckScriptableObject deckData;
+    [SerializeField] private DeckScriptableObject _deckData;
 
 	public List<CardScriptableObject> deck;
 	public List<CardScriptableObject> hand;
@@ -14,16 +16,33 @@ public class DeckManager : MonoBehaviour
 
 	private int maxHandSize = 5;
 
-	public void Start()
+    private void OnEnable()
     {
-		LoadCards();
+        gameManager.battleState.OnBattleStart += DeckStart;
+    }
+
+    private void OnDisable()
+    {
+        gameManager.battleState.OnBattleStart -= DeckStart;
+    }
+
+
+    public void Start()
+    {
+
+    }
+
+    void DeckStart(GameManager_BS gameManagerRef)
+    {
+        gameManager = gameManagerRef;
+        LoadCards();
         ShuffleDeck();
         Draw(3);
     }
 
 	void LoadCards()
     {
-		foreach (CardScriptableObject card in deckData.cards)
+		foreach (CardScriptableObject card in _deckData.cards)
         {
 			this.deck.Add(card);
         }

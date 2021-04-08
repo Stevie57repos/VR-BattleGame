@@ -127,9 +127,6 @@ public class Card_GrabV3 : XRGrabInteractable
         {
             // timer decreases
             pressedTimeDuration -= Time.fixedDeltaTime;
-
-            // electricla material change
-            SetTriggerMat();
                 
             if(pressedTimeDuration <= 0)
             {
@@ -149,14 +146,7 @@ public class Card_GrabV3 : XRGrabInteractable
         {
             //apply default mataerial
             SetDefaultMat();
-        }
-
-      
-    }
-
-    private void SetTriggerMat()
-    {
-        CardObject.cardMatManager.SetTriggerMaterial(CardObject.cardData.type.ToString());
+        }     
     }
 
     private void CreateAndSelectOrb()

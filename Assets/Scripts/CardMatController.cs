@@ -3,8 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CardMatManager : MonoBehaviour, ICardMatGetter
+public class CardMatController : MonoBehaviour, ICardMatGetter
 {
+
+    string cardName = null;
+    string cardType = null;
 
     // Variables for material change when the trigger button is activated
     private Renderer meshRend;
@@ -25,6 +28,8 @@ public class CardMatManager : MonoBehaviour, ICardMatGetter
     void Awake()
     {
         loadDictionary();
+        //get mesh renderer compononent
+        meshRend = GetComponent<MeshRenderer>();
     }
     private void loadDictionary()
     {
@@ -38,10 +43,19 @@ public class CardMatManager : MonoBehaviour, ICardMatGetter
         materialDirectory.Add("Energy", Mat_Defend);
     }
 
-    void Start()
+    public void CardSetUp(string cardName, string cardType)
     {
-        //get mesh renderer compononent
-        meshRend = GetComponent<MeshRenderer>();
+        this.cardName = cardName;
+        this.cardType = cardType;
+
+        SetDefaultMat(cardType);
+    }
+
+
+    public void SetTriggerMaterial()
+    {
+        Material[] eletricalMatArray = { materialDirectory[cardType], Mat_Electrical };
+        meshRend.materials = eletricalMatArray;
     }
 
     public void SetDefaultMat(string cardtype)
@@ -53,12 +67,6 @@ public class CardMatManager : MonoBehaviour, ICardMatGetter
 
         Material[] defaultmat = { materialDirectory[cardtype] };
         meshRend.materials = defaultmat;
-    }
-
-    public void SetTriggerMaterial(string cardtype)
-    {
-        Material[] eletricalMatArray = { materialDirectory[cardtype], Mat_Electrical };
-        meshRend.materials = eletricalMatArray;
     }
 }
 

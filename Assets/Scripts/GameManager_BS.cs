@@ -25,15 +25,16 @@ public class GameManager_BS : MonoBehaviour
     void Awake()
     {
         Player = GameObject.FindGameObjectWithTag("Player").GetComponent<ICharacter>();
+        UImanager = GetComponent<IUpdateUI>();
+        enemyManager = GetComponent<IEnemyManager>();
     }
 
     void Start()
     {
-        UImanager = GetComponent<IUpdateUI>();
-        enemyManager = GetComponent<IEnemyManager>();
+
 
         // Set state to start
-        TransitionToState(battleState);      
+        TransitionToState(startState);      
     }
 
     public void TransitionToState(State state)

@@ -8,6 +8,8 @@ public interface ICardMatGetter
     void SetDefaultMat(string cardtype);
 
     // get trigger material
-    void SetTriggerMaterial(string cardtype);
+    void SetTriggerMaterial();
+
+    void CardSetUp(string cardName, string cardType);
 
 }
