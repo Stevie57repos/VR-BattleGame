@@ -31,8 +31,6 @@ public class GameManager_BS : MonoBehaviour
 
     void Start()
     {
-
-
         // Set state to start
         TransitionToState(startState);      
     }
