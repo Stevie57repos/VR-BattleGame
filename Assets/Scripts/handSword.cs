@@ -6,7 +6,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class handSword : XRGrabInteractable, ICardEffectV2
 {
     private float _currChargeCount = 0;
-    private float neededCharge = 3;
+    private float _neededCharge = 3;
 
 
     // Start is called before the first frame update

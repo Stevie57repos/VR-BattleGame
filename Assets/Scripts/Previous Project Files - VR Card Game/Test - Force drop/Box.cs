@@ -80,13 +80,15 @@ public class Box : XRGrabInteractable
 
     private void FixedUpdate()
     {
-        //if (isTriggerChecking)
-        //{
-        //    if (CheckTrigger())
-        //    {
-        //        Debug.Log("Trigger detected");
-        //    }
-        //}
+        if (isTriggerChecking)
+        {
+            Debug.Log("Trigger detected");
+
+            //if (CheckTrigger())
+            //{
+
+            //}
+        }
     }
 
 

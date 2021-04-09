@@ -6,7 +6,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class HandHider : MonoBehaviour
 {
     private SkinnedMeshRenderer meshRender = null;
-    private XRDirectInteractor interactor = null;
+    //private XRDirectInteractor interactor = null;
 
     private void Awake()
     {

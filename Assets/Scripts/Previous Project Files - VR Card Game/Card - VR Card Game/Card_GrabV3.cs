@@ -42,7 +42,7 @@ public class Card_GrabV3 : XRGrabInteractable
     // This is the member variable the tracks elapsed time
     [SerializeField] private float pressedTimeDuration;
     // bool for starting timer 
-    [SerializeField] private bool isTrackingTime = false;
+    //[SerializeField] private bool isTrackingTime = false;
 
     #endregion
 
