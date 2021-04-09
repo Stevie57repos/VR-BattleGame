@@ -6,5 +6,5 @@ public interface IEnemyGetter
 {
     void SetEnemySpawnPrefab(GameObject EnemyPrefab);
 
-    void SpawnEnemy();
+    EnemyCharacter SpawnEnemy();
 }

@@ -15,28 +15,26 @@ public class EnemyCharacter : Character_Base, ICharacter
 
     public int MaxMana { get { return _maxMana; } }
 
-    public event Action<int> OnDamage;
 
-    public event Action<int> OnSpell;
 
     public GameObject getGameObject()
     {
         return this.gameObject;
     }
+
+
+    // call these methods on the enemy manager so that the UI updates
     public void TakeDamage(int damage)
     {
         Health -= damage;
 
-        // pass the current health to the UI subscriber to update health panel
-        OnDamage?.Invoke(Health);
     }
 
+    // call this method on the enemy manager so that the UI updates
     public void SpendMana(int spellCost)
     {
         Mana -= spellCost;
 
-        // pass the current mana to the UI subscriber to update energy panel
-        OnSpell?.Invoke(Mana);
     }
 
 

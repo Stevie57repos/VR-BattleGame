@@ -10,6 +10,7 @@ public class UI_Manager : MonoBehaviour, IUpdateUI
     public GameManager_BS gameManager;
     // Event needs a reference to the componenet. Needs to reference the player manager compononent
     public PlayerCharacter Player;
+    private EnemyManager _enemyManager;
 
     #region Start State UI Variables
     // UI elements
@@ -37,6 +38,7 @@ public class UI_Manager : MonoBehaviour, IUpdateUI
     {
         GameManagerCheck();
         PlayerCheck();
+        _enemyManager = GetComponent<EnemyManager>();
 
     }
     private void GameManagerCheck()
@@ -69,6 +71,10 @@ public class UI_Manager : MonoBehaviour, IUpdateUI
         // listening for player damage or spell casting
         Player.OnDamage += EventUpdatePlayerHealthPanel;
         Player.OnSpell += EventUpdatePlayerManaPanel;
+
+        // listen for enemy damage event. Not availble during OnEnable becasue there is no enemies.
+        _enemyManager.OnDamage += EventUpdateEnemyHealthPanel;
+        _enemyManager.OnSpell += EventUpdateEnemyManaPanel;
     }
 
     private void OnDisable()
@@ -79,13 +85,21 @@ public class UI_Manager : MonoBehaviour, IUpdateUI
 
         Player.OnDamage -= EventUpdatePlayerHealthPanel;
         Player.OnSpell -= EventUpdatePlayerManaPanel;
+
+        _enemyManager.OnDamage -= EventUpdateEnemyHealthPanel;
+        _enemyManager.OnSpell -= EventUpdateEnemyManaPanel;
     }
 
     #endregion
 
     private void Start()
     {
-       
+
+    }
+
+    private void OnDestroy()
+    {
+
     }
 
     #region Game Start Methods
@@ -206,8 +220,20 @@ public class UI_Manager : MonoBehaviour, IUpdateUI
             Debug.Log($"gamemanger enemy health is {gameManager.Enemy.Health}");
             enemyHealthPanel.text = gameManager.Enemy.Health.ToString();
         }
-
     }
+
+
+    void EventUpdateEnemyHealthPanel(int newHealth)
+    {
+        if (EnemyHealthGO != null)
+        {
+            // reference to the text mesh panel componenent
+            var EnemyHealthPanel = EnemyHealthGO.GetComponent<TextMeshProUGUI>();
+
+            EnemyHealthPanel.text = newHealth.ToString();
+        }
+    }
+
     public void UpdateEnemyManaPanel()
     {
         if (EnemyHealthGO != null)
@@ -216,6 +242,19 @@ public class UI_Manager : MonoBehaviour, IUpdateUI
             var enemyManaPanel = EnemyManaGO.GetComponent<TextMeshProUGUI>();
             // insert player health int
             enemyManaPanel.text = gameManager.Enemy.Health.ToString();
+        }
+    }
+
+    void EventUpdateEnemyManaPanel(int newMana)
+    {
+        if (EnemyManaGO != null)
+        {
+            // reference to the text mesh panel componenent
+            var EnemyManaPanel = EnemyManaGO.GetComponent<TextMeshProUGUI>();
+
+            // insert player mana int
+            EnemyManaPanel.text = newMana.ToString();
+
         }
     }
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class handSword : XRGrabInteractable
+public class handSword : XRGrabInteractable, ICardEffectV2
 {
     private float _currChargeCount = 0;
     private float neededCharge = 3;
@@ -25,4 +25,6 @@ public class handSword : XRGrabInteractable
     {
 
     }
+
+
 }

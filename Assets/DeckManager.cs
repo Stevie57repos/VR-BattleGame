@@ -46,6 +46,7 @@ public class DeckManager : MonoBehaviour
         {
 			this.deck.Add(card);
         }
+        Debug.Log("deck loaded successfully");
     }
 
 	public void ShuffleDeck()
@@ -57,6 +58,7 @@ public class DeckManager : MonoBehaviour
             deck[t] = deck[r];
             deck[r] = tmp;
         }
+        Debug.Log("deck shuffled successfully");
     }
 
     public CardScriptableObject GetNextCard()
@@ -78,6 +80,7 @@ public class DeckManager : MonoBehaviour
             {
                 // check if there is still room in the hand
                 CardScriptableObject card = GetNextCard();
+                Debug.Log("drawing card");
                 if (hand.Count > maxHandSize)
                 {
                     Overdraw(card);
@@ -97,16 +100,16 @@ public class DeckManager : MonoBehaviour
 
     private void FanCards()
     {
-       // TODO : for each card in hand , change their transform
-        
+
     }
 
     private void SpawnCard(CardScriptableObject card)
     {
         GameObject cardObject = Instantiate(_cardPrefab);
-
         // TODO : Set this to card controller
-        cardObject.GetComponent<CardGameObject>().cardData = card;
+        cardObject.GetComponent<CardController>().cardData = card;
+
+
     }
 
     private void RefillDeck()
