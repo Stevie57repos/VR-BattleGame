@@ -1,6 +1,4 @@
-﻿
-using System;
-
+﻿using System;
 
 public class GameManager_State_Start : State
 {

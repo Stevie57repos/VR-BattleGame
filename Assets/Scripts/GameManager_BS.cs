@@ -9,8 +9,8 @@ public class GameManager_BS : MonoBehaviour
     State currentGameManagerState;
 
     // access to character data
-    public ICharacter Player;
-    public ICharacter Enemy;
+    public Character_Base Player;
+    public Character_Base Enemy;
 
     // different possible gameStates
     public readonly GameManager_State_Start startState = new GameManager_State_Start();
@@ -19,14 +19,13 @@ public class GameManager_BS : MonoBehaviour
     public readonly GameManager_State_Loss lossState = new GameManager_State_Loss();
 
     //UI Manager Reference - Using interface to access
-    public IUpdateUI UImanager;
-    public IEnemyManager enemyManager;
+    public UI_Manager UImanager;
+    public EnemyManager enemyManager;
 
     void Awake()
     {
-        Player = GameObject.FindGameObjectWithTag("Player").GetComponent<ICharacter>();
-        UImanager = GetComponent<IUpdateUI>();
-        enemyManager = GetComponent<IEnemyManager>();
+        UImanager = GetComponent<UI_Manager>();
+        enemyManager = GetComponent<EnemyManager>();
     }
 
     void Start()

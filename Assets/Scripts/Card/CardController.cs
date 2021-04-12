@@ -2,24 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class CardController : MonoBehaviour
 {
+    // TODO : Make this private
+    public DeckManager DeckManager;
+
     // scriptable object contains card data
-    public CardScriptableObject cardData;
+    public CardScriptableObject CardData;
 
     //Card UI gameObjects
-    public GameObject cardNameLabelGO;
-    public GameObject cardCostLabelGO;
-    public GameObject cardValueLabelGO;
+    public GameObject CardNameLabelGO;
+    public GameObject CardCostLabelGO;
+    public GameObject CardValueLabelGO;
 
     // grab the material manager
-    public ICardMatGetter cardMatManager;
+    public ICardMatGetter CardMatManager;
 
     private void Awake()
     {
         // grab the card material manager component
-        cardMatManager = GetComponent<ICardMatGetter>();
+        CardMatManager = GetComponent<ICardMatGetter>();
     }
 
     private void Start()
@@ -32,14 +36,14 @@ public class CardController : MonoBehaviour
 
     public void SetCardMaterial()
     {
-        cardMatManager.CardSetUp(cardData.name, cardData.type.ToString());
+        CardMatManager.CardSetUp(CardData.name, CardData.type.ToString());
     }
 
     private void SetUpCardUI()
     {
-        cardNameLabelGO.GetComponent<TextMeshProUGUI>().text = cardData.name;
-        cardCostLabelGO.GetComponent<TextMeshProUGUI>().text = cardData.cost.ToString();
-        cardValueLabelGO.GetComponent<TextMeshProUGUI>().text = cardData.value.ToString();
+        CardNameLabelGO.GetComponent<TextMeshProUGUI>().text = CardData.name;
+        CardCostLabelGO.GetComponent<TextMeshProUGUI>().text = CardData.cost.ToString();
+        CardValueLabelGO.GetComponent<TextMeshProUGUI>().text = CardData.value.ToString();
     }
 
 

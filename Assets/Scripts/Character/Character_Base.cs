@@ -2,16 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Character_Base : MonoBehaviour
+public abstract class Character_Base : MonoBehaviour
 {
     public CharacterDataSO characterData;
 
-    [SerializeField]protected string _nameCharacter;
-    [SerializeField]protected int _health;
-    [SerializeField] protected int _maxHealth;
-    [SerializeField] protected int _mana;
-    [SerializeField] protected int _maxMana;
+    [SerializeField] public string _nameCharacter;
+    [SerializeField] public int _health;
+    [SerializeField] public int _maxHealth;
+    [SerializeField] public int _mana;
+    [SerializeField] public int _maxMana;
 
+    public GameEvent HealthUpdate;
+    public GameEvent ManaUpdate;
 
     protected virtual void Awake()
     {
@@ -23,14 +25,9 @@ public class Character_Base : MonoBehaviour
 
     }
 
+    public abstract void TakeDamage(int damageAmount);
 
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    public abstract void SpendMana(int spellCost);
 
 
     protected void LoadCharacterData()

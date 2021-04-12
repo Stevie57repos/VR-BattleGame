@@ -3,24 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class EnemyManager : MonoBehaviour, IEnemyManager
+public class EnemyManager : MonoBehaviour
 {
     public GameManager_BS gameManager;
+    public EnemyCharacter currentEnemy;
+    public EnemyProjectileObjectPool EnemyProjectilePool;
+
+    public GameEvent EnemyHealthUpdate;
+    public GameEvent EnemyManaUpdate;
 
     public List<EnemyCharacter> enemyList = new List<EnemyCharacter>();
-
-    public int Level = 0;
-
+    public int currentLevel = 0;
     IEnemyGetter enemyGenerator;
 
-    public event Action<int> OnDamage;
-
-    public event Action<int> OnSpell;
 
     void awake()
     {
         if(gameManager == null)
             gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager_BS>();
+        EnemyProjectilePool = GetComponent<EnemyProjectileObjectPool>();
+
     }
 
     private void OnEnable()
@@ -35,34 +37,31 @@ public class EnemyManager : MonoBehaviour, IEnemyManager
 
     public void BattleEnemyStart(GameManager_BS gameManager)
     {
-        // get component
         enemyGenerator = GetComponent<EnemyGenerator>();
-        // Enemy list position represents the level opponent
-        enemyGenerator.SetEnemySpawnPrefab(enemyList[Level].gameObject);
+
+        enemyGenerator.SetEnemySpawnPrefab(enemyList[currentLevel].gameObject);
 
         EnemyCharacter enemy = enemyGenerator.SpawnEnemy();
+        enemy.HealthUpdate = EnemyHealthUpdate;
+        enemy.ManaUpdate = EnemyManaUpdate;
 
-        UI_Manager UIManager = (UI_Manager)gameManager.UImanager;
-
-        takeDamage(enemy, 0);
-        spendMana(enemy, 0);
+        // register enemy
         gameManager.Enemy = enemy;
+        currentEnemy = enemy;
+
+        // Update the enemy stats panels
+        enemy.TakeDamage(0);
+        enemy.SpendMana(0);
     }
 
-    // take damage is on the enemy manager
-    public void takeDamage(EnemyCharacter enemy,int damage)
+    public void EnemyTake5Damage()
     {
-        enemy.TakeDamage(damage);
-        // pass the current health to the UI subscriber to update health panel
-        OnDamage?.Invoke(enemy.Health);
+        currentEnemy.TakeDamage(5);
     }
 
-    // spend mana is on the enemy manager
-    public void spendMana(EnemyCharacter enemy, int manaCost)
+    public void EnemySpend5Mana()
     {
-        enemy.SpendMana(manaCost);
-        // pass the current mana to the UI subscriber to update energy panel
-        OnSpell?.Invoke(enemy.Mana);
+        currentEnemy.SpendMana(5);
     }
 
 }

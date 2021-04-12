@@ -95,8 +95,12 @@ public class Card_GrabV4 : XRGrabInteractable
         _cardMatController.SetTriggerMaterial();
 
         isTriggerChecking = true;
-       
+
+        // turn off the cards that were not picked up
+        _cardController.DeckManager.CardSelected(this.gameObject);
     }
+
+
 
 
     protected override void OnSelectExited(XRBaseInteractor interactor)
@@ -107,12 +111,11 @@ public class Card_GrabV4 : XRGrabInteractable
         pressedTimeDuration = TimeDuration;
         handGameObject = null;
         isTriggerChecking = false;
+        _cardController.DeckManager.CardUnselected();
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
-        // checking if the trigger button is pressed
         if (isTriggerChecking)
         {
             // timer decreases
@@ -120,15 +123,10 @@ public class Card_GrabV4 : XRGrabInteractable
                 
             if(pressedTimeDuration <= 0)
             {
-                // spawn the glowing orb
-                Debug.Log($"Spawn Glowing Orb");
-
-
                 if (CheckMana())
                 {                 
                     CreateAndSelectObject();
                 }
-
                 // turn off time tracking
                 isTriggerChecking = false;
             }
@@ -145,7 +143,7 @@ public class Card_GrabV4 : XRGrabInteractable
     bool CheckMana()
     {
         var Player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCharacter>();
-        var CardManaCost = _cardController.cardData.cost;
+        var CardManaCost = _cardController.CardData.cost;
 
         if (Player.Mana > CardManaCost)
         {
@@ -162,14 +160,14 @@ public class Card_GrabV4 : XRGrabInteractable
         Debug.Log("object created");
         handSword handSwordGO = CreateCardEffect();
 
+        ForceSelectObject(currInteractor, handSwordGO);
+
+        handSwordGO.TransferCardData(_cardController);
+
         // turn off the cardobject
         gameObject.SetActive(false);
-
-        // force the hand to select the glowing orb
-        ForceSelectObject(currInteractor, handSwordGO);
     }
 
-    
     private handSword CreateCardEffect()
     {
         GameObject prefabGO = Instantiate(HandSwordPrefab);
@@ -178,50 +176,10 @@ public class Card_GrabV4 : XRGrabInteractable
         return cardEffect;
     }
 
-
     private void ForceSelectObject(XRBaseInteractor interactor ,XRGrabInteractable cardEffectGo)
     {
         interactionManager.ForceSelect(currInteractor, cardEffectGo);
     }
-
-    //private void CreateAndSelectOrb()
-    //{
-    //    GlowOrb gloworb = CreateOrb(SelectCardType());
-
-    //    // turn off the cardobject
-    //    gameObject.SetActive(false);
-
-    //    // force the hand to select the glowing orb
-    //    SelectOrb(gloworb);
-    //}
-
-    //private GameObject SelectCardType()
-    //{
-    //    // convert the card type into a string
-    //    string cardTypeName = CardObject.cardData.type.ToString();
-
-    //    // search the dictionary for the card type and return the associated value
-    //    return activateDictionary[cardTypeName];
-
-    //}
-
-    //private GlowOrb CreateOrb(GameObject prefab)
-    //{      
-    //    GameObject glowOrbObject = Instantiate(prefab);
-
-    //    // Pass on variable values from CardGameObject into GlowOrb
-    //    ICardObjectGetter glowOrbCardData = glowOrbObject.GetComponent<ICardObjectGetter>();
-    //    glowOrbCardData.GetCardObject(CardObject);
-
-    //    return glowOrbObject.GetComponent<GlowOrb>();
-    //}
-
-    //private void SelectOrb(GlowOrb gloworb)
-    //{
-    //    interactionManager.ForceSelect(currInteractor, gloworb);
-    //}
-
-
 
     private void CheckHand(XRBaseInteractor interactor)
     {
@@ -237,7 +195,4 @@ public class Card_GrabV4 : XRGrabInteractable
         //set is triggerChecking to true so that update starts tracking the controller
         isTriggerChecking = true;
     }
-
-
-
 }

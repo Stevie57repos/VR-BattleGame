@@ -5,6 +5,7 @@ using UnityEngine;
 public class DeckManager : MonoBehaviour
 {
     public GameManager_BS gameManager;
+    public GameObject CardspawnSpotGO;
 
     [SerializeField] private GameObject _cardPrefab;
     [SerializeField] private DeckScriptableObject _deckData;
@@ -13,6 +14,9 @@ public class DeckManager : MonoBehaviour
 	public List<CardScriptableObject> hand;
 	public List<CardScriptableObject> graveyard;
 	public List<CardScriptableObject> burn;
+
+    public List<GameObject> handCards;
+    float cardSpreadDistance = 0f;
 
 	private int maxHandSize = 5;
 
@@ -24,12 +28,6 @@ public class DeckManager : MonoBehaviour
     private void OnDisable()
     {
         gameManager.battleState.OnBattleStart -= DeckStart;
-    }
-
-
-    public void Start()
-    {
-
     }
 
     void DeckStart(GameManager_BS gameManagerRef)
@@ -46,7 +44,6 @@ public class DeckManager : MonoBehaviour
         {
 			this.deck.Add(card);
         }
-        Debug.Log("deck loaded successfully");
     }
 
 	public void ShuffleDeck()
@@ -58,7 +55,6 @@ public class DeckManager : MonoBehaviour
             deck[t] = deck[r];
             deck[r] = tmp;
         }
-        Debug.Log("deck shuffled successfully");
     }
 
     public CardScriptableObject GetNextCard()
@@ -96,20 +92,58 @@ public class DeckManager : MonoBehaviour
             }
         }
         FanCards();
+        Debug.Log($"cardspread is {cardSpreadDistance}");
+    }
+
+    public void UpdateCardLists(GameObject cardGO, CardScriptableObject card )
+    {
+        Debug.Log("Played a " + card.name + " card!");
+        graveyard.Add(card);
+        hand.Remove(card);
+        handCards.Remove(cardGO);
+        // turn off other cards except for the one being played
     }
 
     private void FanCards()
     {
+        for (int i = 0; i < handCards.Count; i++)
+        {
+            var CardspawnPos = CardspawnSpotGO.transform.position;
+            Vector3 cardSpot = new Vector3((cardSpreadDistance + CardspawnPos.x), CardspawnPos.y, CardspawnPos.z);
+            handCards[i].transform.position = cardSpot;
+            cardSpreadDistance = cardSpreadDistance + 0.25f;
+        }
+        cardSpreadDistance = 0f;
+    }
 
+    public void CardSelected(GameObject SelectedCard)
+    {
+        foreach (GameObject card in handCards)
+        {
+            if(SelectedCard.gameObject != card)
+            {
+                card.SetActive(false);
+            }
+        }
+    }
+
+    public void CardUnselected()
+    {
+        foreach (GameObject card in handCards)
+        {
+            card.SetActive(true);
+        }
+        FanCards();
     }
 
     private void SpawnCard(CardScriptableObject card)
     {
         GameObject cardObject = Instantiate(_cardPrefab);
         // TODO : Set this to card controller
-        cardObject.GetComponent<CardController>().cardData = card;
-
-
+        var cardController = cardObject.GetComponent<CardController>();
+        cardController.CardData = card;
+        cardController.DeckManager = this;
+        handCards.Add(cardObject);
     }
 
     private void RefillDeck()
@@ -121,6 +155,7 @@ public class DeckManager : MonoBehaviour
         graveyard.Clear();
         ShuffleDeck();
     }
+
 
     private void Overdraw(CardScriptableObject card)
     {
@@ -135,4 +170,18 @@ public class DeckManager : MonoBehaviour
         burn.Add(card);
         hand.Remove(card);
     }
+
+    private void newTurn()
+    {
+        CardUnselected();
+        Draw();
+    }
+
+    // used for GameEvent Lisener componenet Sword Damage 
+    public void newTurn_Sword()
+    {
+        UpdateCardLists(GameEventsHub.SwordDamage.CardGO, GameEventsHub.SwordDamage.CardSO);
+        newTurn();
+    }
+
 }

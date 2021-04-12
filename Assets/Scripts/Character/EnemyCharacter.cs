@@ -15,36 +15,22 @@ public class EnemyCharacter : Character_Base, ICharacter
 
     public int MaxMana { get { return _maxMana; } }
 
-
-
     public GameObject getGameObject()
     {
         return this.gameObject;
     }
 
-
-    // call these methods on the enemy manager so that the UI updates
-    public void TakeDamage(int damage)
+    public override void TakeDamage(int damageAmount)
     {
-        Health -= damage;
-
+        Health -= damageAmount;
+        HealthUpdate.Raise();
     }
 
-    // call this method on the enemy manager so that the UI updates
-    public void SpendMana(int spellCost)
+    public override void SpendMana(int spellCost)
     {
         Mana -= spellCost;
-
+        ManaUpdate.Raise();
     }
 
 
-
-    // Start is called before the first frame update
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

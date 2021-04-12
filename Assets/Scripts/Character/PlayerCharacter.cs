@@ -7,44 +7,44 @@ public class PlayerCharacter : Character_Base, ICharacter
 { 
     #region Player Stat Variables 
     public string NameCharacter { get { return _nameCharacter ; } }
-
     public int Health { get { return _health ; } set { _health = value; } }
-
     public int MaxHealth { get { return _maxHealth; } }
-
     public int Mana { get { return _mana; } set { _mana = value; } }
-
     public int MaxMana { get { return _maxMana; } }
-
     #endregion
+    private GameManager_BS gameManager_BS;
 
-    public event Action<int> OnDamage;
+    protected override void Awake()
+    {
+        base.Awake();
+        RegisterPlayer();
 
-    public event Action<int> OnSpell;
+    }
+
+    private void RegisterPlayer()
+    {
+        gameManager_BS = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager_BS>();
+        gameManager_BS.Player = this;
+    }
 
     public GameObject getGameObject()
     {
         return this.gameObject;
     }
 
-    public void TakeDamage(int damage)
+    public override void TakeDamage(int damageAmount)
     {
-        Health -= damage;
-
-        // pass the current health to the UI subscriber to update health panel
-        OnDamage?.Invoke(Health);
-
+        Health -= damageAmount;
+        HealthUpdate.Raise();
     }
 
-    public void SpendMana(int spellCost)
+    public override void SpendMana(int spellCost)
     {
         Mana -= spellCost;
-
-        // pass the current mana to the UI subscriber to update energy panel
-        OnSpell?.Invoke(Mana);
+        ManaUpdate.Raise();
     }
 
-    // for testing purposes
+    // These methods are for testing purposes
     public void Take5Damage()
     {
         TakeDamage(5);
@@ -53,11 +53,5 @@ public class PlayerCharacter : Character_Base, ICharacter
     public void Spend5Mana()
     {
         SpendMana(5);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

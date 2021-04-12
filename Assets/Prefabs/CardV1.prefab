@@ -679,10 +679,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46b095729b15ccd438f612bc518385ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 11400000, guid: 379d9c7de3a74664ba0f3653010f0e41, type: 2}
-  cardNameLabelGO: {fileID: 2816519897533157726}
-  cardCostLabelGO: {fileID: 5965324817297448357}
-  cardValueLabelGO: {fileID: 1506654334137197300}
+  DeckManager: {fileID: 0}
+  CardData: {fileID: 0}
+  CardNameLabelGO: {fileID: 2816519897533157726}
+  CardCostLabelGO: {fileID: 5965324817297448357}
+  CardValueLabelGO: {fileID: 1506654334137197300}
 --- !u!199 &2976340135066265914
 ParticleSystemRenderer:
   serializedVersion: 6
