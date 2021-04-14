@@ -6,7 +6,9 @@ using System;
 public class EnemyManager : MonoBehaviour
 {
     public GameManager_BS gameManager;
-    public EnemyCharacter currentEnemy;
+    public GameObject currentEnemyGO;
+    private EnemyCharacter _currentEnemyChar;
+    private EnemyStateController _currentEnemyController;
     public EnemyProjectileObjectPool EnemyProjectilePool;
 
     public GameEvent EnemyHealthUpdate;
@@ -14,7 +16,7 @@ public class EnemyManager : MonoBehaviour
 
     public List<EnemyCharacter> enemyList = new List<EnemyCharacter>();
     public int currentLevel = 0;
-    IEnemyGetter enemyGenerator;
+    EnemyGenerator enemyGenerator;
 
 
     void awake()
@@ -37,31 +39,40 @@ public class EnemyManager : MonoBehaviour
 
     public void BattleEnemyStart(GameManager_BS gameManager)
     {
+        SpawnEnemy();
+        UpdateEnemyUI();
+    }
+
+    private void SpawnEnemy()
+    {
         enemyGenerator = GetComponent<EnemyGenerator>();
-
         enemyGenerator.SetEnemySpawnPrefab(enemyList[currentLevel].gameObject);
+        currentEnemyGO = enemyGenerator.SpawnEnemy();
 
-        EnemyCharacter enemy = enemyGenerator.SpawnEnemy();
-        enemy.HealthUpdate = EnemyHealthUpdate;
-        enemy.ManaUpdate = EnemyManaUpdate;
+        _currentEnemyController = currentEnemyGO.GetComponent<EnemyStateController>();
+        _currentEnemyController.enemyManager = this;
 
-        // register enemy
-        gameManager.Enemy = enemy;
-        currentEnemy = enemy;
+        gameManager.Enemy = _currentEnemyChar;
+    }
 
-        // Update the enemy stats panels
-        enemy.TakeDamage(0);
-        enemy.SpendMana(0);
+    void UpdateEnemyUI()
+    {
+        _currentEnemyChar = currentEnemyGO.GetComponent<EnemyCharacter>();
+        _currentEnemyChar.HealthUpdate = EnemyHealthUpdate;
+        _currentEnemyChar.ManaUpdate = EnemyManaUpdate;
+
+        _currentEnemyChar.TakeDamage(0);
+        _currentEnemyChar.SpendMana(0);
     }
 
     public void EnemyTake5Damage()
     {
-        currentEnemy.TakeDamage(5);
+        _currentEnemyChar.TakeDamage(5);
     }
 
     public void EnemySpend5Mana()
     {
-        currentEnemy.SpendMana(5);
+        _currentEnemyChar.SpendMana(5);
     }
 
 }

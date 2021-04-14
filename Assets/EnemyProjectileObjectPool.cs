@@ -5,29 +5,43 @@ using UnityEngine;
 
 public class EnemyProjectileObjectPool : MonoBehaviour
 {
-    public List<GameObject> pooledBasicProjectiles;
-    public GameObject BasicProjectile;
+    public List<GameObject> pooledBasicProjectiles = new List<GameObject>();
+    public List<GameObject> pooledSecondProjecitles = new List<GameObject>();
+    public GameObject BasicProjectilePrefab;
     public int BasicProjectileAmountToPool;
+
+
+    private void Awake()
+    {
+
+    }
 
     void Start()
     {
-        CreateProjectilePool(pooledBasicProjectiles, BasicProjectile);
+        
+        CreateProjectilePool(pooledBasicProjectiles, BasicProjectilePrefab);
     }
 
-    private void CreateProjectilePool(List<GameObject> gameObjectList, GameObject gameobjectToPool)
+    private void CreateProjectilePool(List<GameObject> objectPoolList ,GameObject prefab)
     {
-        if(gameObjectList != null && gameobjectToPool != null)
+        GameObject tmp;
+        for (int i = 0; i < BasicProjectileAmountToPool; i++)
         {
-            gameObjectList = new List<GameObject>();
-            GameObject tmp;
-            for (int i = 0; i < BasicProjectileAmountToPool; i++)
+            tmp = Instantiate(prefab);
+            tmp.SetActive(false);
+            objectPoolList.Add(tmp);
+        }
+    }
+
+    public GameObject RetrieveBasicProjectile()
+    {
+        for(int i = 0; i < pooledBasicProjectiles.Count; i++)
+        {
+            if (!pooledBasicProjectiles[i].activeInHierarchy)
             {
-                tmp = Instantiate(gameobjectToPool);
-                tmp.SetActive(false);
-                pooledBasicProjectiles.Add(gameobjectToPool);
+                return pooledBasicProjectiles[i];
             }
         }
-        else         
-            Debug.Log($" Enemy projectile prefab and list parameters are null");        
+        return null;
     }
 }

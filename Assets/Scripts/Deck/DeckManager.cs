@@ -92,7 +92,6 @@ public class DeckManager : MonoBehaviour
             }
         }
         FanCards();
-        Debug.Log($"cardspread is {cardSpreadDistance}");
     }
 
     public void UpdateCardLists(GameObject cardGO, CardScriptableObject card )

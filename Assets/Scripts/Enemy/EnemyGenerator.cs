@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyGenerator : MonoBehaviour, IEnemyGetter
+public class EnemyGenerator : MonoBehaviour
 {
     GameObject enemyPrefab;
 
@@ -12,11 +12,12 @@ public class EnemyGenerator : MonoBehaviour, IEnemyGetter
         Debug.Log($"enemy prefab is {enemyPrefab.name}");
     }
 
-    public EnemyCharacter SpawnEnemy()
+    public GameObject SpawnEnemy()
     {
        GameObject enemyGO =  Instantiate(enemyPrefab);
-       EnemyCharacter enemy = enemyGO.GetComponent<EnemyCharacter>();
-       return enemy; 
+       return enemyGO;
+       //EnemyCharacter enemy = enemyGO.GetComponent<EnemyCharacter>();
+       //return enemy; 
     }
 
 }

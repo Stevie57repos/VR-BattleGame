@@ -18,12 +18,12 @@ public class CardController : MonoBehaviour
     public GameObject CardValueLabelGO;
 
     // grab the material manager
-    public ICardMatGetter CardMatManager;
+    public CardMatController CardMatManager;
 
     private void Awake()
     {
         // grab the card material manager component
-        CardMatManager = GetComponent<ICardMatGetter>();
+        CardMatManager = GetComponent<CardMatController>();
     }
 
     private void Start()

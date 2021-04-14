@@ -32,5 +32,4 @@ public class EnemyCharacter : Character_Base, ICharacter
         ManaUpdate.Raise();
     }
 
-
 }

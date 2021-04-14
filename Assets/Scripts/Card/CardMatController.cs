@@ -33,7 +33,6 @@ public class CardMatController : MonoBehaviour, ICardMatGetter
     }
     private void loadDictionary()
     {
-        Debug.Log($"CardMatManager dictionary has been loaded");
         materialDirectory.Add("Attack", Mat_Default);
         materialDirectory.Add("Defend", Mat_Defend);
         materialDirectory.Add("Spell", Mat_Spell);
