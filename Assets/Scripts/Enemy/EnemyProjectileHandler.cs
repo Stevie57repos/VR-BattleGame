@@ -28,12 +28,14 @@ public class EnemyProjectileHandler : MonoBehaviour
 
     public void StartBasicProjectilesCoroutine(int ProjectileNumber, int timeBetweenProjectiles)
     {
+        StopAllCoroutines();
         isSpawningBasicProjectiles = true;
         StartCoroutine(SpawnBasicProjectiles(ProjectileNumber, BasicProjectileSpawnLocations, timeBetweenProjectiles));
     }
 
     private IEnumerator SpawnBasicProjectiles(int projectileRetreivalNumber, List<Transform> projectileSpawnLocations, int timeBetweenProjectiles)
     {
+        yield return new WaitForSeconds(5);
         int n = 0;
         for (int i = 0; i < projectileRetreivalNumber; i++)
         {

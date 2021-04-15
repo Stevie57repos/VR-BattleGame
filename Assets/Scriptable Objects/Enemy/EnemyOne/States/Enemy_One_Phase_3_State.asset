@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a14a9b5e3284aec40b678357ef6fa08b, type: 3}
+  m_Name: Enemy_One_Phase_3_State
+  m_EditorClassIdentifier: 
+  UpdateActions:
+  - {fileID: 11400000, guid: 7806d09db6b441c4e811076c3f8414e6, type: 2}
+  EnterStateActions: []
+  Transitions:
+  - decision: {fileID: 11400000, guid: 61f683856bbed3e4ca628f4761ba76bd, type: 2}
+    trueState: {fileID: 11400000, guid: 0c7ece8686e67714d87d1a26677b998d, type: 2}
+    falseState: {fileID: 11400000, guid: a9c16b711930fce4aa87bc4de97fc7fc, type: 2}

@@ -38,7 +38,7 @@ public class Card_GrabV4 : XRGrabInteractable
 
     [SerializeField] private bool isTriggerChecking = false;
     // This is the time needed before change occurs
-    [SerializeField] private float TimeDuration = 3f;
+    [SerializeField] private float TimeDuration = 1.5f;
     // This is the member variable the tracks elapsed time
     [SerializeField] private float pressedTimeDuration;
     // bool for starting timer 

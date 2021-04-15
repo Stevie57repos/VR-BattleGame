@@ -9,7 +9,7 @@ public class Enemy_projectile : MonoBehaviour
     public Transform targetPos;
     public float speed = 5f;
 
-    private void Start()
+    private void OnEnable()
     {
         StartCoroutine(MoveToTargetCoroutine(targetPos));
     }

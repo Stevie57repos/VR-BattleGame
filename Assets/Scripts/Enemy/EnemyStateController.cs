@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyStateController : MonoBehaviour
 {
-    EnemyCharacter _enemyCharacter;
+    public EnemyCharacter _enemyCharacter;
     // set intial state in inspector
     public EnemyState currentState;
     public EnemyManager enemyManager;
