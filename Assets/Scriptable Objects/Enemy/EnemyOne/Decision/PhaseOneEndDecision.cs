@@ -21,7 +21,6 @@ public class PhaseOneEndDecision : Decision
         }
 
         var healthThreshold = _enemyCharacter.MaxHealth * 0.75;
-        Debug.Log($"Enemycharacter health threshold is {healthThreshold}");
 
         if (_enemyCharacter.Health <= (healthThreshold))
             return true;

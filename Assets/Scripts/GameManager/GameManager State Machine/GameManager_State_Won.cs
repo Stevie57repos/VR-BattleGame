@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager_State_Loss : State
+public class GameManager_State_Won : GameManagerState
 {
     public override void Start(GameManager_BS gameManager)
     {
@@ -11,12 +11,13 @@ public class GameManager_State_Loss : State
 
     public override void EnterState(GameManager_BS gameManager)
     {
-
+        throw new System.NotImplementedException();
     }
 
     public override void Update(GameManager_BS gameManager)
     {
         throw new System.NotImplementedException();
     }
+
 
 }

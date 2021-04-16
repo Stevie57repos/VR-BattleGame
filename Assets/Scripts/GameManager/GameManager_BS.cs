@@ -5,12 +5,25 @@ using TMPro;
 
 public class GameManager_BS : MonoBehaviour
 {
-    // current state tracker
-    State currentGameManagerState;
+    private static GameManager_BS _instance;
+    public static GameManager_BS Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                Debug.LogError("The CommandManager is NULL");
+            }
+            return _instance;
+        }
+    }
 
-    // access to character data
+    // access to character stats componenent
     public Character_Base Player;
     public Character_Base Enemy;
+
+    // current state tracker
+    GameManagerState currentGameManagerState;
 
     // different possible gameStates
     public readonly GameManager_State_Start startState = new GameManager_State_Start();
@@ -24,8 +37,19 @@ public class GameManager_BS : MonoBehaviour
 
     void Awake()
     {
+        SetGameManagerInstance();
         UImanager = GetComponent<UI_Manager>();
         enemyManager = GetComponent<EnemyManager>();
+    }
+
+    void SetGameManagerInstance()
+    {
+        _instance = this;
+    }
+
+    public void CheckGameManagerInstance()
+    {
+        if (_instance == null) Debug.Log("its still null");
     }
 
     void Start()
@@ -34,10 +58,14 @@ public class GameManager_BS : MonoBehaviour
         TransitionToState(startState);      
     }
 
-    public void TransitionToState(State state)
+    public void TransitionToState(GameManagerState state)
     {
         currentGameManagerState = state;
         currentGameManagerState.EnterState(this);
     }
 
+    private void Update()
+    {
+        CheckGameManagerInstance();
+    }
 }

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public abstract class State 
+public abstract class GameManagerState 
 {
     // Start is called before the first frame update
     public abstract void Start(GameManager_BS gameManager );

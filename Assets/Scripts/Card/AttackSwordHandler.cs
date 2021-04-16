@@ -1,26 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit;
 
-public class handSword : XRGrabInteractable, ICardEffectV2
+public class AttackSwordHandler : MonoBehaviour, ICardDataTransfer, ICardEffect
 {
     [SerializeField] private float _currChargeCount = 0;
     [SerializeField] private float _neededCharge = 3;
 
     private CardScriptableObject _cardData = null;
     private CardController _cardInfo = null;
+
     public GameObject StartLine;
     public GameObject EndLine;
     public LineRenderer SwordBeam;
+
     public GameEvent Event_SwordDamage;
+
     private Rigidbody RbBody;
     private SwordMatHandler _swordMatHandler;
-
-
-
-    // TO DO : force select the sword back into the players hand if its been dropped
-    bool inAir = false;
 
     public void TransferCardData(CardController cardInfo)
     {
@@ -28,18 +25,12 @@ public class handSword : XRGrabInteractable, ICardEffectV2
         _cardData = cardInfo.CardData;
     }
 
-    protected override void Awake()
+    void Awake()
     {
-        base.Awake();
         SwordBeam = GetComponent<LineRenderer>();
         SwordBeam.enabled = false;
         RbBody = GetComponent<Rigidbody>();
         _swordMatHandler = GetComponent<SwordMatHandler>();
-    }
-
-    void Start()
-    {
-
     }
 
     private void OnCollisionEnter(Collision other)
@@ -52,25 +43,32 @@ public class handSword : XRGrabInteractable, ICardEffectV2
             enemyProjectile.gameObject.SetActive(false);
         }
     }
-    protected override void OnSelectEntered(XRBaseInteractor interactor)
+    public void OnHoverEntered()
     {
-        base.OnSelectEntered(interactor);
+
+    }
+
+    public void OnHoverExited()
+    {
+
+    }
+
+    public void OnSelectEntered()
+    {
         RbBody.isKinematic = false;
     }
 
-    protected override void OnSelectExited(XRBaseInteractor interactor)
+    public void OnSelectExited()
     {
-        base.OnSelectExited(interactor);
         SwordBeam.enabled = false;
     }
 
-    protected override void OnActivate(XRBaseInteractor interactor)
+    public void OnActivate()
     {
-        base.OnActivate(interactor);
         if (_currChargeCount >= _neededCharge)
             FireBeam();
         else
-            Debug.Log($" current charge is {_currChargeCount} and you need {_neededCharge}");
+            Debug.Log($"Current sword charge is {_currChargeCount} and you need {_neededCharge}");           
     }
 
     void DisplaySwordBeam()
@@ -78,7 +76,7 @@ public class handSword : XRGrabInteractable, ICardEffectV2
         SwordBeam.enabled = true;
         Vector3 startPos = StartLine.transform.position;
         Vector3 endPos = EndLine.transform.position;
-        Vector3 direction = endPos - startPos; 
+        Vector3 direction = endPos - startPos;
 
         SwordBeam.SetPosition(0, startPos);
         if (Physics.Raycast(startPos, direction, out RaycastHit hit))
@@ -96,6 +94,11 @@ public class handSword : XRGrabInteractable, ICardEffectV2
         SwordBeam.endWidth = .1f;
     }
 
+    public void OnDeactivate()
+    {
+
+    }
+
     void FireBeam()
     {
         Vector3 startPos = StartLine.transform.position;
@@ -103,24 +106,23 @@ public class handSword : XRGrabInteractable, ICardEffectV2
         Vector3 direction = endPos - startPos;
         if (Physics.Raycast(startPos, direction, out RaycastHit hit))
         {
-            Debug.Log($"Firebeam has been activated. Damage valeu is {_cardData.value}");
+            Debug.Log($"Firebeam has been activated. Damage value is {_cardData.value}");
             if (hit.collider.GetComponent<EnemyCharacter>())
             {
                 var enemyController = hit.collider.GetComponent<EnemyCharacter>();
                 enemyController.TakeDamage(_cardData.value);
                 SwordBeam.endWidth = 2f;
-
                 GameEventsHub.SwordDamage.CardGO = _cardInfo.gameObject;
                 GameEventsHub.SwordDamage.CardSO = _cardData;
                 Event_SwordDamage.Raise();
-                gameObject.SetActive(false);
+                Destroy(this.gameObject);
             }
         }
     }
+
     void Update()
     {
-        if(_currChargeCount >= _neededCharge)
+        if (_currChargeCount >= _neededCharge)
             DisplaySwordBeam();
     }
-
 }

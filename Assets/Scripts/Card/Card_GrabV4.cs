@@ -7,31 +7,18 @@ using UnityEngine.XR;
 
 public class Card_GrabV4 : XRGrabInteractable
 {
-    #region Gameobjects and Componenets variables
+    public GameObject Attack_SwordPrefab;
+    public GameObject Defend_SheildPrefab;
+    public GameObject Spell_Damage;
+    public GameObject Spell_Heal;
 
-    // prefab variable reference for glow Orbs
-    public GameObject HandSwordPrefab;
-
-    // access to CardGameObject
-    CardController _cardController;
-
-    // this shouldn't be needed
-    // access to game maanger
-    GameManager_BS gameManager;
-
-    // access to CardMatController
-    CardMatController _cardMatController;
-
-    #endregion
-
-    #region Hand Interactor Variables
+    private CardController _cardController;
+    private CardMatController _cardMatController;
 
     //current hand interactor
     XRBaseInteractor currInteractor = null;
-
     // variable for tracking the hand interactor
     public XRNode handInteractor;
-
     // cache the gameobject with the hand
     GameObject handGameObject = null;
 
@@ -42,9 +29,6 @@ public class Card_GrabV4 : XRGrabInteractable
     // This is the member variable the tracks elapsed time
     [SerializeField] private float pressedTimeDuration;
     // bool for starting timer 
-    //[SerializeField] private bool isTrackingTime = false;
-
-    #endregion
 
     //Dictionary for gameobject prefab
     Dictionary<string, GameObject> activateDictionary = new Dictionary<string, GameObject>();
@@ -52,61 +36,40 @@ public class Card_GrabV4 : XRGrabInteractable
     protected override void Awake()
     {
         base.Awake();
-        // grab cardObject component
         _cardController = GetComponent<CardController>();
         _cardMatController = GetComponent<CardMatController>();
-
-        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager_BS>();
-
-
-        // initiality dictionary. Dictionary should be moved to GameManager so it is only run once and used once.
         loadDictionary();
     }
 
-    // Use different glow orbs in the future depending on cardtype
     void loadDictionary()
     {
-        activateDictionary.Add("Attack", HandSwordPrefab);
-        activateDictionary.Add("Defend", HandSwordPrefab);
-        activateDictionary.Add("Spell", HandSwordPrefab);
-        activateDictionary.Add("Draw", HandSwordPrefab);
-        activateDictionary.Add("Curse", HandSwordPrefab);
-        activateDictionary.Add("Strength", HandSwordPrefab);
-        activateDictionary.Add("Energy", HandSwordPrefab);
+        activateDictionary.Add("Attack", Attack_SwordPrefab);
+        activateDictionary.Add("Defend", Defend_SheildPrefab);
+        activateDictionary.Add("Spell", Spell_Damage);
+        activateDictionary.Add("Draw", Attack_SwordPrefab);
+        activateDictionary.Add("Curse", Spell_Damage);
+        activateDictionary.Add("Strength", Attack_SwordPrefab);
+        activateDictionary.Add("Energy", Spell_Heal);
     }
 
     private void OnEnable()
     {
-        // Setting the time tracking variable to the Time duration
         pressedTimeDuration = TimeDuration;
     }
 
+    // on interactable object pickup
     protected override void OnSelectEntered(XRBaseInteractor interactor)
-    {
-       // there is an error with cardOwner. It is currently null
-       // if (CardObject.cardOwner.ToString() == gameManager.GetPlayerName(gameManager.activePlayer))
-        
+    {     
         base.OnSelectEntered(interactor);
-        // identify which hand interactor and start checking for trigger press on that interactor
         currInteractor = interactor;
-        Debug.Log("card has been picked up");
-
-        // card has been picked up. Trnasform it
         _cardMatController.SetTriggerMaterial();
-
         isTriggerChecking = true;
-
-        // turn off the cards that were not picked up
         _cardController.DeckManager.CardSelected(this.gameObject);
     }
-
-
-
 
     protected override void OnSelectExited(XRBaseInteractor interactor)
     {
         base.OnSelectExited(interactor);
-        //reset saved hand interactor upon letting go of the object
         currInteractor = null;
         pressedTimeDuration = TimeDuration;
         handGameObject = null;
@@ -118,31 +81,25 @@ public class Card_GrabV4 : XRGrabInteractable
     {
         if (isTriggerChecking)
         {
-            // timer decreases
-            pressedTimeDuration -= Time.fixedDeltaTime;
-                
+            pressedTimeDuration -= Time.fixedDeltaTime;          
             if(pressedTimeDuration <= 0)
             {
                 if (CheckMana())
                 {                 
                     CreateAndSelectObject();
                 }
-                // turn off time tracking
                 isTriggerChecking = false;
             }
         }
         else
         {
-            //apply default mataerial
             _cardController.SetCardMaterial();
-        }
-
-      
+        }    
     }
 
     bool CheckMana()
     {
-        var Player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCharacter>();
+        PlayerCharacter Player = (PlayerCharacter)GameManager_BS.Instance.Player;
         var CardManaCost = _cardController.CardData.cost;
 
         if (Player.Mana > CardManaCost)
@@ -150,31 +107,48 @@ public class Card_GrabV4 : XRGrabInteractable
             Player.SpendMana(CardManaCost);
             return true;
         }
-
         else
             return false;
     }
 
     private void CreateAndSelectObject()
     {
-        Debug.Log("object created");
-        handSword handSwordGO = CreateCardEffect();
+        // Create Card Effect Object
+        GameObject prefabGo = CreateCardEffectObject();
 
-        ForceSelectObject(currInteractor, handSwordGO);
+        //handSword handSwordGO = CreateCardEffect();
+        CardEffectGrab GrabComponenet = prefabGo.GetComponent<CardEffectGrab>();
+        ForceSelectObject(currInteractor, GrabComponenet);
 
-        handSwordGO.TransferCardData(_cardController);
+        var CardEffectController = prefabGo.GetComponent<ICardDataTransfer>();
+        CardEffectController.TransferCardData(_cardController);
 
-        // turn off the cardobject
         gameObject.SetActive(false);
     }
 
-    private handSword CreateCardEffect()
+    private GameObject CreateCardEffectObject()
     {
-        GameObject prefabGO = Instantiate(HandSwordPrefab);
-        // TO DO : Change this later to proper interface
-        handSword cardEffect = prefabGO.GetComponent<handSword>();
-        return cardEffect;
+        GameObject prefabGO = Instantiate(SelectPrefab());
+        return prefabGO;
     }
+
+    //private handSword CreateCardEffect()
+    //{
+    //    GameObject prefabGO = Instantiate(SelectPrefab());
+    //    // TO DO : Change this later to proper interface
+    //    handSword cardEffect = prefabGO.GetComponent<handSword>();
+    //    return cardEffect;
+    //}
+
+
+
+    private GameObject SelectPrefab()
+    {
+        var cardType = _cardController.CardData.type;
+        GameObject prefabGO = activateDictionary[cardType.ToString()];
+        return prefabGO;
+    }
+
 
     private void ForceSelectObject(XRBaseInteractor interactor ,XRGrabInteractable cardEffectGo)
     {

@@ -12,19 +12,16 @@ public class PlayerCharacter : Character_Base, ICharacter
     public int Mana { get { return _mana; } set { _mana = value; } }
     public int MaxMana { get { return _maxMana; } }
     #endregion
-    private GameManager_BS gameManager_BS;
 
-    protected override void Awake()
+    protected override void Start()
     {
-        base.Awake();
+        base.Start();
         RegisterPlayer();
-
     }
 
     private void RegisterPlayer()
     {
-        gameManager_BS = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager_BS>();
-        gameManager_BS.Player = this;
+        GameManager_BS.Instance.Player = this;
     }
 
     public GameObject getGameObject()
@@ -41,6 +38,12 @@ public class PlayerCharacter : Character_Base, ICharacter
     public override void SpendMana(int spellCost)
     {
         Mana -= spellCost;
+        ManaUpdate.Raise();
+    }
+
+    public void IncreaseMana(int chargeValue)
+    {
+        Mana += chargeValue;
         ManaUpdate.Raise();
     }
 

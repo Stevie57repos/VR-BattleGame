@@ -5,20 +5,16 @@ using UnityEngine;
 
 public class EnemyProjectileObjectPool : MonoBehaviour
 {
-    public List<GameObject> pooledBasicProjectiles = new List<GameObject>();
-    public List<GameObject> pooledSecondProjecitles = new List<GameObject>();
     public GameObject BasicProjectilePrefab;
     public int BasicProjectileAmountToPool;
+    public List<GameObject> pooledBasicProjectiles = new List<GameObject>();
 
-
-    private void Awake()
-    {
-
-    }
+    public GameObject MediumProjectilePrefab;
+    public int MediumProjectileAmountToPool;
+    public List<GameObject> pooledMediumProjecitles = new List<GameObject>();
 
     void Start()
-    {
-        
+    {       
         CreateProjectilePool(pooledBasicProjectiles, BasicProjectilePrefab);
     }
 

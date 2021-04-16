@@ -29,7 +29,6 @@ public abstract class Character_Base : MonoBehaviour
 
     public abstract void SpendMana(int spellCost);
 
-
     protected void LoadCharacterData()
     {
         this._nameCharacter = characterData.NameCharacter;

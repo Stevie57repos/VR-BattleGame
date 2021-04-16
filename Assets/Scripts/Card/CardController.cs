@@ -17,20 +17,16 @@ public class CardController : MonoBehaviour
     public GameObject CardCostLabelGO;
     public GameObject CardValueLabelGO;
 
-    // grab the material manager
     public CardMatController CardMatManager;
 
     private void Awake()
     {
-        // grab the card material manager component
         CardMatManager = GetComponent<CardMatController>();
     }
 
     private void Start()
     {
-        // Set card material based on type. Will need to change this to card Name in the future.
         SetCardMaterial();
-        // Set up Card UI to reflect card values
         SetUpCardUI();
     }
 

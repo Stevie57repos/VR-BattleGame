@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class DeckManager : MonoBehaviour
 {
-    public GameManager_BS gameManager;
     public GameObject CardspawnSpotGO;
+    private GameManager_BS gameManager;
 
     [SerializeField] private GameObject _cardPrefab;
     [SerializeField] private DeckScriptableObject _deckData;
@@ -20,19 +20,17 @@ public class DeckManager : MonoBehaviour
 
 	private int maxHandSize = 5;
 
-    private void OnEnable()
+    private void Awake()
     {
-        gameManager.battleState.OnBattleStart += DeckStart;
     }
 
-    private void OnDisable()
+    private void Start()
     {
-        gameManager.battleState.OnBattleStart -= DeckStart;
+        GameManager_BS.Instance.battleState.OnBattleStart += DeckStart;
     }
 
     void DeckStart(GameManager_BS gameManagerRef)
     {
-        gameManager = gameManagerRef;
         LoadCards();
         ShuffleDeck();
         Draw(3);
@@ -46,7 +44,12 @@ public class DeckManager : MonoBehaviour
         }
     }
 
-	public void ShuffleDeck()
+    private void OnDestroy()
+    {
+        GameManager_BS.Instance.battleState.OnBattleStart -= DeckStart;
+    }
+
+    public void ShuffleDeck()
     {
 		for(int t = 0; t < deck.Count; t++)
         {
@@ -94,14 +97,7 @@ public class DeckManager : MonoBehaviour
         FanCards();
     }
 
-    public void UpdateCardLists(GameObject cardGO, CardScriptableObject card )
-    {
-        Debug.Log("Played a " + card.name + " card!");
-        graveyard.Add(card);
-        hand.Remove(card);
-        handCards.Remove(cardGO);
-        // turn off other cards except for the one being played
-    }
+
 
     private void FanCards()
     {
@@ -181,6 +177,20 @@ public class DeckManager : MonoBehaviour
     {
         UpdateCardLists(GameEventsHub.SwordDamage.CardGO, GameEventsHub.SwordDamage.CardSO);
         newTurn();
+    }
+
+    public void newTurn_Shield()
+    {
+        UpdateCardLists(GameEventsHub.ShieldDestroyed.CardGO, GameEventsHub.ShieldDestroyed.CardSO);
+        newTurn();
+    }
+
+    public void UpdateCardLists(GameObject cardGO, CardScriptableObject card)
+    {
+        Debug.Log("Played a " + card.name + " card!");
+        graveyard.Add(card);
+        hand.Remove(card);
+        handCards.Remove(cardGO);
     }
 
 }

@@ -9,15 +9,12 @@ public class EnemyGenerator : MonoBehaviour
     public void SetEnemySpawnPrefab(GameObject prefab)
     {
         enemyPrefab = prefab;
-        Debug.Log($"enemy prefab is {enemyPrefab.name}");
     }
 
     public GameObject SpawnEnemy()
     {
        GameObject enemyGO =  Instantiate(enemyPrefab);
        return enemyGO;
-       //EnemyCharacter enemy = enemyGO.GetComponent<EnemyCharacter>();
-       //return enemy; 
     }
 
 }

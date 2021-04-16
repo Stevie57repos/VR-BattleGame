@@ -5,7 +5,6 @@ using System;
 
 public class EnemyManager : MonoBehaviour
 {
-    public GameManager_BS gameManager;
     public GameObject currentEnemyGO;
     private EnemyCharacter _currentEnemyChar;
     private EnemyStateController _currentEnemyController;
@@ -16,25 +15,23 @@ public class EnemyManager : MonoBehaviour
 
     public List<EnemyCharacter> enemyList = new List<EnemyCharacter>();
     public int currentLevel = 0;
-    EnemyGenerator enemyGenerator;
+    private EnemyGenerator _enemyGenerator;
 
 
-    void awake()
+    void Awake()
     {
-        if(gameManager == null)
-            gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager_BS>();
         EnemyProjectilePool = GetComponent<EnemyProjectileObjectPool>();
-
+        _enemyGenerator = GetComponent<EnemyGenerator>();
     }
 
     private void OnEnable()
     {
-        gameManager.battleState.OnBattleStart += BattleEnemyStart;
+        GameManager_BS.Instance.battleState.OnBattleStart += BattleEnemyStart;
     }
 
     private void OnDisable()
     {
-        gameManager.battleState.OnBattleStart -= BattleEnemyStart;
+        GameManager_BS.Instance.battleState.OnBattleStart -= BattleEnemyStart;
     }
 
     public void BattleEnemyStart(GameManager_BS gameManager)
@@ -45,14 +42,14 @@ public class EnemyManager : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        enemyGenerator = GetComponent<EnemyGenerator>();
-        enemyGenerator.SetEnemySpawnPrefab(enemyList[currentLevel].gameObject);
-        currentEnemyGO = enemyGenerator.SpawnEnemy();
+        if (_enemyGenerator == null) Debug.Log($" enemy generator is null");
+        _enemyGenerator.SetEnemySpawnPrefab(enemyList[currentLevel].gameObject);
+        currentEnemyGO = _enemyGenerator.SpawnEnemy();
 
         _currentEnemyController = currentEnemyGO.GetComponent<EnemyStateController>();
         _currentEnemyController.enemyManager = this;
 
-        gameManager.Enemy = _currentEnemyChar;
+        GameManager_BS.Instance.Enemy = _currentEnemyChar;
     }
 
     void UpdateEnemyUI()

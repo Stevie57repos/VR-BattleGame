@@ -10,12 +10,12 @@ public class SwordMatHandler : MonoBehaviour
     public Material[] m_MidCharged = new Material[3];
     public Material[] m_FullCharged = new Material[4];
 
-    handSword sword;
+    Attack_Sword_Grab sword;
     Renderer meshRend;
 
     private void Awake()
     {
-        sword = GetComponent<handSword>();
+        sword = GetComponent<Attack_Sword_Grab>();
         meshRend = swordMeshGO.GetComponent<MeshRenderer>();
     }
 

@@ -1,6 +1,6 @@
 ﻿using System;
 
-public class GameManager_State_Start : State
+public class GameManager_State_Start : GameManagerState
 {
     public event Action<GameManager_BS> OnGameStart;
 
