@@ -5583,7 +5583,9 @@ MonoBehaviour:
     type: 3}
   Spell_Damage: {fileID: 2883799518484059389, guid: 21fa3bacc244bcb479d69d480908d632,
     type: 3}
-  Spell_Heal: {fileID: 0}
+  Spell_Heal: {fileID: 2883799518484059389, guid: 7606aa60e92b4de4b9083f8cd0640b5d,
+    type: 3}
+  CardSelected: {fileID: 11400000, guid: f715cf2090f90ef46b1ca96202aba9b4, type: 2}
   handInteractor: 0
   isTriggerChecking: 0
   TimeDuration: 3

@@ -26,6 +26,6 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats: []
     m_Colors:
-    - Color_CECA8CCB: {r: 0.4716981, g: 0.19790407, b: 0.15797438, a: 0}
+    - Color_CECA8CCB: {r: 0.22258809, g: 0.24770641, b: 0.7735849, a: 0}
     - Vector2_526FCA67: {r: 1, g: 0.3, b: 0, a: 0}
     - Vector2_A552BF60: {r: 1, g: 1, b: 0, a: 0}

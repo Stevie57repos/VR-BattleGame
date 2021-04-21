@@ -2,14 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ProjectileHandlerState { Idle, InProgress, Complete }
+
 public class EnemyProjectileHandler : MonoBehaviour
 { 
+
+    public ProjectileHandlerState CurrentStateProjectileHandler;
+
     public EnemyProjectileObjectPool EnemyProjectilePool;
     public List<Transform> BasicProjectileSpawnLocations = new List<Transform>();
-    public bool isSpawningBasicProjectiles;
+
     private GameManager_BS gameManager_BS;
     private Transform playerTargetPos;
-
+    
     private void Awake()
     {
         SetPlayerTargetPos();
@@ -17,7 +22,8 @@ public class EnemyProjectileHandler : MonoBehaviour
 
     void Start()
     {
-        isSpawningBasicProjectiles = false;
+        Debug.Log($"current state projectile handler is in idle {CurrentStateProjectileHandler}");
+        CurrentStateProjectileHandler = ProjectileHandlerState.Idle;
     }
 
     void SetPlayerTargetPos()
@@ -28,14 +34,13 @@ public class EnemyProjectileHandler : MonoBehaviour
 
     public void StartBasicProjectilesCoroutine(int ProjectileNumber, int timeBetweenProjectiles)
     {
-        StopAllCoroutines();
-        isSpawningBasicProjectiles = true;
+        CurrentStateProjectileHandler = ProjectileHandlerState.InProgress;
+        Debug.Log("Projectile hander is in progress state");
         StartCoroutine(SpawnBasicProjectiles(ProjectileNumber, BasicProjectileSpawnLocations, timeBetweenProjectiles));
     }
 
     private IEnumerator SpawnBasicProjectiles(int projectileRetreivalNumber, List<Transform> projectileSpawnLocations, int timeBetweenProjectiles)
     {
-        yield return new WaitForSeconds(5);
         int n = 0;
         for (int i = 0; i < projectileRetreivalNumber; i++)
         {
@@ -46,15 +51,24 @@ public class EnemyProjectileHandler : MonoBehaviour
 
                 n %= projectileSpawnLocations.Count;
                 projectile.transform.position = projectileSpawnLocations[n].transform.position;
-                
+                projectile.transform.rotation = Quaternion.identity;
                 projectile.SetActive(true);
                 n++;
                 yield return new WaitForSeconds(timeBetweenProjectiles);
+                Debug.Log($"yield wait for {timeBetweenProjectiles} : time between projectiles has been called");
             }
         }
-        yield return new WaitForSeconds(3);
-        isSpawningBasicProjectiles = false;
+        yield return new WaitForSeconds(1);
+        CurrentStateProjectileHandler = ProjectileHandlerState.Complete;
     }
+
+    //public bool CheckProjectileHandlerState()
+    //{
+    //    if (CurrentStateProjectileHandler == ProjectileHandlerState.Idle || CurrentStateProjectileHandler == ProjectileHandlerState.Complete)
+    //        return true;
+    //    else
+    //        return false;
+    //}
 
     void SetPlayerAsTarget(GameObject projectile, Transform ProjectileTarget)
     {

@@ -15,10 +15,10 @@ public class MediumProjectileAction : Action
 
     private void SpawnBasicProjectiles(EnemyStateController controller)
     {
-        if (enemyProjectileHandler.isSpawningBasicProjectiles == false)
-        {
+        //if (enemyProjectileHandler.CheckProjectileHandlerState())
+        //{
             enemyProjectileHandler.StartBasicProjectilesCoroutine(3, 2);
-        }
+        //}
     }
 
     private void CheckEnemyProjectileHandler(EnemyStateController controller)

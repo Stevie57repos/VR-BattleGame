@@ -19,9 +19,12 @@ public class DeckManager : MonoBehaviour
     float cardSpreadDistance = 0f;
 
 	private int maxHandSize = 5;
+    
+    [SerializeField] private CardEffectEventChannelSO _cardEffectChannelSO;
 
     private void Awake()
     {
+        _cardEffectChannelSO.OnCardEffectActivate += TestSpellDamageEventChannelSO;
     }
 
     private void Start()
@@ -79,7 +82,7 @@ public class DeckManager : MonoBehaviour
             {
                 // check if there is still room in the hand
                 CardScriptableObject card = GetNextCard();
-                Debug.Log("drawing card");
+                //Debug.Log("drawing card");
                 if (hand.Count > maxHandSize)
                 {
                     Overdraw(card);
@@ -87,7 +90,7 @@ public class DeckManager : MonoBehaviour
                 else
                 {
                     // draw the card
-                    Debug.Log("Drew a " + card.name + " card!");
+                    //Debug.Log("Drew a " + card.name + " card!");
                     SpawnCard(card);
                     hand.Add(card);
                     deck.Remove(card);
@@ -149,6 +152,7 @@ public class DeckManager : MonoBehaviour
         }
         graveyard.Clear();
         ShuffleDeck();
+        Draw();
     }
 
 
@@ -166,23 +170,23 @@ public class DeckManager : MonoBehaviour
         hand.Remove(card);
     }
 
-    private void newTurn()
+    private void NewTurn()
     {
         CardUnselected();
         Draw();
     }
 
     // used for GameEvent Lisener componenet Sword Damage 
-    public void newTurn_Sword()
+    public void NewTurn_Sword()
     {
         UpdateCardLists(GameEventsHub.SwordDamage.CardGO, GameEventsHub.SwordDamage.CardSO);
-        newTurn();
+        NewTurn();
     }
 
-    public void newTurn_Shield()
+    public void NewTurn_Shield()
     {
         UpdateCardLists(GameEventsHub.ShieldDestroyed.CardGO, GameEventsHub.ShieldDestroyed.CardSO);
-        newTurn();
+        NewTurn();
     }
 
     public void UpdateCardLists(GameObject cardGO, CardScriptableObject card)
@@ -191,6 +195,24 @@ public class DeckManager : MonoBehaviour
         graveyard.Add(card);
         hand.Remove(card);
         handCards.Remove(cardGO);
+    }
+
+    public void NewTurn_SpellDamage()
+    {
+        UpdateCardLists(GameEventsHub.SpellDamage.CardGO, GameEventsHub.SpellDamage.CardSO);
+        NewTurn();
+    }
+
+    public void NewTurn_SpellHeal()
+    {
+        UpdateCardLists(GameEventsHub.SpellHeal.CardGO, GameEventsHub.SpellHeal.CardSO);
+        NewTurn();
+    }
+
+    public void TestSpellDamageEventChannelSO(GameObject cardObject, CardScriptableObject cardData)
+    {
+        UpdateCardLists(cardObject, cardData);
+        NewTurn();
     }
 
 }

@@ -29,6 +29,8 @@ public abstract class Character_Base : MonoBehaviour
 
     public abstract void SpendMana(int spellCost);
 
+    public abstract void HealHealth(int healthAmount);
+
     protected void LoadCharacterData()
     {
         this._nameCharacter = characterData.NameCharacter;

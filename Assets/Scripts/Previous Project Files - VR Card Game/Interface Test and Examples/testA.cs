@@ -11,6 +11,8 @@ public class testA : MonoBehaviour
         Debug.Log($"Name is {name}");
     }
 
+
+
     private void Update()
     {
         if (boxName != null)

@@ -5,9 +5,20 @@ using UnityEngine;
 [CreateAssetMenu (menuName = "PluggableAI/EnemyState")]
 public class EnemyState : ScriptableObject
 {
-    public Action[] UpdateActions;
     public Action[] EnterStateActions;
+    public Action[] UpdateActions;
     public Transition[] Transitions;
+    public void EnterState(EnemyStateController controller)
+    {
+        DoEnterStateActions(controller);
+    }
+    private void DoEnterStateActions(EnemyStateController controller)
+    {
+        for (int i = 0; i < EnterStateActions.Length; i++)
+        {
+            EnterStateActions[i].Act(controller);
+        }
+    }
     public void UpdateStateActions(EnemyStateController controller)
     {
         DoUpdateActions(controller);
@@ -19,19 +30,6 @@ public class EnemyState : ScriptableObject
         for (int i = 0; i < UpdateActions.Length; i++)
         {
             UpdateActions[i].Act(controller);
-        }
-    }
-
-    public void EnterState(EnemyStateController controller)
-    {
-        DoEnterStateActions(controller);
-    }
-
-    private void DoEnterStateActions(EnemyStateController controller)
-    {
-        for (int i = 0; i < EnterStateActions.Length; i++)
-        {
-            EnterStateActions[i].Act(controller);
         }
     }
 
@@ -51,8 +49,4 @@ public class EnemyState : ScriptableObject
             }
         }
     }
-
-
-
-
 }

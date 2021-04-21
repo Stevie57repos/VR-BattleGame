@@ -6,7 +6,7 @@ public class Box_Test : MonoBehaviour
 {
     // string variable
     private string boxName;
-    testA Output;
+    box_interface boxInterface;
 
 
     // Start is called before the first frame update
@@ -14,9 +14,8 @@ public class Box_Test : MonoBehaviour
     {
         createName();
 
-        Output = GetComponent<testA>();
-        Output.boxName = this.boxName;
-
+        boxInterface = GetComponent<box_interface>();
+        boxInterface.takeString(boxName);
     }
 
     void createName()
@@ -27,12 +26,6 @@ public class Box_Test : MonoBehaviour
 
 
 
-
-
-
-    //box_interface boxInterface;
-    //boxInterface = GetComponent<box_interface>();
-    //boxInterface.takeString(boxName);
 
 
 }

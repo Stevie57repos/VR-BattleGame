@@ -5,9 +5,9 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
-public class UI_Manager : MonoBehaviour, IUpdateUI
+public class UI_Manager : MonoBehaviour
 {
-    //public GameManager_BS gameManager;
+    public GameManager_BS gameManager;
     public PlayerCharacter Player;
     private EnemyManager _enemyManager;
 
@@ -19,9 +19,12 @@ public class UI_Manager : MonoBehaviour, IUpdateUI
     public GameObject EnemyManaPanelGO = null;
 
     public GameEvent BattleStart;
+    [SerializeField] GameManagerStartEventChannelSO _gameManagerStartEvent;
+
 
     private void Awake()
     {
+        gameManager = GetComponent<GameManager_BS>();
         PlayerCheck();
     }
 
@@ -34,17 +37,19 @@ public class UI_Manager : MonoBehaviour, IUpdateUI
 
     private void OnEnable()
     {
-        GameManager_BS.Instance.startState.OnGameStart += startUpdateUI;
+        //GameManager_BS.Instance.startState.OnGameStart += StartUpdateUI;
+        _gameManagerStartEvent.OnGameManagerStart += StartUpdateUI;
         GameManager_BS.Instance.battleState.OnBattleStart += BattleUIStart;
     }
 
     private void OnDisable()
     {
-        GameManager_BS.Instance.startState.OnGameStart -= startUpdateUI;
+        //GameManager_BS.Instance.startState.OnGameStart -= StartUpdateUI;
+        _gameManagerStartEvent.OnGameManagerStart -= StartUpdateUI;
         GameManager_BS.Instance.battleState.OnBattleStart -= BattleUIStart;
     }
 
-    public void startUpdateUI(GameManager_BS gameManager)
+    public void StartUpdateUI()
     {
         SetButtonText(Start_Button, "Battle");
         SetButtonActivation(Start_Button);
@@ -54,10 +59,10 @@ public class UI_Manager : MonoBehaviour, IUpdateUI
     void SetButtonActivation(GameObject buttonGO)
     {
         Button StartButton = buttonGO.GetComponent<Button>();
-        StartButton.onClick.AddListener(transitionToBattleState);
+        StartButton.onClick.AddListener(TransitionToBattleState);
     }
 
-    public void transitionToBattleState()
+    public void TransitionToBattleState()
     {
         GameManager_BS.Instance.TransitionToState(GameManager_BS.Instance.battleState);
     }

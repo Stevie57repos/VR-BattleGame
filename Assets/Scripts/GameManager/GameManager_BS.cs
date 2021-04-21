@@ -18,6 +18,9 @@ public class GameManager_BS : MonoBehaviour
         }
     }
 
+    public GameManagerStartEventChannelSO GameManagerStartEvent;
+
+
     // access to character stats componenent
     public Character_Base Player;
     public Character_Base Enemy;
@@ -34,6 +37,7 @@ public class GameManager_BS : MonoBehaviour
     //UI Manager Reference - Using interface to access
     public UI_Manager UImanager;
     public EnemyManager enemyManager;
+
 
     void Awake()
     {
@@ -54,7 +58,6 @@ public class GameManager_BS : MonoBehaviour
 
     void Start()
     {
-        // Set state to start
         TransitionToState(startState);      
     }
 

@@ -12,20 +12,21 @@ public class BasicProjectileAction : Action
         CheckEnemyProjectileHandler(controller);
         SpawnBasicProjectiles(controller);
     }
-
-    private void SpawnBasicProjectiles(EnemyStateController controller)
-    {
-        if (enemyProjectileHandler.isSpawningBasicProjectiles == false)
-        {
-            enemyProjectileHandler.StartBasicProjectilesCoroutine(2, 2);
-        }
-    }
-
     private void CheckEnemyProjectileHandler(EnemyStateController controller)
     {
         if (enemyProjectileHandler == null)
         {
             enemyProjectileHandler = controller.enemyProjectileHandler;
         }
+    }
+    private void SpawnBasicProjectiles(EnemyStateController controller)
+    {
+        Debug.Log("firing spawn basic couroutine");
+        if(controller.enemyProjectileHandler.CurrentStateProjectileHandler == ProjectileHandlerState.Idle)
+        {
+            controller.enemyProjectileHandler.CurrentStateProjectileHandler = ProjectileHandlerState.InProgress;
+            enemyProjectileHandler.StartBasicProjectilesCoroutine(3, 3);
+        }
+ 
     }
 }

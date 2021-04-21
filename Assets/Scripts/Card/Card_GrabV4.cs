@@ -7,6 +7,7 @@ using UnityEngine.XR;
 
 public class Card_GrabV4 : XRGrabInteractable
 {
+    [Header("Prefabs")]
     public GameObject Attack_SwordPrefab;
     public GameObject Defend_SheildPrefab;
     public GameObject Spell_Damage;
@@ -14,6 +15,8 @@ public class Card_GrabV4 : XRGrabInteractable
 
     private CardController _cardController;
     private CardMatController _cardMatController;
+
+    public GameEvent CardSelected;
 
     //current hand interactor
     XRBaseInteractor currInteractor = null;
@@ -31,7 +34,7 @@ public class Card_GrabV4 : XRGrabInteractable
     // bool for starting timer 
 
     //Dictionary for gameobject prefab
-    Dictionary<string, GameObject> activateDictionary = new Dictionary<string, GameObject>();
+    Dictionary<string, GameObject> ActivateDictionary = new Dictionary<string, GameObject>();
 
     protected override void Awake()
     {
@@ -43,13 +46,13 @@ public class Card_GrabV4 : XRGrabInteractable
 
     void loadDictionary()
     {
-        activateDictionary.Add("Attack", Attack_SwordPrefab);
-        activateDictionary.Add("Defend", Defend_SheildPrefab);
-        activateDictionary.Add("Spell", Spell_Damage);
-        activateDictionary.Add("Draw", Attack_SwordPrefab);
-        activateDictionary.Add("Curse", Spell_Damage);
-        activateDictionary.Add("Strength", Attack_SwordPrefab);
-        activateDictionary.Add("Energy", Spell_Heal);
+        ActivateDictionary.Add("Attack", Attack_SwordPrefab);
+        ActivateDictionary.Add("Defend", Defend_SheildPrefab);
+        ActivateDictionary.Add("Spell", Spell_Damage);
+        ActivateDictionary.Add("Draw", Spell_Heal);
+        ActivateDictionary.Add("Curse", Attack_SwordPrefab);
+        ActivateDictionary.Add("Strength", Attack_SwordPrefab);
+        ActivateDictionary.Add("Energy", Attack_SwordPrefab);
     }
 
     private void OnEnable()
@@ -108,7 +111,10 @@ public class Card_GrabV4 : XRGrabInteractable
             return true;
         }
         else
+        {
+            Debug.Log("You don't have enough mana");
             return false;
+        }
     }
 
     private void CreateAndSelectObject()
@@ -122,6 +128,9 @@ public class Card_GrabV4 : XRGrabInteractable
 
         var CardEffectController = prefabGo.GetComponent<ICardDataTransfer>();
         CardEffectController.TransferCardData(_cardController);
+
+        GameEventsHub.CardSelected.CardTypeString = _cardController.CardData.type.ToString();
+        CardSelected?.Raise();
 
         gameObject.SetActive(false);
     }
@@ -145,7 +154,7 @@ public class Card_GrabV4 : XRGrabInteractable
     private GameObject SelectPrefab()
     {
         var cardType = _cardController.CardData.type;
-        GameObject prefabGO = activateDictionary[cardType.ToString()];
+        GameObject prefabGO = ActivateDictionary[cardType.ToString()];
         return prefabGO;
     }
 

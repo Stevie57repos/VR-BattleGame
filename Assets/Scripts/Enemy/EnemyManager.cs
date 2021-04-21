@@ -49,7 +49,7 @@ public class EnemyManager : MonoBehaviour
         _currentEnemyController = currentEnemyGO.GetComponent<EnemyStateController>();
         _currentEnemyController.enemyManager = this;
 
-        GameManager_BS.Instance.Enemy = _currentEnemyChar;
+        GameManager_BS.Instance.Enemy = currentEnemyGO.GetComponent<EnemyCharacter>();
     }
 
     void UpdateEnemyUI()

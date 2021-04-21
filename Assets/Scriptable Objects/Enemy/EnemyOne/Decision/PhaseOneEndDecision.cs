@@ -7,6 +7,7 @@ using UnityEngine;
 public class PhaseOneEndDecision : Decision
 {
     private EnemyCharacter _enemyCharacter;
+    int healthThreshold;
     public override bool Decide(EnemyStateController controller)
     {
         bool healthCheck = EvaluateCurrentHealth(controller);
@@ -20,7 +21,8 @@ public class PhaseOneEndDecision : Decision
             _enemyCharacter = controller._enemyCharacter;
         }
 
-        var healthThreshold = _enemyCharacter.MaxHealth * 0.75;
+        if(healthThreshold == 0)
+            healthThreshold = (int)(_enemyCharacter.MaxHealth * 0.75);
 
         if (_enemyCharacter.Health <= (healthThreshold))
             return true;

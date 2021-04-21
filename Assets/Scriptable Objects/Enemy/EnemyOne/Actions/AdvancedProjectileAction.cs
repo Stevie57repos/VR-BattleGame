@@ -15,10 +15,10 @@ public class AdvancedProjectileAction : Action
 
     private void SpawnBasicProjectiles(EnemyStateController controller)
     {
-        if (enemyProjectileHandler.isSpawningBasicProjectiles == false)
-        {
+        //if (enemyProjectileHandler.CheckProjectileHandlerState())
+        //{
             enemyProjectileHandler.StartBasicProjectilesCoroutine(3, 1);
-        }
+        //}
     }
 
     private void CheckEnemyProjectileHandler(EnemyStateController controller)

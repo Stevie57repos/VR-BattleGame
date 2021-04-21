@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class testB : MonoBehaviour
+public class testB : MonoBehaviour, box_interface
 
 {
     // Start is called before the first frame update
@@ -24,10 +24,9 @@ public class testB : MonoBehaviour
             printFullName();
         }
     }
-
-    //public void takeString(string name)
-    //{
-    //    firstName = name;
-    //}
+    public void takeString(string name)
+    {
+        firstName = name;
+    }
 
 }

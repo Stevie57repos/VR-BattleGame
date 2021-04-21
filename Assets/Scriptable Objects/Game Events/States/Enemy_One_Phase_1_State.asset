@@ -10,11 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a14a9b5e3284aec40b678357ef6fa08b, type: 3}
-  m_Name: IdleState
+  m_Name: Enemy_One_Phase_1_State
   m_EditorClassIdentifier: 
-  UpdateActions: []
-  EnterStateActions: []
+  EnterStateActions:
+  - {fileID: 11400000, guid: 2272b8b45c363b24ba63e8fd667d3d32, type: 2}
+  UpdateActions:
+  - {fileID: 11400000, guid: 16df219fa952f1e47a063e71fac6bb8a, type: 2}
   Transitions:
-  - decision: {fileID: 11400000, guid: 004d84221ab1566429e1995279962e62, type: 2}
-    trueState: {fileID: 11400000, guid: a9c16b711930fce4aa87bc4de97fc7fc, type: 2}
+  - decision: {fileID: 11400000, guid: da1f589c051662f4cb997dea610e7dbd, type: 2}
+    trueState: {fileID: 11400000, guid: 0454f50df405cc449add754bf4d25365, type: 2}
     falseState: {fileID: 11400000, guid: a9c16b711930fce4aa87bc4de97fc7fc, type: 2}

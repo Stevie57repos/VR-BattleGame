@@ -48,6 +48,7 @@ GameObject:
   - component: {fileID: -7365401063583775765}
   - component: {fileID: 8750137187734986505}
   - component: {fileID: 4105615737460001646}
+  - component: {fileID: 3684407404980430389}
   m_Layer: 0
   m_Name: Enemy_One
   m_TagString: Enemy
@@ -246,8 +247,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2befcaf5bf988f41b419c0912792a94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _cardType: 0
   _enemyCharacter: {fileID: 0}
-  currentState: {fileID: 11400000, guid: 310b6dc36f6742343ae808ae7627582f, type: 2}
+  currentState: {fileID: 11400000, guid: 0c7ece8686e67714d87d1a26677b998d, type: 2}
   enemyManager: {fileID: 0}
   enemyProjectileHandler: {fileID: 0}
   maintainState: {fileID: 11400000, guid: a9c16b711930fce4aa87bc4de97fc7fc, type: 2}
@@ -264,12 +266,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3ca990d9b3450f46b5827262462928b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CurrentStateProjectileHandler: 0
   EnemyProjectilePool: {fileID: 0}
   BasicProjectileSpawnLocations:
   - {fileID: 5371434547127092157}
   - {fileID: 460745113203186167}
   - {fileID: 8637592205090781762}
-  isSpawningBasicProjectiles: 0
+--- !u!114 &3684407404980430389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 945199272006476860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b7bf3d8e8ac77147b8462e2a3b91324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: f715cf2090f90ef46b1ca96202aba9b4, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8750137187734986505}
+        m_MethodName: EventCardSelected
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4628666115597242487
 GameObject:
   m_ObjectHideFlags: 0

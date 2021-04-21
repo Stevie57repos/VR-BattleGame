@@ -6,8 +6,12 @@ public class Slime_CubeDamage : MonoBehaviour
 {
     float health = 100;
 
+    public void dealDamage(float damage)
+    {
+        
+    }
 
-    public void ReceiveDamage(float damage)
+    public void takeDamage(float damage)
     {
         health -= damage;
     }

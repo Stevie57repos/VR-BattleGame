@@ -18,7 +18,7 @@ public class Enemy_projectile : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
 
-        while (Vector3.Distance(transform.position, target.position) > 1f)
+        while (Vector3.Distance(transform.position, target.position) > 0.3f)
         {
             // rotate the sword to face the target
             Vector3 lookAtTarget = target.position - transform.position;
@@ -36,5 +36,8 @@ public class Enemy_projectile : MonoBehaviour
             }
             yield return null;
         }
+
+        GameManager_BS.Instance.Player.TakeDamage(_chargeValue);
+        this.gameObject.SetActive(false);
     }
 }

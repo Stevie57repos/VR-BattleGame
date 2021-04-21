@@ -154,7 +154,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetPos: {fileID: 0}
-  speed: 1
+  speed: 0.5
+  _cardEffectEvent: {fileID: 11400000, guid: b6002fbe8bcc83942ab97f339dc49914, type: 2}
+  Event_SpellDamage: {fileID: 11400000, guid: df0bba2e57f668545b13d987e660c6d3, type: 2}
 --- !u!1 &8061537138354684682
 GameObject:
   m_ObjectHideFlags: 0

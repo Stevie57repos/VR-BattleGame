@@ -57,4 +57,15 @@ public class PlayerCharacter : Character_Base, ICharacter
     {
         SpendMana(5);
     }
+
+    public override void HealHealth(int healthAmount)
+    {
+        if(healthAmount == 0)
+            Health += GameEventsHub.SpellHeal.CardSO.value;
+        else
+        {
+            Health += healthAmount;
+        }
+        HealthUpdate.Raise();
+    }
 }
