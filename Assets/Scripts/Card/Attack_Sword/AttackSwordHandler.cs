@@ -15,6 +15,7 @@ public class AttackSwordHandler : MonoBehaviour, ICardDataTransfer, ICardEffect
     public LineRenderer SwordBeam;
 
     public GameEvent Event_SwordDamage;
+    [SerializeField] CardEffectEventChannelSO _cardEffectEvent;
 
     private Rigidbody RbBody;
     private SwordMatHandler _swordMatHandler;
@@ -41,6 +42,11 @@ public class AttackSwordHandler : MonoBehaviour, ICardDataTransfer, ICardEffect
             _currChargeCount += enemyProjectile._chargeValue;
             _swordMatHandler.SetMaterial(_currChargeCount, _neededCharge);
             enemyProjectile.gameObject.SetActive(false);
+        }
+        else if(other.gameObject.CompareTag("Ground"))
+        {
+            _cardEffectEvent.RaiseEvent(_cardInfo.gameObject, _cardData);
+            Destroy(this.gameObject);
         }
     }
     public void OnHoverEntered()
@@ -112,10 +118,11 @@ public class AttackSwordHandler : MonoBehaviour, ICardDataTransfer, ICardEffect
                 var enemyController = hit.collider.GetComponent<EnemyCharacter>();
                 enemyController.TakeDamage(_cardData.value);
                 SwordBeam.endWidth = 2f;
-                GameEventsHub.SwordDamage.CardGO = _cardInfo.gameObject;
-                GameEventsHub.SwordDamage.CardSO = _cardData;
-                Event_SwordDamage.Raise();
+                _cardEffectEvent.RaiseEvent(_cardInfo.gameObject, _cardData);
                 Destroy(this.gameObject);
+                //GameEventsHub.SwordDamage.CardGO = _cardInfo.gameObject;
+                //GameEventsHub.SwordDamage.CardSO = _cardData;
+                //Event_SwordDamage.Raise();
             }
         }
     }

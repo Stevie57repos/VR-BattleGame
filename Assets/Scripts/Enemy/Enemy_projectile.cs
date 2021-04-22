@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,10 +9,25 @@ public class Enemy_projectile : MonoBehaviour
     public int _chargeValue = 1;
     public Transform targetPos;
     public float speed = 5f;
+    public Rigidbody RbBody;
+
+    [SerializeField] CharacterRegistry _characterRegistry;
+
+    private void Awake()
+    {
+        RbBody = GetComponent<Rigidbody>();
+    }
 
     private void OnEnable()
     {
+        StopMomentum();
         StartCoroutine(MoveToTargetCoroutine(targetPos));
+    }
+
+    private void StopMomentum()
+    {
+        RbBody.velocity = Vector3.zero;
+        RbBody.angularVelocity = Vector3.zero;
     }
 
     IEnumerator MoveToTargetCoroutine(Transform target)
@@ -36,8 +52,7 @@ public class Enemy_projectile : MonoBehaviour
             }
             yield return null;
         }
-
-        GameManager_BS.Instance.Player.TakeDamage(_chargeValue);
+        _characterRegistry.Player.GetComponent<PlayerCharacter>().TakeDamage(_chargeValue);
         this.gameObject.SetActive(false);
     }
 }

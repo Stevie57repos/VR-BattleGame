@@ -9,6 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f3a74b62cc8f58429551441615223b6, type: 3}
-  m_Name: Game Manager Start Event Channel SO
+  m_Script: {fileID: 11500000, guid: f261c6887be8f33428051b1d355acdb5, type: 3}
+  m_Name: Card Effect Spell Damage Event Channel SO
   m_EditorClassIdentifier: 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[CreateAssetMenu(menuName = "Events/GameManager Start Event Channel")]
+[CreateAssetMenu(menuName = "Events/Void Event Channel")]
 public class GameManagerStartEventChannelSO : ScriptableObject
 {
     public UnityAction OnGameManagerStart;

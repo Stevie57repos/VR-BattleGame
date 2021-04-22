@@ -19,20 +19,28 @@ public class DeckManager : MonoBehaviour
     float cardSpreadDistance = 0f;
 
 	private int maxHandSize = 5;
-    
-    [SerializeField] private CardEffectEventChannelSO _cardEffectChannelSO;
 
-    private void Awake()
+    [SerializeField] GameManagerEventChannelSO _gameManagerBattleStart;
+    [SerializeField] private CardEffectEventChannelSO _cardEffectEvent;
+
+    private void OnEnable()
     {
-        _cardEffectChannelSO.OnCardEffectActivate += TestSpellDamageEventChannelSO;
+        _gameManagerBattleStart.GameManagerEvent += DeckStart;
+        _cardEffectEvent.OnCardEffectActivate += NewTurnV2;
+    }
+
+    private void OnDisable()
+    {
+        _gameManagerBattleStart.GameManagerEvent -= DeckStart;
+        _cardEffectEvent.OnCardEffectActivate -= NewTurnV2;
     }
 
     private void Start()
     {
-        GameManager_BS.Instance.battleState.OnBattleStart += DeckStart;
+
     }
 
-    void DeckStart(GameManager_BS gameManagerRef)
+    void DeckStart()
     {
         LoadCards();
         ShuffleDeck();
@@ -45,11 +53,6 @@ public class DeckManager : MonoBehaviour
         {
 			this.deck.Add(card);
         }
-    }
-
-    private void OnDestroy()
-    {
-        GameManager_BS.Instance.battleState.OnBattleStart -= DeckStart;
     }
 
     public void ShuffleDeck()
@@ -99,9 +102,6 @@ public class DeckManager : MonoBehaviour
         }
         FanCards();
     }
-
-
-
     private void FanCards()
     {
         for (int i = 0; i < handCards.Count; i++)
@@ -113,7 +113,6 @@ public class DeckManager : MonoBehaviour
         }
         cardSpreadDistance = 0f;
     }
-
     public void CardSelected(GameObject SelectedCard)
     {
         foreach (GameObject card in handCards)
@@ -155,7 +154,6 @@ public class DeckManager : MonoBehaviour
         Draw();
     }
 
-
     private void Overdraw(CardScriptableObject card)
     {
         Debug.Log("Overdrew a " + card.name + " card! It was sent to the graveyard!");
@@ -170,23 +168,11 @@ public class DeckManager : MonoBehaviour
         hand.Remove(card);
     }
 
-    private void NewTurn()
+    private void NewTurnV2(GameObject cardObject, CardScriptableObject cardData)
     {
+        UpdateCardLists(cardObject, cardData);
         CardUnselected();
         Draw();
-    }
-
-    // used for GameEvent Lisener componenet Sword Damage 
-    public void NewTurn_Sword()
-    {
-        UpdateCardLists(GameEventsHub.SwordDamage.CardGO, GameEventsHub.SwordDamage.CardSO);
-        NewTurn();
-    }
-
-    public void NewTurn_Shield()
-    {
-        UpdateCardLists(GameEventsHub.ShieldDestroyed.CardGO, GameEventsHub.ShieldDestroyed.CardSO);
-        NewTurn();
     }
 
     public void UpdateCardLists(GameObject cardGO, CardScriptableObject card)
@@ -197,22 +183,39 @@ public class DeckManager : MonoBehaviour
         handCards.Remove(cardGO);
     }
 
-    public void NewTurn_SpellDamage()
-    {
-        UpdateCardLists(GameEventsHub.SpellDamage.CardGO, GameEventsHub.SpellDamage.CardSO);
-        NewTurn();
-    }
+    //private void NewTurn()
+    //{
+    //    CardUnselected();
+    //    Draw();
+    //}
 
-    public void NewTurn_SpellHeal()
-    {
-        UpdateCardLists(GameEventsHub.SpellHeal.CardGO, GameEventsHub.SpellHeal.CardSO);
-        NewTurn();
-    }
+    //public void NewTurn_Sword()
+    //{
+    //    UpdateCardLists(GameEventsHub.SwordDamage.CardGO, GameEventsHub.SwordDamage.CardSO);
+    //    NewTurn();
+    //}
 
-    public void TestSpellDamageEventChannelSO(GameObject cardObject, CardScriptableObject cardData)
-    {
-        UpdateCardLists(cardObject, cardData);
-        NewTurn();
-    }
+    //public void NewTurn_Shield()
+    //{
+    //    UpdateCardLists(GameEventsHub.ShieldDestroyed.CardGO, GameEventsHub.ShieldDestroyed.CardSO);
+    //    NewTurn();
+    //}
 
+    //public void NewTurn_SpellDamage()
+    //{
+    //    UpdateCardLists(GameEventsHub.SpellDamage.CardGO, GameEventsHub.SpellDamage.CardSO);
+    //    NewTurn();
+    //}
+
+    //public void SpellHealEvent(GameObject cardObject, CardScriptableObject cardData)
+    //{
+    //    UpdateCardLists(cardObject, cardData);
+    //    NewTurn();
+    //}
+
+    //public void SpellDamageEvent(GameObject cardObject, CardScriptableObject cardData)
+    //{
+    //    UpdateCardLists(cardObject, cardData);
+    //    NewTurn();
+    //}
 }

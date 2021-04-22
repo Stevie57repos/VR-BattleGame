@@ -18,35 +18,39 @@ public class UI_Manager : MonoBehaviour
     public GameObject EnemyHealthPanelGO = null;
     public GameObject EnemyManaPanelGO = null;
 
+    [SerializeField] CharacterRegistry _characterRegistry; 
+
     public GameEvent BattleStart;
-    [SerializeField] GameManagerStartEventChannelSO _gameManagerStartEvent;
+    [SerializeField] GameManagerEventChannelSO _gameManagerStartEvent;
+    [SerializeField] GameManagerEventChannelSO _gameManagerBattleEvent;
 
 
     private void Awake()
     {
         gameManager = GetComponent<GameManager_BS>();
-        PlayerCheck();
     }
 
-    private void PlayerCheck()
+    private void Start()
     {
-        if (Player == null)
-            Player = (PlayerCharacter)GameManager_BS.Instance.Player;
+        Player = _characterRegistry.Player.GetComponent<PlayerCharacter>();
     }
-
 
     private void OnEnable()
     {
         //GameManager_BS.Instance.startState.OnGameStart += StartUpdateUI;
-        _gameManagerStartEvent.OnGameManagerStart += StartUpdateUI;
-        GameManager_BS.Instance.battleState.OnBattleStart += BattleUIStart;
+        _gameManagerStartEvent.GameManagerEvent += StartUpdateUI;
+        _gameManagerBattleEvent.GameManagerEvent += BattleUIStart;
+
+        //GameManager_BS.Instance.battleState.OnBattleStart += BattleUIStart;
     }
 
     private void OnDisable()
     {
         //GameManager_BS.Instance.startState.OnGameStart -= StartUpdateUI;
-        _gameManagerStartEvent.OnGameManagerStart -= StartUpdateUI;
-        GameManager_BS.Instance.battleState.OnBattleStart -= BattleUIStart;
+        _gameManagerStartEvent.GameManagerEvent -= StartUpdateUI;
+        _gameManagerBattleEvent.GameManagerEvent -= BattleUIStart;
+
+        //GameManager_BS.Instance.battleState.OnBattleStart -= BattleUIStart;
     }
 
     public void StartUpdateUI()
@@ -64,10 +68,10 @@ public class UI_Manager : MonoBehaviour
 
     public void TransitionToBattleState()
     {
-        GameManager_BS.Instance.TransitionToState(GameManager_BS.Instance.battleState);
+        gameManager.TransitionToState(gameManager.battleState);
     }
 
-    public void BattleUIStart(GameManager_BS gameManager)
+    public void BattleUIStart()
     {
         Start_Button.SetActive(false);
         BattleUIGO.SetActive(true);

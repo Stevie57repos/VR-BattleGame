@@ -126,3 +126,4 @@ MonoBehaviour:
   _chargeValue: 1
   targetPos: {fileID: 0}
   speed: 5
+  _characterRegistry: {fileID: 11400000, guid: d574c7e257a701f40bf7bfef9748e6f9, type: 2}

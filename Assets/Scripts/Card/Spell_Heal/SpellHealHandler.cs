@@ -9,9 +9,12 @@ public class SpellHealHandler : MonoBehaviour, ICardEffect, ICardDataTransfer
     private PlayerCharacter _player;
     public GameEvent Event_SpellHeal;
 
+    [SerializeField] CharacterRegistry _characterRegistry;
+    [SerializeField] CardEffectEventChannelSO _cardEffectEvent;
+
     private void Awake()
     {
-        _player = (PlayerCharacter) GameManager_BS.Instance.Player;
+        _player = _characterRegistry.Player.GetComponent<PlayerCharacter>();
     }
 
     public void TransferCardData(CardController cardInfo)
@@ -59,10 +62,9 @@ public class SpellHealHandler : MonoBehaviour, ICardEffect, ICardDataTransfer
 
     void SpellHealEvent()
     {
-        _player.HealHealth(_cardData.value);
-        GameEventsHub.SpellHeal.CardGO = _cardInfo.gameObject;
-        GameEventsHub.SpellHeal.CardSO = _cardData;
-        Event_SpellHeal.Raise();
+        PlayerCharacter playerCharacter = _characterRegistry.Player.GetComponent<PlayerCharacter>();
+        playerCharacter.HealHealth(_cardData.value);
+        _cardEffectEvent.RaiseEvent(_cardInfo.gameObject, _cardData);
         Destroy(this.gameObject);
     }
 }

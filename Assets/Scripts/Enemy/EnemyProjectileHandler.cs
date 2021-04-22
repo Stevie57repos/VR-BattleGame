@@ -6,7 +6,6 @@ public enum ProjectileHandlerState { Idle, InProgress, Complete }
 
 public class EnemyProjectileHandler : MonoBehaviour
 { 
-
     public ProjectileHandlerState CurrentStateProjectileHandler;
 
     public EnemyProjectileObjectPool EnemyProjectilePool;
@@ -14,6 +13,8 @@ public class EnemyProjectileHandler : MonoBehaviour
 
     private GameManager_BS gameManager_BS;
     private Transform playerTargetPos;
+
+    [SerializeField] CharacterRegistry _characterRegistry;
     
     private void Awake()
     {
@@ -29,7 +30,7 @@ public class EnemyProjectileHandler : MonoBehaviour
     void SetPlayerTargetPos()
     {
         gameManager_BS = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager_BS>();
-        playerTargetPos = gameManager_BS.Player.gameObject.transform;
+        playerTargetPos = _characterRegistry.Player.transform;
     }
 
     public void StartBasicProjectilesCoroutine(int ProjectileNumber, int timeBetweenProjectiles)
@@ -61,14 +62,6 @@ public class EnemyProjectileHandler : MonoBehaviour
         yield return new WaitForSeconds(1);
         CurrentStateProjectileHandler = ProjectileHandlerState.Complete;
     }
-
-    //public bool CheckProjectileHandlerState()
-    //{
-    //    if (CurrentStateProjectileHandler == ProjectileHandlerState.Idle || CurrentStateProjectileHandler == ProjectileHandlerState.Complete)
-    //        return true;
-    //    else
-    //        return false;
-    //}
 
     void SetPlayerAsTarget(GameObject projectile, Transform ProjectileTarget)
     {

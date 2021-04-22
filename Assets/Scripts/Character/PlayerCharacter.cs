@@ -16,12 +16,6 @@ public class PlayerCharacter : Character_Base, ICharacter
     protected override void Start()
     {
         base.Start();
-        RegisterPlayer();
-    }
-
-    private void RegisterPlayer()
-    {
-        GameManager_BS.Instance.Player = this;
     }
 
     public GameObject getGameObject()

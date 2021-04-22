@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[CreateAssetMenu(menuName = "Events/CardEffect Even Channel")]
+[CreateAssetMenu(menuName = "Events/CardEffect Event Channel")]
 public class CardEffectEventChannelSO : ScriptableObject
 {
     public UnityAction<GameObject, CardScriptableObject> OnCardEffectActivate;

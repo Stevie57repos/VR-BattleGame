@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class VoidEventChannelSO : ScriptableObject
+
+[CreateAssetMenu(menuName = "Events/Game Manager Event Channel")]
+public class GameManagerEventChannelSO : ScriptableObject
 {
-    public UnityAction OnGameManagerStart;
+    public UnityAction GameManagerEvent;
     public void RaiseEvent()
     {
-        if (OnGameManagerStart != null)
+        if (GameManagerEvent != null)
         {
-            OnGameManagerStart.Invoke();
+            GameManagerEvent.Invoke();
         }
         else
         {

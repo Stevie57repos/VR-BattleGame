@@ -25,6 +25,7 @@ public class Card_GrabV4 : XRGrabInteractable
     // cache the gameobject with the hand
     GameObject handGameObject = null;
 
+    public CharacterRegistry _characterRegistry;
 
     [SerializeField] private bool isTriggerChecking = false;
     // This is the time needed before change occurs
@@ -102,7 +103,7 @@ public class Card_GrabV4 : XRGrabInteractable
 
     bool CheckMana()
     {
-        PlayerCharacter Player = (PlayerCharacter)GameManager_BS.Instance.Player;
+        PlayerCharacter Player = _characterRegistry.Player.GetComponent<PlayerCharacter>();
         var CardManaCost = _cardController.CardData.cost;
 
         if (Player.Mana > CardManaCost)

@@ -5,6 +5,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class Attack_Sword_Grab : XRGrabInteractable
 {
+    [Header("Sword Stats")]
     [SerializeField] private float _currChargeCount = 0;
     [SerializeField] private float _neededCharge = 3;
 
@@ -21,7 +22,7 @@ public class Attack_Sword_Grab : XRGrabInteractable
     private SwordMatHandler _swordMatHandler;
 
     // TO DO : force select the sword back into the players hand if its been dropped
-    bool inAir = false;
+    //bool inAir = false;
 
     public void TransferCardData(CardController cardInfo)
     {

@@ -49,6 +49,7 @@ GameObject:
   - component: {fileID: 8750137187734986505}
   - component: {fileID: 4105615737460001646}
   - component: {fileID: 3684407404980430389}
+  - component: {fileID: 101845410305275543}
   m_Layer: 0
   m_Name: Enemy_One
   m_TagString: Enemy
@@ -272,6 +273,7 @@ MonoBehaviour:
   - {fileID: 5371434547127092157}
   - {fileID: 460745113203186167}
   - {fileID: 8637592205090781762}
+  _characterRegistry: {fileID: 11400000, guid: d574c7e257a701f40bf7bfef9748e6f9, type: 2}
 --- !u!114 &3684407404980430389
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -299,6 +301,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &101845410305275543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 945199272006476860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48a17bfd015cf6d4b9c78d8a424076f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _characterRegistry: {fileID: 11400000, guid: d574c7e257a701f40bf7bfef9748e6f9, type: 2}
 --- !u!1 &4628666115597242487
 GameObject:
   m_ObjectHideFlags: 0

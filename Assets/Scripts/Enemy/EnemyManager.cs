@@ -17,6 +17,8 @@ public class EnemyManager : MonoBehaviour
     public int currentLevel = 0;
     private EnemyGenerator _enemyGenerator;
 
+    [SerializeField] GameManagerEventChannelSO _gameManagerBattleStart;
+
 
     void Awake()
     {
@@ -26,15 +28,17 @@ public class EnemyManager : MonoBehaviour
 
     private void OnEnable()
     {
-        GameManager_BS.Instance.battleState.OnBattleStart += BattleEnemyStart;
+        //GameManager_BS.Instance.battleState.OnBattleStart += BattleEnemyStart;
+        _gameManagerBattleStart.GameManagerEvent += BattleEnemyStart;
     }
 
     private void OnDisable()
     {
-        GameManager_BS.Instance.battleState.OnBattleStart -= BattleEnemyStart;
+        //GameManager_BS.Instance.battleState.OnBattleStart -= BattleEnemyStart;
+        _gameManagerBattleStart.GameManagerEvent -= BattleEnemyStart;
     }
 
-    public void BattleEnemyStart(GameManager_BS gameManager)
+    public void BattleEnemyStart()
     {
         SpawnEnemy();
         UpdateEnemyUI();
@@ -49,7 +53,6 @@ public class EnemyManager : MonoBehaviour
         _currentEnemyController = currentEnemyGO.GetComponent<EnemyStateController>();
         _currentEnemyController.enemyManager = this;
 
-        GameManager_BS.Instance.Enemy = currentEnemyGO.GetComponent<EnemyCharacter>();
     }
 
     void UpdateEnemyUI()

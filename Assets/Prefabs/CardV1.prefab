@@ -5587,6 +5587,7 @@ MonoBehaviour:
     type: 3}
   CardSelected: {fileID: 11400000, guid: f715cf2090f90ef46b1ca96202aba9b4, type: 2}
   handInteractor: 0
+  _characterRegistry: {fileID: 11400000, guid: d574c7e257a701f40bf7bfef9748e6f9, type: 2}
   isTriggerChecking: 0
   TimeDuration: 3
   pressedTimeDuration: 0

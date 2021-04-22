@@ -11,6 +11,11 @@ public class DefenseShieldHandler : MonoBehaviour, ICardDataTransfer, ICardEffec
     private CardController _cardInfo = null;
 
     public GameEvent ShieldDestroyed;
+
+    [SerializeField] CharacterRegistry _characterRegistry;
+    [SerializeField] CardEffectEventChannelSO _cardEffectEvent;
+
+
     public void TransferCardData(CardController cardInfo)
     {
         _cardInfo = cardInfo;
@@ -18,7 +23,7 @@ public class DefenseShieldHandler : MonoBehaviour, ICardDataTransfer, ICardEffec
     }
     private void Awake()
     {
-        _playerCharacter = (PlayerCharacter)GameManager_BS.Instance.Player;
+        _playerCharacter = _characterRegistry.Player.GetComponent<PlayerCharacter>();
     }
     private void OnCollisionEnter(Collision other)
     {
@@ -37,6 +42,11 @@ public class DefenseShieldHandler : MonoBehaviour, ICardDataTransfer, ICardEffec
             // turn off the projectile
             enemyProjectile.gameObject.SetActive(false);
         }
+        else if (other.gameObject.CompareTag("Ground"))
+        {
+            _cardEffectEvent.RaiseEvent(_cardInfo.gameObject, _cardData);
+            Destroy(this.gameObject);
+        }
     }
     void CheckShieldDurability(int chargeValue)
     {
@@ -44,9 +54,10 @@ public class DefenseShieldHandler : MonoBehaviour, ICardDataTransfer, ICardEffec
 
         if (_currDurability <= 0)
         {
-            GameEventsHub.ShieldDestroyed.CardGO = _cardInfo.gameObject;
-            GameEventsHub.ShieldDestroyed.CardSO = _cardData;
-            ShieldDestroyed.Raise();
+            _cardEffectEvent.RaiseEvent(_cardInfo.gameObject, _cardData);
+            //GameEventsHub.ShieldDestroyed.CardGO = _cardInfo.gameObject;
+            //GameEventsHub.ShieldDestroyed.CardSO = _cardData;
+            //ShieldDestroyed.Raise();
             Destroy(this.gameObject);
         }
     }
