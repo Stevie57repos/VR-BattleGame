@@ -14,6 +14,7 @@ public class DefenseShieldHandler : MonoBehaviour, ICardDataTransfer, ICardEffec
 
     [SerializeField] CharacterRegistry _characterRegistry;
     [SerializeField] CardEffectEventChannelSO _cardEffectEvent;
+    [SerializeField] CardSelectionEventSO _cardSelectionEvent;
 
 
     public void TransferCardData(CardController cardInfo)
@@ -45,6 +46,7 @@ public class DefenseShieldHandler : MonoBehaviour, ICardDataTransfer, ICardEffec
         else if (other.gameObject.CompareTag("Ground"))
         {
             _cardEffectEvent.RaiseEvent(_cardInfo.gameObject, _cardData);
+            ResetPlayerCardSelection();
             Destroy(this.gameObject);
         }
     }
@@ -55,11 +57,14 @@ public class DefenseShieldHandler : MonoBehaviour, ICardDataTransfer, ICardEffec
         if (_currDurability <= 0)
         {
             _cardEffectEvent.RaiseEvent(_cardInfo.gameObject, _cardData);
-            //GameEventsHub.ShieldDestroyed.CardGO = _cardInfo.gameObject;
-            //GameEventsHub.ShieldDestroyed.CardSO = _cardData;
-            //ShieldDestroyed.Raise();
+            ResetPlayerCardSelection();
             Destroy(this.gameObject);
         }
+    }
+
+    void ResetPlayerCardSelection()
+    {
+        _cardSelectionEvent.RaiseEvent("None");
     }
     public void OnHoverEntered()
     {

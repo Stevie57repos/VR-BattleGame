@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: IdleState
   m_EditorClassIdentifier: 
   EnterStateActions:
-  - {fileID: 11400000, guid: 16df219fa952f1e47a063e71fac6bb8a, type: 2}
+  - {fileID: 11400000, guid: 56059730a54247f48b2a92ca35f3fe45, type: 2}
   UpdateActions:
   - {fileID: 11400000, guid: 16df219fa952f1e47a063e71fac6bb8a, type: 2}
   Transitions:
@@ -30,5 +30,8 @@ MonoBehaviour:
     trueState: {fileID: 11400000, guid: 7251769416362e04db28c0a0cd95ed3b, type: 2}
     falseState: {fileID: 11400000, guid: a9c16b711930fce4aa87bc4de97fc7fc, type: 2}
   - decision: {fileID: 11400000, guid: 8a25846faf409a3449760e73f9e35ca3, type: 2}
+    trueState: {fileID: 11400000, guid: 7251769416362e04db28c0a0cd95ed3b, type: 2}
+    falseState: {fileID: 11400000, guid: a9c16b711930fce4aa87bc4de97fc7fc, type: 2}
+  - decision: {fileID: 11400000, guid: b55075331d2456e4aa1e0c0c9dff2bb9, type: 2}
     trueState: {fileID: 11400000, guid: 7251769416362e04db28c0a0cd95ed3b, type: 2}
     falseState: {fileID: 11400000, guid: a9c16b711930fce4aa87bc4de97fc7fc, type: 2}

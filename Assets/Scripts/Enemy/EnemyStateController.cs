@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum CardTypeSelected { None, Attack, SpellDamage, Defend, SpellHeal}
+
 
 public class EnemyStateController : MonoBehaviour
 {
-    public CardTypeSelected _cardType;
+    //public CardTypeSelected _cardType;
     public EnemyCharacter _enemyCharacter;
     // set intial state in inspector
     public EnemyState currentState;
@@ -14,29 +14,29 @@ public class EnemyStateController : MonoBehaviour
     public EnemyProjectileHandler enemyProjectileHandler;
     public EnemyState maintainState;
     public GameObject playerTarget;
+    public PlayerController PlayerControl;
+    public CountdownTimer Timer;
+    
 
-    Dictionary<string, CardTypeSelected> CardTypeDictionary = new Dictionary<string, CardTypeSelected>();
+    public CharacterRegistry CharacterRegistry;
+
+    //Dictionary<string, CardTypeSelected> CardTypeDictionary = new Dictionary<string, CardTypeSelected>();
 
     private void Awake()
     {
         _enemyCharacter = GetComponent<EnemyCharacter>();
         enemyProjectileHandler = GetComponent<EnemyProjectileHandler>();
-        LoadDictionary();
+        PlayerControl = CharacterRegistry.Player.GetComponent<PlayerController>();
+        Timer = GetComponent<CountdownTimer>();
     }
 
-    private void LoadDictionary()
-    {
-        CardTypeDictionary.Add("Attack", CardTypeSelected.Attack);
-        CardTypeDictionary.Add("Defend", CardTypeSelected.Defend);
-        CardTypeDictionary.Add("Spell", CardTypeSelected.SpellDamage);
-        CardTypeDictionary.Add("Draw", CardTypeSelected.SpellHeal);
-    }
+
 
     void Start()
     {
         enemyProjectileHandler.EnemyProjectilePool = enemyManager.EnemyProjectilePool;
         currentState.EnterState(this);
-        _cardType = CardTypeSelected.None;
+        //_cardType = CardTypeSelected.None;
     }
 
     void Update()
@@ -72,8 +72,5 @@ public class EnemyStateController : MonoBehaviour
         Debug.Log($"IEnumberator Start has finished");
     }
 
-    public void EventCardSelected()
-    {
-        _cardType = CardTypeDictionary[GameEventsHub.CardSelected.CardTypeString];
-    }
+
 }

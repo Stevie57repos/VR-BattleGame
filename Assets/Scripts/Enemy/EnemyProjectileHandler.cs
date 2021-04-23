@@ -68,4 +68,9 @@ public class EnemyProjectileHandler : MonoBehaviour
         var projectileController = projectile.GetComponent<Enemy_projectile>();
         projectileController.targetPos = playerTargetPos;
     }
+
+    private void Update()
+    {
+        
+    }
 }

@@ -15,8 +15,13 @@ public class Card_GrabV4 : XRGrabInteractable
 
     private CardController _cardController;
     private CardMatController _cardMatController;
+    //private PlayerController _playerControl;
+    [SerializeField] CardSelectionEventSO _cardSelectionEvent;
+   
 
-    public GameEvent CardSelected;
+    //public GameEvent CardSelected;
+
+
 
     //current hand interactor
     XRBaseInteractor currInteractor = null;
@@ -29,7 +34,7 @@ public class Card_GrabV4 : XRGrabInteractable
 
     [SerializeField] private bool isTriggerChecking = false;
     // This is the time needed before change occurs
-    [SerializeField] private float TimeDuration = 1.5f;
+    [SerializeField] private float TimeDuration = 0.5f;
     // This is the member variable the tracks elapsed time
     [SerializeField] private float pressedTimeDuration;
     // bool for starting timer 
@@ -130,8 +135,8 @@ public class Card_GrabV4 : XRGrabInteractable
         var CardEffectController = prefabGo.GetComponent<ICardDataTransfer>();
         CardEffectController.TransferCardData(_cardController);
 
-        GameEventsHub.CardSelected.CardTypeString = _cardController.CardData.type.ToString();
-        CardSelected?.Raise();
+        //GameEventsHub.CardSelected.CardTypeString = _cardController.CardData.type.ToString();
+        //CardSelected?.Raise();
 
         gameObject.SetActive(false);
     }
@@ -154,13 +159,18 @@ public class Card_GrabV4 : XRGrabInteractable
 
     private GameObject SelectPrefab()
     {
-        var cardType = _cardController.CardData.type;
-        GameObject prefabGO = ActivateDictionary[cardType.ToString()];
+        var cardType = _cardController.CardData.type.ToString();
+        GameObject prefabGO = ActivateDictionary[cardType];
+        SetCardTypeSelected(cardType);
         return prefabGO;
     }
 
+    void SetCardTypeSelected(string cardType)
+    {
+        _cardSelectionEvent.RaiseEvent(cardType);
+    }
 
-    private void ForceSelectObject(XRBaseInteractor interactor ,XRGrabInteractable cardEffectGo)
+    private void ForceSelectObject(XRBaseInteractor Interactor ,XRGrabInteractable cardEffectGo)
     {
         interactionManager.ForceSelect(currInteractor, cardEffectGo);
     }

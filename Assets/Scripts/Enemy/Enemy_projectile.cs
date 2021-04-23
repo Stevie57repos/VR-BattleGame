@@ -9,37 +9,44 @@ public class Enemy_projectile : MonoBehaviour
     public int _chargeValue = 1;
     public Transform targetPos;
     public float speed = 5f;
-    public Rigidbody RbBody;
+    public Rigidbody RBody;
+
+    private CountdownTimer _timer;
 
     [SerializeField] CharacterRegistry _characterRegistry;
 
     private void Awake()
     {
-        RbBody = GetComponent<Rigidbody>();
+        RBody = GetComponent<Rigidbody>();
+        _timer = GetComponent<CountdownTimer>();
     }
 
     private void OnEnable()
     {
         StopMomentum();
         StartCoroutine(MoveToTargetCoroutine(targetPos));
+        StartTimer(10);
+    }
+
+    void StartTimer(int TimerValue)
+    {
+        _timer.StartTimer(TimerValue);
     }
 
     private void StopMomentum()
     {
-        RbBody.velocity = Vector3.zero;
-        RbBody.angularVelocity = Vector3.zero;
+        RBody.velocity = Vector3.zero;
+        RBody.angularVelocity = Vector3.zero;
     }
 
     IEnumerator MoveToTargetCoroutine(Transform target)
     {
         yield return new WaitForSeconds(1f);
-
-        while (Vector3.Distance(transform.position, target.position) > 0.3f)
+        while (Vector3.Distance(transform.position, target.position) > 10f)
         {
             // rotate the sword to face the target
             Vector3 lookAtTarget = target.position - transform.position;
             Quaternion newRotation = Quaternion.LookRotation(lookAtTarget, transform.up);
-            //Quaternion targetrotation = new Quaternion(0, newrotation.y, 0, 0);
             transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, Time.fixedDeltaTime);
 
             //check direction rotation is facing before moving
@@ -52,7 +59,29 @@ public class Enemy_projectile : MonoBehaviour
             }
             yield return null;
         }
-        _characterRegistry.Player.GetComponent<PlayerCharacter>().TakeDamage(_chargeValue);
-        this.gameObject.SetActive(false);
+        FlyTowardsPlayer(target);
+    }
+
+    private void FlyTowardsPlayer(Transform target)
+    {
+        Vector3 direction = target.position - transform.position;
+        //Vector3 finalTarget = (direction.x, (direction.y + 1), direction.z);
+        RBody.velocity = direction * (speed/4); 
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        Debug.Log("This projectile just hit something");
+        if (other.gameObject.GetComponent<PlayerCharacter>())
+        {
+            other.gameObject.GetComponent<PlayerCharacter>().TakeDamage(_chargeValue);
+            this.gameObject.SetActive(false);
+        }
+    }
+
+    private void Update()
+    {
+        if (_timer.CheckTimer())
+            this.gameObject.SetActive(false);
     }
 }

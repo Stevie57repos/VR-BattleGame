@@ -18,15 +18,11 @@ public class StatsUpdater : MonoBehaviour
 
     private void Awake()
     {
-        setup();
+        Setup();
+        AssignStatsPanel();
     }
 
-    private void Start()
-    {
-
-    }
-
-    void setup()
+    void Setup()
     {
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager_BS>();
         StatsOwner = GetComponent<Character_Base>();
@@ -35,8 +31,9 @@ public class StatsUpdater : MonoBehaviour
 
     private void AssignStatsPanel()
     {
-        if(StatsOwner._nameCharacter == "Player")
+        if (StatsOwner.gameObject.CompareTag("Player"))
         {
+            Debug.Log($" The stats owner nameis {StatsOwner._nameCharacter}");
             HealthPanelGO = UImanager.PlayerHealthPanelGO;
             ManaPanelGO = UImanager.PlayerManaPanelGO;
         }
@@ -62,7 +59,4 @@ public class StatsUpdater : MonoBehaviour
             AssignStatsPanel();
         ManaPanel.text = StatsOwner._mana.ToString();
     }
-
-
-
 }

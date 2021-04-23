@@ -11,6 +11,7 @@ public class SpellHealHandler : MonoBehaviour, ICardEffect, ICardDataTransfer
 
     [SerializeField] CharacterRegistry _characterRegistry;
     [SerializeField] CardEffectEventChannelSO _cardEffectEvent;
+    [SerializeField] CardSelectionEventSO _cardSelectionEvent;
 
     private void Awake()
     {
@@ -65,6 +66,14 @@ public class SpellHealHandler : MonoBehaviour, ICardEffect, ICardDataTransfer
         PlayerCharacter playerCharacter = _characterRegistry.Player.GetComponent<PlayerCharacter>();
         playerCharacter.HealHealth(_cardData.value);
         _cardEffectEvent.RaiseEvent(_cardInfo.gameObject, _cardData);
+        ResetPlayerCardSelection();
         Destroy(this.gameObject);
     }
+
+    void ResetPlayerCardSelection()
+    {
+        _cardSelectionEvent.RaiseEvent("None");
+    }
+
+
 }

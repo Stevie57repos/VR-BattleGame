@@ -278,6 +278,8 @@ MonoBehaviour:
   SwordBeam: {fileID: 0}
   Event_SwordDamage: {fileID: 11400000, guid: 90c571ebfa2a92a4bba3750c57c2ce9d, type: 2}
   _cardEffectEvent: {fileID: 11400000, guid: da8ef699fbd93a5409d5b91caa88a6c7, type: 2}
+  _cardSelectionEvent: {fileID: 11400000, guid: 3264c742e9141dc439f14460e04d5b7b,
+    type: 2}
 --- !u!1 &3095410770263079725
 GameObject:
   m_ObjectHideFlags: 0

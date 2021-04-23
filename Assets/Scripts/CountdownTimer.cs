@@ -4,18 +4,34 @@ using UnityEngine;
 
 public class CountdownTimer : MonoBehaviour
 {
-    float duration = 5f;
-    float elapsedTime = 0f;
 
-    private void Update()
+    public float currCowntDownValue;
+    public bool isCountDownComplete;
+
+    private void Awake()
     {
-        if(elapsedTime == 0)
-            elapsedTime -= Time.fixedDeltaTime;
+        isCountDownComplete = false;
     }
 
-    public bool CountdownTimerCheck(int duration)
+    private IEnumerator StartCountDown(float countDownValue)
     {
-        return false;
+        currCowntDownValue = countDownValue;
+        while(currCowntDownValue > 0)
+        {
+            yield return new WaitForSeconds(1.0f);
+            currCowntDownValue--;
+        }
+        isCountDownComplete = true;
     }
 
+    public void StartTimer(int CountDownValue)
+    {
+        isCountDownComplete = false;
+        StartCoroutine(StartCountDown(CountDownValue));
+    }
+
+    public bool CheckTimer()
+    {
+        return isCountDownComplete;
+    }
 }

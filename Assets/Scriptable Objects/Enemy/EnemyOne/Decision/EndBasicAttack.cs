@@ -26,7 +26,7 @@ public class EndBasicAttack : Decision
         {
             Debug.Log($"enemy projectile handler status is complete");
             enemyProjectileHandler.CurrentStateProjectileHandler = ProjectileHandlerState.Idle;
-            controller._cardType = CardTypeSelected.None;
+            //controller._cardType = CardTypeSelected.None;
             Debug.Log($"enemy projectile is complete and handler status is resetting and is now {enemyProjectileHandler.CurrentStateProjectileHandler}");
             return true;
         }

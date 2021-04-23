@@ -159,6 +159,8 @@ MonoBehaviour:
   ShieldDestroyed: {fileID: 11400000, guid: dcb379d3a1c58e540b5bd23631b26fb3, type: 2}
   _characterRegistry: {fileID: 11400000, guid: d574c7e257a701f40bf7bfef9748e6f9, type: 2}
   _cardEffectEvent: {fileID: 11400000, guid: da8ef699fbd93a5409d5b91caa88a6c7, type: 2}
+  _cardSelectionEvent: {fileID: 11400000, guid: 3264c742e9141dc439f14460e04d5b7b,
+    type: 2}
 --- !u!1 &1830382065188552288
 GameObject:
   m_ObjectHideFlags: 0

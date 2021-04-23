@@ -16,6 +16,7 @@ public class AttackSwordHandler : MonoBehaviour, ICardDataTransfer, ICardEffect
 
     public GameEvent Event_SwordDamage;
     [SerializeField] CardEffectEventChannelSO _cardEffectEvent;
+    [SerializeField] CardSelectionEventSO _cardSelectionEvent;
 
     private Rigidbody RbBody;
     private SwordMatHandler _swordMatHandler;
@@ -46,6 +47,7 @@ public class AttackSwordHandler : MonoBehaviour, ICardDataTransfer, ICardEffect
         else if(other.gameObject.CompareTag("Ground"))
         {
             _cardEffectEvent.RaiseEvent(_cardInfo.gameObject, _cardData);
+            ResetPlayerCardSelection();
             Destroy(this.gameObject);
         }
     }
@@ -76,6 +78,10 @@ public class AttackSwordHandler : MonoBehaviour, ICardDataTransfer, ICardEffect
         else
             Debug.Log($"Current sword charge is {_currChargeCount} and you need {_neededCharge}");           
     }
+    public void OnDeactivate()
+    {
+
+    }
 
     void DisplaySwordBeam()
     {
@@ -100,11 +106,6 @@ public class AttackSwordHandler : MonoBehaviour, ICardDataTransfer, ICardEffect
         SwordBeam.endWidth = .1f;
     }
 
-    public void OnDeactivate()
-    {
-
-    }
-
     void FireBeam()
     {
         Vector3 startPos = StartLine.transform.position;
@@ -119,12 +120,20 @@ public class AttackSwordHandler : MonoBehaviour, ICardDataTransfer, ICardEffect
                 enemyController.TakeDamage(_cardData.value);
                 SwordBeam.endWidth = 2f;
                 _cardEffectEvent.RaiseEvent(_cardInfo.gameObject, _cardData);
+
+                ResetPlayerCardSelection();
+
                 Destroy(this.gameObject);
                 //GameEventsHub.SwordDamage.CardGO = _cardInfo.gameObject;
                 //GameEventsHub.SwordDamage.CardSO = _cardData;
                 //Event_SwordDamage.Raise();
             }
         }
+    }
+
+    void ResetPlayerCardSelection()
+    {
+        _cardSelectionEvent.RaiseEvent("None");
     }
 
     void Update()

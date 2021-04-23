@@ -12,6 +12,7 @@ public class SpellDamageHandler : MonoBehaviour, ICardEffect, ICardDataTransfer
     [SerializeField] private float speed;
     [SerializeField] CardEffectEventChannelSO _cardEffectEvent;
     [SerializeField] CharacterRegistry _characterRegistry;
+    [SerializeField] CardSelectionEventSO _cardSelectionEvent;
 
     private void Awake()
     {
@@ -89,6 +90,7 @@ public class SpellDamageHandler : MonoBehaviour, ICardEffect, ICardDataTransfer
         if (Vector3.Distance(transform.position, target.position) < 1.5f)
         {
             SpellDamageEvent(_cardInfo.gameObject, _cardData);
+            ResetPlayerCardSelection();
             Destroy(this.gameObject);
         }
     }
@@ -98,5 +100,10 @@ public class SpellDamageHandler : MonoBehaviour, ICardEffect, ICardDataTransfer
         EnemyCharacter enenyCharacter = _characterRegistry.CurrentEnemy.GetComponent<EnemyCharacter>();
         enenyCharacter.TakeDamage(_cardData.value);
         _cardEffectEvent.RaiseEvent(cardObject, cardData);
+    }
+
+    void ResetPlayerCardSelection()
+    {
+        _cardSelectionEvent.RaiseEvent("None");
     }
 }

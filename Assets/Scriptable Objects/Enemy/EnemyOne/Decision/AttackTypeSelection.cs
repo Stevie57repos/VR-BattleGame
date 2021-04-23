@@ -7,7 +7,7 @@ public class AttackTypeSelection : Decision
 {
     public override bool Decide(EnemyStateController controller)
     {
-        var cardType = controller._cardType;
+        var cardType = controller.PlayerControl.CardType;
         if (cardType == CardTypeSelected.Attack)
         {
             Debug.Log($"Decision detected that it card selected was spell damage");
