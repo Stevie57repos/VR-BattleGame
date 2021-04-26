@@ -27,11 +27,9 @@ MonoBehaviour:
     trueState: {fileID: 11400000, guid: 7251769416362e04db28c0a0cd95ed3b, type: 2}
     falseState: {fileID: 11400000, guid: a9c16b711930fce4aa87bc4de97fc7fc, type: 2}
   - decision: {fileID: 11400000, guid: 51956a318ba57ca439afe4672d35c7b6, type: 2}
-    trueState: {fileID: 11400000, guid: 7251769416362e04db28c0a0cd95ed3b, type: 2}
+    trueState: {fileID: 11400000, guid: 1dcd0665fb21b544f972c347750751a2, type: 2}
     falseState: {fileID: 11400000, guid: a9c16b711930fce4aa87bc4de97fc7fc, type: 2}
   - decision: {fileID: 11400000, guid: 8a25846faf409a3449760e73f9e35ca3, type: 2}
     trueState: {fileID: 11400000, guid: 7251769416362e04db28c0a0cd95ed3b, type: 2}
     falseState: {fileID: 11400000, guid: a9c16b711930fce4aa87bc4de97fc7fc, type: 2}
-  - decision: {fileID: 11400000, guid: b55075331d2456e4aa1e0c0c9dff2bb9, type: 2}
-    trueState: {fileID: 11400000, guid: 7251769416362e04db28c0a0cd95ed3b, type: 2}
-    falseState: {fileID: 11400000, guid: a9c16b711930fce4aa87bc4de97fc7fc, type: 2}
+  BasicAttackDataList: []

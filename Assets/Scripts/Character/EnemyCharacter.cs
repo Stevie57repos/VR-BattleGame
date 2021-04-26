@@ -15,6 +15,8 @@ public class EnemyCharacter : Character_Base, ICharacter
 
     public int MaxMana { get { return _maxMana; } }
 
+    public GameManagerEventChannelSO WonEvent;
+
     public GameObject getGameObject()
     {
         return this.gameObject;
@@ -22,7 +24,15 @@ public class EnemyCharacter : Character_Base, ICharacter
 
     public override void TakeDamage(int damageAmount)
     {
-        Health -= damageAmount;
+        if ((Health - damageAmount) > 0)
+        {
+            Health -= damageAmount;
+        }
+        else if ((Health - damageAmount) <= 0)
+        {
+            Health = 0;
+            WonEvent.RaiseEvent();
+        }
         HealthUpdate.Raise();
     }
 

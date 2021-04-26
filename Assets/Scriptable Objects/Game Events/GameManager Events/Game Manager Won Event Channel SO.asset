@@ -9,15 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d9ee67e4d6c64b4d85e94ad41c49f8c, type: 3}
-  m_Name: Basic Draw
+  m_Script: {fileID: 11500000, guid: 1f3a74b62cc8f58429551441615223b6, type: 3}
+  m_Name: Game Manager Won Event Channel SO
   m_EditorClassIdentifier: 
-  name: Basic Draw
-  type: 3
-  value: 2
-  cost: 2
-  singleUse: 0
-  art: {fileID: 0}
-  soundRelease: {fileID: 0}
-  soundFlying: {fileID: 0}
-  soundHit: {fileID: 0}

@@ -10,8 +10,19 @@ public class BasicProjectileAction : Action
     public override void Act(EnemyStateController controller)
     {
         CheckEnemyProjectileHandler(controller);
-        SpawnBasicProjectiles(controller);
+        StartProjectileAttack(controller);
     }
+
+    private void StartProjectileAttack(EnemyStateController controller)
+    {
+        for( int i = 0; i < controller.currentState.BasicAttackDataList.Count; i++)
+        {
+            enemyProjectileHandler.BasicAttackData.Add(controller.currentState.BasicAttackDataList[i]);
+            Debug.Log("card data added");
+        }
+        enemyProjectileHandler.StartAttackCoroutine();
+    }
+
     private void CheckEnemyProjectileHandler(EnemyStateController controller)
     {
         if (enemyProjectileHandler == null)
@@ -27,6 +38,5 @@ public class BasicProjectileAction : Action
             controller.enemyProjectileHandler.CurrentStateProjectileHandler = ProjectileHandlerState.InProgress;
             enemyProjectileHandler.StartBasicProjectilesCoroutine(3, 3);
         }
- 
     }
 }

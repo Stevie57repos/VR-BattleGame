@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Basic Spell
   type: 2
-  value: 2
-  cost: 6
+  value: 5
+  cost: 5
   singleUse: 0
   art: {fileID: 0}
   soundRelease: {fileID: 0}

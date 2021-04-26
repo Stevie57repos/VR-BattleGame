@@ -164,6 +164,7 @@ MonoBehaviour:
   _maxMana: 0
   HealthUpdate: {fileID: 0}
   ManaUpdate: {fileID: 0}
+  WonEvent: {fileID: 11400000, guid: f01c93f4f1b24db40958a695efedeaa8, type: 2}
 --- !u!114 &911496869384812874
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,6 +257,7 @@ MonoBehaviour:
   maintainState: {fileID: 11400000, guid: a9c16b711930fce4aa87bc4de97fc7fc, type: 2}
   playerTarget: {fileID: 0}
   PlayerControl: {fileID: 0}
+  Timer: {fileID: 0}
   CharacterRegistry: {fileID: 11400000, guid: d574c7e257a701f40bf7bfef9748e6f9, type: 2}
 --- !u!114 &4105615737460001646
 MonoBehaviour:
@@ -275,6 +277,8 @@ MonoBehaviour:
   - {fileID: 5371434547127092157}
   - {fileID: 460745113203186167}
   - {fileID: 8637592205090781762}
+  BasicAttackData: []
+  Timer: {fileID: 0}
   _characterRegistry: {fileID: 11400000, guid: d574c7e257a701f40bf7bfef9748e6f9, type: 2}
 --- !u!114 &3684407404980430389
 MonoBehaviour:
@@ -328,6 +332,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d1f8cba363554246ae26865f794f65c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currCowntDownValue: 0
   isCountDownComplete: 0
 --- !u!1 &4628666115597242487
 GameObject:

@@ -71,7 +71,6 @@ public class Enemy_projectile : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        Debug.Log("This projectile just hit something");
         if (other.gameObject.GetComponent<PlayerCharacter>())
         {
             other.gameObject.GetComponent<PlayerCharacter>().TakeDamage(_chargeValue);

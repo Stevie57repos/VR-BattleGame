@@ -9,15 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d9ee67e4d6c64b4d85e94ad41c49f8c, type: 3}
-  m_Name: Basic Draw
+  m_Script: {fileID: 11500000, guid: d528f8c60860dd84ba415d1bf2d5ff0b, type: 3}
+  m_Name: Basic Attack Data - 1 Projectiles
   m_EditorClassIdentifier: 
-  name: Basic Draw
-  type: 3
-  value: 2
-  cost: 2
-  singleUse: 0
-  art: {fileID: 0}
-  soundRelease: {fileID: 0}
-  soundFlying: {fileID: 0}
-  soundHit: {fileID: 0}
+  ProjectileNumber: 1
+  TimeBetweenProjectiles: 1
+  Text: 
+  WaitBeforeAttackBegins: 0
+  WaitAfterAttackEnds: 0

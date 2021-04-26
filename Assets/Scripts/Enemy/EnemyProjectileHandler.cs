@@ -11,9 +11,11 @@ public class EnemyProjectileHandler : MonoBehaviour
     public EnemyProjectileObjectPool EnemyProjectilePool;
     public List<Transform> BasicProjectileSpawnLocations = new List<Transform>();
 
-    private GameManager_BS gameManager_BS;
-    private Transform playerTargetPos;
+    public List<BasicAttackData> BasicAttackData = new List<BasicAttackData>();
 
+    public CountdownTimer Timer;
+
+    private Transform playerTargetPos;
     [SerializeField] CharacterRegistry _characterRegistry;
     
     private void Awake()
@@ -23,24 +25,49 @@ public class EnemyProjectileHandler : MonoBehaviour
 
     void Start()
     {
-        Debug.Log($"current state projectile handler is in idle {CurrentStateProjectileHandler}");
         CurrentStateProjectileHandler = ProjectileHandlerState.Idle;
     }
 
     void SetPlayerTargetPos()
     {
-        gameManager_BS = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager_BS>();
         playerTargetPos = _characterRegistry.Player.transform;
     }
 
-    public void StartBasicProjectilesCoroutine(int ProjectileNumber, int timeBetweenProjectiles)
+
+    public void StartAttackCoroutine()
+    {
+        CurrentStateProjectileHandler = ProjectileHandlerState.InProgress;
+        StartCoroutine(AttackCoroutine());
+    }
+
+    public IEnumerator AttackCoroutine()
+    {
+        yield return StartCoroutine(AttackListCoroutine());
+        Debug.Log("This should appear last in the experiment");
+        yield return new WaitForSeconds(2);
+        CurrentStateProjectileHandler = ProjectileHandlerState.Complete;
+    }
+
+    public IEnumerator AttackListCoroutine()
+    {
+        for (int i = 0; i < BasicAttackData.Count; i++)
+        {
+            Debug.Log("Firing attack " + i);
+            yield return new WaitForSeconds(BasicAttackData[i].WaitBeforeAttackBegins);
+            yield return StartCoroutine(SpawnBasicProjectiles(BasicAttackData[i].ProjectileNumber, BasicProjectileSpawnLocations, BasicAttackData[i].TimeBetweenProjectiles));
+            Debug.Log($"Waiting time before next attack is {BasicAttackData[i].WaitAfterAttackEnds}");
+            yield return new WaitForSeconds(BasicAttackData[i].WaitAfterAttackEnds);
+        }
+    }
+
+    public void StartBasicProjectilesCoroutine(int ProjectileNumber, float timeBetweenProjectiles)
     {
         CurrentStateProjectileHandler = ProjectileHandlerState.InProgress;
         Debug.Log("Projectile hander is in progress state");
         StartCoroutine(SpawnBasicProjectiles(ProjectileNumber, BasicProjectileSpawnLocations, timeBetweenProjectiles));
     }
 
-    private IEnumerator SpawnBasicProjectiles(int projectileRetreivalNumber, List<Transform> projectileSpawnLocations, int timeBetweenProjectiles)
+    public IEnumerator SpawnBasicProjectiles(int projectileRetreivalNumber, List<Transform> projectileSpawnLocations, float timeBetweenProjectiles)
     {
         int n = 0;
         for (int i = 0; i < projectileRetreivalNumber; i++)
@@ -56,11 +83,8 @@ public class EnemyProjectileHandler : MonoBehaviour
                 projectile.SetActive(true);
                 n++;
                 yield return new WaitForSeconds(timeBetweenProjectiles);
-                Debug.Log($"yield wait for {timeBetweenProjectiles} : time between projectiles has been called");
             }
         }
-        yield return new WaitForSeconds(1);
-        CurrentStateProjectileHandler = ProjectileHandlerState.Complete;
     }
 
     void SetPlayerAsTarget(GameObject projectile, Transform ProjectileTarget)
@@ -69,8 +93,4 @@ public class EnemyProjectileHandler : MonoBehaviour
         projectileController.targetPos = playerTargetPos;
     }
 
-    private void Update()
-    {
-        
-    }
 }

@@ -5,44 +5,29 @@ using TMPro;
 
 public class GameManager_BS : MonoBehaviour
 {
-    //private static GameManager_BS _instance;
-    //public static GameManager_BS Instance
-    //{
-    //    get
-    //    {
-    //        if (_instance == null)
-    //        {
-    //            Debug.LogError("The CommandManager is NULL");
-    //        }
-    //        return _instance;
-    //    }
-    //}
-
     public GameManagerEventChannelSO StartEvent;
     public GameManagerEventChannelSO BattleStartEvent;
+    public GameManagerEventChannelSO LossEvent;
+    public GameManagerEventChannelSO WonEvent;
 
-    // access to character stats componenent
-    //public Character_Base Player;
-    //public Character_Base Enemy;
+    private GameManagerState currentGameManagerState;
 
-    // current state tracker
-    GameManagerState currentGameManagerState;
-
-    // different possible gameStates
     public readonly GameManager_State_Start startState = new GameManager_State_Start();
     public readonly GameManager_State_Battle battleState = new GameManager_State_Battle();
     public readonly GameManager_State_Won wonState = new GameManager_State_Won();
     public readonly GameManager_State_Loss lossState = new GameManager_State_Loss();
 
-    //UI Manager Reference - Using interface to access
-    public UI_Manager UImanager;
-    public EnemyManager enemyManager;
-
-
-    void Awake()
+    private void OnEnable()
     {
-        UImanager = GetComponent<UI_Manager>();
-        enemyManager = GetComponent<EnemyManager>();
+        // triggered from player/enemy character health take damage methods
+        LossEvent.GameManagerEvent += TransitionToBattleLostState;
+        WonEvent.GameManagerEvent += TransitionToBattleWonState;
+    }
+
+    private void OnDisable()
+    {
+        LossEvent.GameManagerEvent -= TransitionToBattleLostState;
+        WonEvent.GameManagerEvent -= TransitionToBattleWonState;
     }
 
     void Start()
@@ -53,6 +38,18 @@ public class GameManager_BS : MonoBehaviour
     public void TransitionToState(GameManagerState state)
     {
         currentGameManagerState = state;
+        currentGameManagerState.EnterState(this);
+    }
+
+    public void TransitionToBattleLostState()
+    {
+        currentGameManagerState = lossState;
+        currentGameManagerState.EnterState(this);
+    }
+
+    public void TransitionToBattleWonState()
+    {
+        currentGameManagerState = wonState;
         currentGameManagerState.EnterState(this);
     }
 }

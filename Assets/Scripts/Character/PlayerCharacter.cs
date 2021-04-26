@@ -13,6 +13,8 @@ public class PlayerCharacter : Character_Base, ICharacter
     public int MaxMana { get { return _maxMana; } }
     #endregion
 
+    public GameManagerEventChannelSO LossEvent;
+
     protected override void Start()
     {
         base.Start();
@@ -25,8 +27,21 @@ public class PlayerCharacter : Character_Base, ICharacter
 
     public override void TakeDamage(int damageAmount)
     {
-        Health -= damageAmount;
+        if ((Health - damageAmount) > 0)
+        {
+            Health -= damageAmount;
+        }
+        else if((Health - damageAmount) <= 0)
+        {
+            Health = 0;
+            LossEvent.RaiseEvent();
+        }
         HealthUpdate.Raise();
+    }
+
+    private void CheckDamage(int damageAmount)
+    {
+
     }
 
     public override void SpendMana(int spellCost)

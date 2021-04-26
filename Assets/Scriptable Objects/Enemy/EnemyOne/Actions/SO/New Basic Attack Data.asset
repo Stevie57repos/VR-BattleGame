@@ -9,6 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4b3fd037755dda438bb130b2b85f275, type: 3}
-  m_Name: Test Action
+  m_Script: {fileID: 11500000, guid: d528f8c60860dd84ba415d1bf2d5ff0b, type: 3}
+  m_Name: New Basic Attack Data
   m_EditorClassIdentifier: 
+  ProjectileNumber: 0
+  TimeBetweenProjectiles: 0
+  Text: 
+  WaitBeforeAttackBegins: 0
+  WaitAfterAttackEnds: 0

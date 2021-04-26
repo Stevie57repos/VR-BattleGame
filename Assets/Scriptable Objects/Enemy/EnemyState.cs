@@ -8,6 +8,7 @@ public class EnemyState : ScriptableObject
     public Action[] EnterStateActions;
     public Action[] UpdateActions;
     public Transition[] Transitions;
+    public List<BasicAttackData> BasicAttackDataList = new List<BasicAttackData>();
     public void EnterState(EnemyStateController controller)
     {
         DoEnterStateActions(controller);

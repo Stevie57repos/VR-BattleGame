@@ -159,6 +159,7 @@ MonoBehaviour:
   _maxMana: 0
   HealthUpdate: {fileID: 11400000, guid: 222545ba7baa2d54297d5278bd48f706, type: 2}
   ManaUpdate: {fileID: 11400000, guid: cc93d471bdba94848a389974a3cff2f3, type: 2}
+  LossEvent: {fileID: 0}
 --- !u!114 &64656110
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -563,7 +564,7 @@ PrefabInstance:
     - target: {fileID: 1885381074969262479, guid: 64fe679dce3e9774eadc8528d2ab7828,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1885381075085329266, guid: 64fe679dce3e9774eadc8528d2ab7828,
         type: 3}
@@ -714,6 +715,7 @@ MonoBehaviour:
   _maxMana: 0
   HealthUpdate: {fileID: 11400000, guid: 222545ba7baa2d54297d5278bd48f706, type: 2}
   ManaUpdate: {fileID: 11400000, guid: cc93d471bdba94848a389974a3cff2f3, type: 2}
+  LossEvent: {fileID: 0}
 --- !u!114 &586900881
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -846,7 +848,7 @@ Transform:
   - {fileID: 1294616162}
   - {fileID: 1596552396}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &641289186
 MonoBehaviour:
@@ -868,6 +870,7 @@ MonoBehaviour:
   _maxMana: 0
   HealthUpdate: {fileID: 11400000, guid: 222545ba7baa2d54297d5278bd48f706, type: 2}
   ManaUpdate: {fileID: 11400000, guid: cc93d471bdba94848a389974a3cff2f3, type: 2}
+  LossEvent: {fileID: 11400000, guid: 966e4a2382709594f8e365972795baef, type: 2}
 --- !u!114 &641289187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1238,7 +1241,7 @@ PrefabInstance:
     - target: {fileID: 7178150646805584344, guid: c70ecb41d4bfae14abd6d2c187544eca,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7178150646805584344, guid: c70ecb41d4bfae14abd6d2c187544eca,
         type: 3}
@@ -1639,7 +1642,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1302129991
 Transform:
   m_ObjectHideFlags: 0
@@ -1966,6 +1969,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StartEvent: {fileID: 11400000, guid: b29ab92974e69bc4f840694237074298, type: 2}
   BattleStartEvent: {fileID: 11400000, guid: 49f4caa8aa981fd41bb178c0f030aaf1, type: 2}
+  LossEvent: {fileID: 11400000, guid: 966e4a2382709594f8e365972795baef, type: 2}
+  WonEvent: {fileID: 11400000, guid: f01c93f4f1b24db40958a695efedeaa8, type: 2}
   UImanager: {fileID: 1598313404}
   enemyManager: {fileID: 1598313405}
 --- !u!114 &1598313404
