@@ -32,6 +32,7 @@ public class EnemyCharacter : Character_Base, ICharacter
         {
             Health = 0;
             WonEvent.RaiseEvent();
+            HealthUpdate.Raise();
         }
         HealthUpdate.Raise();
     }

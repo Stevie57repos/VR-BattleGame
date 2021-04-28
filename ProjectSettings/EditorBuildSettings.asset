@@ -8,6 +8,15 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/BattleSystem_Game.unity
+    guid: 28e6a87389a456b4d8a9f57bd2f7eda7
+  - enabled: 1
+    path: Assets/Scenes/UI_MainMenu.unity
+    guid: 801c3d10a42cd1144848ed15e8749e38
+  - enabled: 1
+    path: Assets/Scenes/UI_Battle.unity
+    guid: c6acc8ee2bd85c64b94ea199ce9c3c9f
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 4aaa1c8fb046ea94ea5dcafde4a141b0,
       type: 2}

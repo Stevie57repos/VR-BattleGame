@@ -5,6 +5,8 @@ using TMPro;
 
 public class GameManager_BS : MonoBehaviour
 {
+    public UI_Manager UImanager;
+
     public GameManagerEventChannelSO StartEvent;
     public GameManagerEventChannelSO BattleStartEvent;
     public GameManagerEventChannelSO LossEvent;
@@ -28,6 +30,11 @@ public class GameManager_BS : MonoBehaviour
     {
         LossEvent.GameManagerEvent -= TransitionToBattleLostState;
         WonEvent.GameManagerEvent -= TransitionToBattleWonState;
+    }
+
+    private void Awake()
+    {
+        UImanager = GetComponent<UI_Manager>();
     }
 
     void Start()

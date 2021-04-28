@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: 
   NameCharacter: Player
-  Health: 100
-  MaxHealth: 100
-  Mana: 20
-  MaxMana: 20
+  Health: 10
+  MaxHealth: 10
+  Mana: 15
+  MaxMana: 15

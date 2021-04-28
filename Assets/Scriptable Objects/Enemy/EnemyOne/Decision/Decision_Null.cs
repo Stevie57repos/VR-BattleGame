@@ -7,6 +7,6 @@ public class Decision_Null : Decision
 {
     public override bool Decide(EnemyStateController controller)
     {
-        return true;
+        return false;
     }
 }

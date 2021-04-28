@@ -11,9 +11,7 @@ public class GameManager_State_Start : GameManagerState
 
     public override void EnterState(GameManager_BS gameManager)
     {
-        //OnGameStart?.Invoke(gameManager);
-        gameManager.StartEvent.RaiseEvent();
-        // ui manager listening
+        gameManager.UImanager.LoadMainMenu();
     }
 
     public override void Update(GameManager_BS gameManager)

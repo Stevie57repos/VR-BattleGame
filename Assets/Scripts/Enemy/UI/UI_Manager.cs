@@ -4,15 +4,18 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using UnityEngine.SceneManagement;
 
 public class UI_Manager : MonoBehaviour
 {
     public GameManager_BS gameManager;
     public PlayerCharacter Player;
-    private EnemyManager _enemyManager;
 
-    public GameObject Start_Button;
-    public GameObject BattleUIGO;
+    public GameObject UI_StartMenuGO;
+    public GameObject UI_BattleGO;
+    public GameObject UI_WonGO;
+    public GameObject UI_LossGO;
+
     public GameObject PlayerHealthPanelGO = null;
     public GameObject PlayerManaPanelGO = null;
     public GameObject EnemyHealthPanelGO = null;
@@ -20,10 +23,11 @@ public class UI_Manager : MonoBehaviour
 
     [SerializeField] CharacterRegistry _characterRegistry; 
 
-    public GameEvent BattleStart;
+    //public GameEvent BattleStart;
     [SerializeField] GameManagerEventChannelSO _gameManagerStartEvent;
     [SerializeField] GameManagerEventChannelSO _gameManagerBattleEvent;
-
+    [SerializeField] GameManagerEventChannelSO _gameManagerLossEvent;
+    [SerializeField] GameManagerEventChannelSO _gameManagerWonEvent;
 
     private void Awake()
     {
@@ -37,45 +41,58 @@ public class UI_Manager : MonoBehaviour
 
     private void OnEnable()
     {
-        //GameManager_BS.Instance.startState.OnGameStart += StartUpdateUI;
-        _gameManagerStartEvent.GameManagerEvent += StartUpdateUI;
-        _gameManagerBattleEvent.GameManagerEvent += BattleUIStart;
-
-        //GameManager_BS.Instance.battleState.OnBattleStart += BattleUIStart;
+        //_gameManagerStartEvent.GameManagerEvent += StartUpdateUI;
+        //_gameManagerBattleEvent.GameManagerEvent += LoadBattleMenuUI;
+        _gameManagerWonEvent.GameManagerEvent += WonUI;
+        _gameManagerLossEvent.GameManagerEvent += LossUI;
     }
 
     private void OnDisable()
     {
-        //GameManager_BS.Instance.startState.OnGameStart -= StartUpdateUI;
-        _gameManagerStartEvent.GameManagerEvent -= StartUpdateUI;
-        _gameManagerBattleEvent.GameManagerEvent -= BattleUIStart;
-
-        //GameManager_BS.Instance.battleState.OnBattleStart -= BattleUIStart;
+        //_gameManagerStartEvent.GameManagerEvent -= StartUpdateUI;
+        //_gameManagerBattleEvent.GameManagerEvent -= LoadBattleMenuUI;
+        _gameManagerWonEvent.GameManagerEvent -= WonUI;
+        _gameManagerLossEvent.GameManagerEvent -= LossUI;
     }
 
     public void StartUpdateUI()
     {
-        SetButtonText(Start_Button, "Battle");
-        SetButtonActivation(Start_Button);
-        BattleUIGO.SetActive(false);
+        UI_StartMenuGO.SetActive(true);
+        UI_BattleGO.SetActive(false);
+        UI_WonGO.SetActive(false);
+        UI_LossGO.SetActive(false);
+    }
+
+
+
+    //public void BattleUI()
+    //{
+    //    UI_BattleGO.SetActive(true);
+    //    //BattleStart.Raise();
+    //    UI_WonGO.SetActive(false);
+    //    UI_LossGO.SetActive(false);
+    //}
+
+    private void WonUI()
+    {
+        UI_StartMenuGO.SetActive(false);
+        UI_BattleGO.SetActive(false);
+        UI_WonGO.SetActive(true);
+        UI_LossGO.SetActive(false);
+    }
+    private void LossUI()
+    {
+        //UI_StartMenuGO.SetActive(false);
+        //UI_BattleGO.SetActive(false);
+        //UI_WonGO.SetActive(false);
+        //UI_LossGO.SetActive(true);
+        Debug.Log("player loss");
     }
 
     void SetButtonActivation(GameObject buttonGO)
     {
-        Button StartButton = buttonGO.GetComponent<Button>();
+        Button StartButton = buttonGO.GetComponentInChildren<Button>();
         StartButton.onClick.AddListener(TransitionToBattleState);
-    }
-
-    public void TransitionToBattleState()
-    {
-        gameManager.TransitionToState(gameManager.battleState);
-    }
-
-    public void BattleUIStart()
-    {
-        Start_Button.SetActive(false);
-        BattleUIGO.SetActive(true);
-        BattleStart.Raise();
     }
 
     public void SetButtonText(GameObject button, string text)
@@ -83,4 +100,32 @@ public class UI_Manager : MonoBehaviour
         TextMeshProUGUI buttonTextMesh = button.GetComponentInChildren<TextMeshProUGUI>();
         buttonTextMesh.text = text;
     }
+
+    public void TransitionToBattleState()
+    {
+        gameManager.TransitionToState(gameManager.battleState);
+    }
+
+    public void LoadMainMenu()
+    {
+        SceneManager.LoadSceneAsync("UI_MainMenu", LoadSceneMode.Additive);
+    }
+
+    public void UnloadMainMenu()
+    {
+        SceneManager.UnloadSceneAsync("UI_MainMenu");
+    }
+
+    public void LoadBattleMenuUI()
+    {
+        SceneManager.LoadSceneAsync("UI_Battle", LoadSceneMode.Additive);
+        UnloadMainMenu();
+    }
+
+    public void LoadLossMenuUI()
+    {        
+        SceneManager.UnloadSceneAsync("UI_Battle");
+        SceneManager.LoadSceneAsync("UI_LossMenu", LoadSceneMode.Additive);
+    }
+
 }

@@ -13,11 +13,28 @@ public class PlayerCharacter : Character_Base, ICharacter
     public int MaxMana { get { return _maxMana; } }
     #endregion
 
-    public GameManagerEventChannelSO LossEvent;
+    //[SerializeField] GameManagerEventChannelSO BattleStartEvent;
+    [SerializeField] GameManagerEventChannelSO LossEvent;
 
     protected override void Start()
     {
         base.Start();
+    }
+
+    void OnEnable()
+    {
+        //BattleStartEvent.GameManagerEvent += BattleStartUISetup;
+    }
+
+    void OnDisable()
+    {
+        //BattleStartEvent.GameManagerEvent -= BattleStartUISetup;
+    }
+
+    public void BattleStartUISetup()
+    {
+        TakeDamage(0);
+        SpendMana(0);
     }
 
     public GameObject getGameObject()
@@ -35,13 +52,9 @@ public class PlayerCharacter : Character_Base, ICharacter
         {
             Health = 0;
             LossEvent.RaiseEvent();
+            HealthUpdate.Raise();
         }
         HealthUpdate.Raise();
-    }
-
-    private void CheckDamage(int damageAmount)
-    {
-
     }
 
     public override void SpendMana(int spellCost)
@@ -67,6 +80,7 @@ public class PlayerCharacter : Character_Base, ICharacter
         SpendMana(5);
     }
 
+    // TODO : Double check that heal health doesn't exceed max health;
     public override void HealHealth(int healthAmount)
     {
         if(healthAmount == 0)
