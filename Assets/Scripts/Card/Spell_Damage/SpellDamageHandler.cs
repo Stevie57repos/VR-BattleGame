@@ -96,7 +96,6 @@ public class SpellDamageHandler : MonoBehaviour, ICardEffect, ICardDataTransfer
     }
     void SpellDamageEvent(GameObject cardObject, CardScriptableObject cardData)
     {
-        Debug.Log("this event was executed");
         EnemyCharacter enenyCharacter = _characterRegistry.CurrentEnemy.GetComponent<EnemyCharacter>();
         enenyCharacter.TakeDamage(_cardData.value);
         _cardEffectEvent.RaiseEvent(cardObject, cardData);

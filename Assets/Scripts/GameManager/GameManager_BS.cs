@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class GameManager_BS : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class GameManager_BS : MonoBehaviour
     public GameManagerEventChannelSO LossEvent;
     public GameManagerEventChannelSO WonEvent;
 
-    private GameManagerState currentGameManagerState;
+    public GameManagerState currentGameManagerState;
 
     public readonly GameManager_State_Start startState = new GameManager_State_Start();
     public readonly GameManager_State_Battle battleState = new GameManager_State_Battle();
@@ -58,5 +59,14 @@ public class GameManager_BS : MonoBehaviour
     {
         currentGameManagerState = wonState;
         currentGameManagerState.EnterState(this);
+    }
+
+    public bool CheckIfInBattleState()
+    {
+        if(currentGameManagerState == battleState)
+        {
+            return true;
+        }
+        return false;
     }
 }

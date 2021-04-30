@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a14a9b5e3284aec40b678357ef6fa08b, type: 3}
   m_Name: Enemy_One_Phase_2_State
   m_EditorClassIdentifier: 
-  UpdateActions:
-  - {fileID: 11400000, guid: c29b5b1e50cc44148ac031c3bd73e733, type: 2}
   EnterStateActions: []
+  UpdateActions:
+  - {fileID: 11400000, guid: 16df219fa952f1e47a063e71fac6bb8a, type: 2}
   Transitions:
-  - decision: {fileID: 11400000, guid: 5fa4bf167ac11d54d8523f77bac61881, type: 2}
+  - decision: {fileID: 11400000, guid: 004d84221ab1566429e1995279962e62, type: 2}
     trueState: {fileID: 11400000, guid: 40d2a635b0cc48948841058a1f730858, type: 2}
     falseState: {fileID: 11400000, guid: a9c16b711930fce4aa87bc4de97fc7fc, type: 2}
+  BasicAttackDataList: []

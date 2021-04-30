@@ -44,7 +44,7 @@ public class EnemyProjectileHandler : MonoBehaviour
     {
         yield return StartCoroutine(AttackListCoroutine());
         Debug.Log("This should appear last in the experiment");
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
         CurrentStateProjectileHandler = ProjectileHandlerState.Complete;
     }
 

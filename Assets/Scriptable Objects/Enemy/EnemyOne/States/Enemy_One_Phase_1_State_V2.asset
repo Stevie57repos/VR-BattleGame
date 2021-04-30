@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a14a9b5e3284aec40b678357ef6fa08b, type: 3}
-  m_Name: IdleState
+  m_Name: Enemy_One_Phase_1_State_V2
   m_EditorClassIdentifier: 
   EnterStateActions:
   - {fileID: 11400000, guid: 56059730a54247f48b2a92ca35f3fe45, type: 2}
   UpdateActions:
   - {fileID: 11400000, guid: 16df219fa952f1e47a063e71fac6bb8a, type: 2}
   Transitions:
-  - decision: {fileID: 11400000, guid: 004d84221ab1566429e1995279962e62, type: 2}
-    trueState: {fileID: 11400000, guid: 0454f50df405cc449add754bf4d25365, type: 2}
+  - decision: {fileID: 11400000, guid: da1f589c051662f4cb997dea610e7dbd, type: 2}
+    trueState: {fileID: 11400000, guid: aba814173b37c434084acb6c1f55db58, type: 2}
     falseState: {fileID: 11400000, guid: a9c16b711930fce4aa87bc4de97fc7fc, type: 2}
   - decision: {fileID: 11400000, guid: 6d8ecedd242e0e940b9aef026073ce08, type: 2}
     trueState: {fileID: 11400000, guid: 7251769416362e04db28c0a0cd95ed3b, type: 2}
@@ -30,6 +30,6 @@ MonoBehaviour:
     trueState: {fileID: 11400000, guid: 1dcd0665fb21b544f972c347750751a2, type: 2}
     falseState: {fileID: 11400000, guid: a9c16b711930fce4aa87bc4de97fc7fc, type: 2}
   - decision: {fileID: 11400000, guid: 8a25846faf409a3449760e73f9e35ca3, type: 2}
-    trueState: {fileID: 11400000, guid: 7251769416362e04db28c0a0cd95ed3b, type: 2}
+    trueState: {fileID: 11400000, guid: 1dcd0665fb21b544f972c347750751a2, type: 2}
     falseState: {fileID: 11400000, guid: a9c16b711930fce4aa87bc4de97fc7fc, type: 2}
   BasicAttackDataList: []

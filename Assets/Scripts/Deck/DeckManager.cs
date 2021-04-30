@@ -5,39 +5,46 @@ using UnityEngine;
 public class DeckManager : MonoBehaviour
 {
     public GameObject CardspawnSpotGO;
-    private GameManager_BS gameManager;
+    private GameManager_BS _gameManager;
+    private int maxHandSize = 5;
 
     [SerializeField] private GameObject _cardPrefab;
     [SerializeField] private DeckScriptableObject _deckData;
 
-	public List<CardScriptableObject> deck;
+    [Header("Game Manager Events")]
+    [SerializeField] GameManagerEventChannelSO _gameManagerLossEvent;
+    [SerializeField] GameManagerEventChannelSO _gameManagerWonEvent;
+    [SerializeField] GameManagerEventChannelSO _gameManagerBattleStart;
+    [SerializeField] CardEffectEventChannelSO _cardEffectEvent;
+
+    [Header("Card List")]
+    public List<CardScriptableObject> deck;
 	public List<CardScriptableObject> hand;
 	public List<CardScriptableObject> graveyard;
 	public List<CardScriptableObject> burn;
-
     public List<GameObject> handCards;
     float cardSpreadDistance = 0f;
 
-	private int maxHandSize = 5;
-
-    [SerializeField] GameManagerEventChannelSO _gameManagerBattleStart;
-    [SerializeField] private CardEffectEventChannelSO _cardEffectEvent;
 
     private void OnEnable()
     {
         _gameManagerBattleStart.GameManagerEvent += DeckStart;
         _cardEffectEvent.OnCardEffectActivate += NewTurnV2;
+        _gameManagerWonEvent.GameManagerEvent += BattleFinish;
+        _gameManagerLossEvent.GameManagerEvent += BattleFinish;
     }
 
     private void OnDisable()
     {
         _gameManagerBattleStart.GameManagerEvent -= DeckStart;
         _cardEffectEvent.OnCardEffectActivate -= NewTurnV2;
+        _gameManagerWonEvent.GameManagerEvent -= BattleFinish;
+        _gameManagerLossEvent.GameManagerEvent -= BattleFinish;
     }
 
-    private void Start()
+    private void Awake()
     {
-
+        _gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager_BS>();
     }
 
     void DeckStart()
@@ -171,8 +178,12 @@ public class DeckManager : MonoBehaviour
     private void NewTurnV2(GameObject cardObject, CardScriptableObject cardData)
     {
         UpdateCardLists(cardObject, cardData);
-        CardUnselected();
-        Draw();
+        if (_gameManager.CheckIfInBattleState())
+        {
+            CardUnselected();
+            Draw();
+            Debug.Log("new turn draw has been executed");
+        }
     }
 
     public void UpdateCardLists(GameObject cardGO, CardScriptableObject card)
@@ -182,40 +193,20 @@ public class DeckManager : MonoBehaviour
         hand.Remove(card);
         handCards.Remove(cardGO);
     }
+    void BattleFinish()
+    {
 
-    //private void NewTurn()
-    //{
-    //    CardUnselected();
-    //    Draw();
-    //}
+        foreach (GameObject card in handCards)
+        {
+            Debug.Log("Set hand cards to inactive");
+            card.SetActive(false);
+        }
 
-    //public void NewTurn_Sword()
-    //{
-    //    UpdateCardLists(GameEventsHub.SwordDamage.CardGO, GameEventsHub.SwordDamage.CardSO);
-    //    NewTurn();
-    //}
+        foreach (CardScriptableObject card in graveyard)
+        {
+            deck.Add(card);
+        }
+        graveyard.Clear();
+    }
 
-    //public void NewTurn_Shield()
-    //{
-    //    UpdateCardLists(GameEventsHub.ShieldDestroyed.CardGO, GameEventsHub.ShieldDestroyed.CardSO);
-    //    NewTurn();
-    //}
-
-    //public void NewTurn_SpellDamage()
-    //{
-    //    UpdateCardLists(GameEventsHub.SpellDamage.CardGO, GameEventsHub.SpellDamage.CardSO);
-    //    NewTurn();
-    //}
-
-    //public void SpellHealEvent(GameObject cardObject, CardScriptableObject cardData)
-    //{
-    //    UpdateCardLists(cardObject, cardData);
-    //    NewTurn();
-    //}
-
-    //public void SpellDamageEvent(GameObject cardObject, CardScriptableObject cardData)
-    //{
-    //    UpdateCardLists(cardObject, cardData);
-    //    NewTurn();
-    //}
 }

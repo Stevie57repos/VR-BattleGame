@@ -5,7 +5,7 @@ using System;
 
 public class EnemyManager : MonoBehaviour
 {
-    public GameObject currentEnemyGO;
+    public GameObject CurrentEnemyGO;
     private EnemyCharacter _currentEnemyChar;
     private EnemyStateController _currentEnemyController;
     public EnemyProjectileObjectPool EnemyProjectilePool;
@@ -18,7 +18,7 @@ public class EnemyManager : MonoBehaviour
     private EnemyGenerator _enemyGenerator;
 
     [SerializeField] GameManagerEventChannelSO _gameManagerBattleStart;
-
+    [SerializeField] GameManagerEventChannelSO _gameManagerWonEvent;
 
     void Awake()
     {
@@ -28,13 +28,11 @@ public class EnemyManager : MonoBehaviour
 
     private void OnEnable()
     {
-        //GameManager_BS.Instance.battleState.OnBattleStart += BattleEnemyStart;
         _gameManagerBattleStart.GameManagerEvent += BattleEnemyStart;
     }
 
     private void OnDisable()
     {
-        //GameManager_BS.Instance.battleState.OnBattleStart -= BattleEnemyStart;
         _gameManagerBattleStart.GameManagerEvent -= BattleEnemyStart;
     }
 
@@ -48,19 +46,16 @@ public class EnemyManager : MonoBehaviour
     {
         if (_enemyGenerator == null) Debug.Log($" enemy generator is null");
         _enemyGenerator.SetEnemySpawnPrefab(enemyList[currentLevel].gameObject);
-        currentEnemyGO = _enemyGenerator.SpawnEnemy();
+        CurrentEnemyGO = _enemyGenerator.SpawnEnemy();
 
-        _currentEnemyController = currentEnemyGO.GetComponent<EnemyStateController>();
+        _currentEnemyController = CurrentEnemyGO.GetComponent<EnemyStateController>();
         _currentEnemyController.enemyManager = this;
 
     }
 
     void UpdateEnemyUI()
     {
-        _currentEnemyChar = currentEnemyGO.GetComponent<EnemyCharacter>();
-        _currentEnemyChar.HealthUpdate = EnemyHealthUpdate;
-        _currentEnemyChar.ManaUpdate = EnemyManaUpdate;
-
+        _currentEnemyChar = CurrentEnemyGO.GetComponent<EnemyCharacter>();
         _currentEnemyChar.TakeDamage(0);
         _currentEnemyChar.SpendMana(0);
     }
@@ -69,10 +64,8 @@ public class EnemyManager : MonoBehaviour
     {
         _currentEnemyChar.TakeDamage(5);
     }
-
     public void EnemySpend5Mana()
     {
         _currentEnemyChar.SpendMana(5);
     }
-
 }

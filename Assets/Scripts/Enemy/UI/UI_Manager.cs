@@ -24,10 +24,10 @@ public class UI_Manager : MonoBehaviour
     [SerializeField] CharacterRegistry _characterRegistry; 
 
     //public GameEvent BattleStart;
-    [SerializeField] GameManagerEventChannelSO _gameManagerStartEvent;
-    [SerializeField] GameManagerEventChannelSO _gameManagerBattleEvent;
-    [SerializeField] GameManagerEventChannelSO _gameManagerLossEvent;
-    [SerializeField] GameManagerEventChannelSO _gameManagerWonEvent;
+    //[SerializeField] GameManagerEventChannelSO _gameManagerStartEvent;
+    //[SerializeField] GameManagerEventChannelSO _gameManagerBattleEvent;
+    //[SerializeField] GameManagerEventChannelSO _gameManagerLossEvent;
+    //[SerializeField] GameManagerEventChannelSO _gameManagerWonEvent;
 
     private void Awake()
     {
@@ -43,67 +43,16 @@ public class UI_Manager : MonoBehaviour
     {
         //_gameManagerStartEvent.GameManagerEvent += StartUpdateUI;
         //_gameManagerBattleEvent.GameManagerEvent += LoadBattleMenuUI;
-        _gameManagerWonEvent.GameManagerEvent += WonUI;
-        _gameManagerLossEvent.GameManagerEvent += LossUI;
+        //_gameManagerWonEvent.GameManagerEvent += LoadWinMenuUI;
+        //_gameManagerLossEvent.GameManagerEvent += LoadLossMenuUI;
     }
 
     private void OnDisable()
     {
         //_gameManagerStartEvent.GameManagerEvent -= StartUpdateUI;
         //_gameManagerBattleEvent.GameManagerEvent -= LoadBattleMenuUI;
-        _gameManagerWonEvent.GameManagerEvent -= WonUI;
-        _gameManagerLossEvent.GameManagerEvent -= LossUI;
-    }
-
-    public void StartUpdateUI()
-    {
-        UI_StartMenuGO.SetActive(true);
-        UI_BattleGO.SetActive(false);
-        UI_WonGO.SetActive(false);
-        UI_LossGO.SetActive(false);
-    }
-
-
-
-    //public void BattleUI()
-    //{
-    //    UI_BattleGO.SetActive(true);
-    //    //BattleStart.Raise();
-    //    UI_WonGO.SetActive(false);
-    //    UI_LossGO.SetActive(false);
-    //}
-
-    private void WonUI()
-    {
-        UI_StartMenuGO.SetActive(false);
-        UI_BattleGO.SetActive(false);
-        UI_WonGO.SetActive(true);
-        UI_LossGO.SetActive(false);
-    }
-    private void LossUI()
-    {
-        //UI_StartMenuGO.SetActive(false);
-        //UI_BattleGO.SetActive(false);
-        //UI_WonGO.SetActive(false);
-        //UI_LossGO.SetActive(true);
-        Debug.Log("player loss");
-    }
-
-    void SetButtonActivation(GameObject buttonGO)
-    {
-        Button StartButton = buttonGO.GetComponentInChildren<Button>();
-        StartButton.onClick.AddListener(TransitionToBattleState);
-    }
-
-    public void SetButtonText(GameObject button, string text)
-    {
-        TextMeshProUGUI buttonTextMesh = button.GetComponentInChildren<TextMeshProUGUI>();
-        buttonTextMesh.text = text;
-    }
-
-    public void TransitionToBattleState()
-    {
-        gameManager.TransitionToState(gameManager.battleState);
+        //_gameManagerWonEvent.GameManagerEvent -= LoadWinMenuUI;
+        //_gameManagerLossEvent.GameManagerEvent -= LoadLossMenuUI;
     }
 
     public void LoadMainMenu()
@@ -128,4 +77,9 @@ public class UI_Manager : MonoBehaviour
         SceneManager.LoadSceneAsync("UI_LossMenu", LoadSceneMode.Additive);
     }
 
+    public void LoadWinMenuUI()
+    {
+        SceneManager.UnloadSceneAsync("UI_Battle");
+        SceneManager.LoadSceneAsync("UI_WonMenu", LoadSceneMode.Additive);
+    }
 }

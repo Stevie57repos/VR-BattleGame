@@ -17,6 +17,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/UI_Battle.unity
     guid: c6acc8ee2bd85c64b94ea199ce9c3c9f
+  - enabled: 1
+    path: Assets/Scenes/UI_WonMenu.unity
+    guid: 7fda23859c3db4448ae798c0d0174d0e
+  - enabled: 1
+    path: Assets/Scenes/UI_LossMenu.unity
+    guid: 161fad1885fc5b54e9e57b3fcf71b3ef
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 4aaa1c8fb046ea94ea5dcafde4a141b0,
       type: 2}

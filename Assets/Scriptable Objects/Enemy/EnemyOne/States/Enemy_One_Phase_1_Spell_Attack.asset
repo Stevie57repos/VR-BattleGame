@@ -10,12 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a14a9b5e3284aec40b678357ef6fa08b, type: 3}
-  m_Name: Enemy_One_Phase_3_State
+  m_Name: Enemy_One_Phase_1_Spell_Attack
   m_EditorClassIdentifier: 
+  EnterStateActions:
+  - {fileID: 11400000, guid: 2272b8b45c363b24ba63e8fd667d3d32, type: 2}
   UpdateActions:
-  - {fileID: 11400000, guid: 7806d09db6b441c4e811076c3f8414e6, type: 2}
-  EnterStateActions: []
+  - {fileID: 11400000, guid: 16df219fa952f1e47a063e71fac6bb8a, type: 2}
   Transitions:
-  - decision: {fileID: 11400000, guid: 61f683856bbed3e4ca628f4761ba76bd, type: 2}
+  - decision: {fileID: 11400000, guid: 987a9d15420d46e4f910a23c0042c93e, type: 2}
     trueState: {fileID: 11400000, guid: 0c7ece8686e67714d87d1a26677b998d, type: 2}
     falseState: {fileID: 11400000, guid: a9c16b711930fce4aa87bc4de97fc7fc, type: 2}
+  BasicAttackDataList:
+  - {fileID: 11400000, guid: 9724ce616b6facf46b888934a6e39649, type: 2}

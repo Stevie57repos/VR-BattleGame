@@ -197,7 +197,7 @@ PrefabInstance:
     - target: {fileID: 8316242294558743260, guid: 37a77603f0943ed4e893681909eb09b0,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8316242294558743260, guid: 37a77603f0943ed4e893681909eb09b0,
         type: 3}
@@ -294,7 +294,9 @@ MonoBehaviour:
   PlayerManaPanelGO: {fileID: 970816388}
   PlayerManaPanel: {fileID: 0}
   EnemyHealthPanelGO: {fileID: 970816391}
+  EnemyHealthPanel: {fileID: 0}
   EnemyManaPanelGO: {fileID: 970816390}
+  EnemyManaPanel: {fileID: 0}
 --- !u!1 &970816388 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8316242293804932985, guid: 37a77603f0943ed4e893681909eb09b0,
@@ -364,6 +366,82 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 970816387}
         m_MethodName: UpdatePlayerHealthPanel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &970816394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 970816386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b7bf3d8e8ac77147b8462e2a3b91324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 4075baa9b3549864989a01c3ae58e0a2, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 970816387}
+        m_MethodName: UpdateEnemyManaPanel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 970816387}
+        m_MethodName: HeardManaEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &970816395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 970816386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b7bf3d8e8ac77147b8462e2a3b91324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 057c42c9186e5fd42bc1c9f13bbe4a89, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 970816387}
+        m_MethodName: UpdateEnemyHealthPanel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 970816387}
+        m_MethodName: HeardHealthEvent
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -643,11 +721,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 970816387}
     - target: {fileID: 7178150647077998544, guid: c70ecb41d4bfae14abd6d2c187544eca,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: EnemyTake5Damage
+      value: DamageEnemy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c70ecb41d4bfae14abd6d2c187544eca, type: 3}

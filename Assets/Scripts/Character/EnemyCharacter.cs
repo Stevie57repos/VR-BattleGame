@@ -27,14 +27,15 @@ public class EnemyCharacter : Character_Base, ICharacter
         if ((Health - damageAmount) > 0)
         {
             Health -= damageAmount;
+            HealthUpdate.Raise();
         }
         else if ((Health - damageAmount) <= 0)
         {
             Health = 0;
-            WonEvent.RaiseEvent();
             HealthUpdate.Raise();
+            WonEvent.RaiseEvent();
+            Destroy(this.gameObject);
         }
-        HealthUpdate.Raise();
     }
 
     public override void SpendMana(int spellCost)

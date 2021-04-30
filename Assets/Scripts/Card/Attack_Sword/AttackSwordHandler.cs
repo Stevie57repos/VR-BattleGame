@@ -122,11 +122,7 @@ public class AttackSwordHandler : MonoBehaviour, ICardDataTransfer, ICardEffect
                 _cardEffectEvent.RaiseEvent(_cardInfo.gameObject, _cardData);
 
                 ResetPlayerCardSelection();
-
                 Destroy(this.gameObject);
-                //GameEventsHub.SwordDamage.CardGO = _cardInfo.gameObject;
-                //GameEventsHub.SwordDamage.CardSO = _cardData;
-                //Event_SwordDamage.Raise();
             }
         }
     }

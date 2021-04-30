@@ -25,7 +25,7 @@ public class Enemy_projectile : MonoBehaviour
     {
         StopMomentum();
         StartCoroutine(MoveToTargetCoroutine(targetPos));
-        StartTimer(10);
+        StartTimer(4);
     }
 
     void StartTimer(int TimerValue)
@@ -66,7 +66,7 @@ public class Enemy_projectile : MonoBehaviour
     {
         Vector3 direction = target.position - transform.position;
         //Vector3 finalTarget = (direction.x, (direction.y + 1), direction.z);
-        RBody.velocity = direction * (speed/4); 
+        RBody.velocity = direction * (speed/4);
     }
 
     private void OnCollisionEnter(Collision other)
@@ -74,6 +74,10 @@ public class Enemy_projectile : MonoBehaviour
         if (other.gameObject.GetComponent<PlayerCharacter>())
         {
             other.gameObject.GetComponent<PlayerCharacter>().TakeDamage(_chargeValue);
+            this.gameObject.SetActive(false);
+        }
+        else
+        {
             this.gameObject.SetActive(false);
         }
     }
