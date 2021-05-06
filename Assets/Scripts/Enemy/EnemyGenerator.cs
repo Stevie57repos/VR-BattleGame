@@ -16,5 +16,4 @@ public class EnemyGenerator : MonoBehaviour
        GameObject enemyGO =  Instantiate(enemyPrefab);
        return enemyGO;
     }
-
 }

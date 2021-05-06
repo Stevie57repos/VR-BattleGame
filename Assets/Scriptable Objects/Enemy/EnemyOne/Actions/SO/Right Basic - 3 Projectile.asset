@@ -10,8 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d528f8c60860dd84ba415d1bf2d5ff0b, type: 3}
-  m_Name: Basic Attack Data - 3 Projectiles
+  m_Name: Right Basic - 3 Projectile
   m_EditorClassIdentifier: 
+  AttackType: 0
+  SpawnLocation: 1
   ProjectileNumber: 3
   TimeBetweenProjectiles: 1
   Text: 

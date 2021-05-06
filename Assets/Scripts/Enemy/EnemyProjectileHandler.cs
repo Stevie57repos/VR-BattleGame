@@ -1,26 +1,43 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 
 public enum ProjectileHandlerState { Idle, InProgress, Complete }
 
 public class EnemyProjectileHandler : MonoBehaviour
 { 
     public ProjectileHandlerState CurrentStateProjectileHandler;
-
     public EnemyProjectileObjectPool EnemyProjectilePool;
     public List<Transform> BasicProjectileSpawnLocations = new List<Transform>();
 
     public List<BasicAttackData> BasicAttackData = new List<BasicAttackData>();
+    public List<BasicAttackData> LeftProjectileList = new List<BasicAttackData>();
+    public List<BasicAttackData> RightProjectileList = new List<BasicAttackData>();
+    public List<BasicAttackData> TopProjectileList = new List<BasicAttackData>();
+    public List<BasicAttackData> AttackOrder = new List<BasicAttackData>();
+    public GameObject[] Portals = new GameObject[3];
+
+    public static readonly int AttackLeft = Animator.StringToHash("Attack_Left");
+    public static readonly int AttackRight = Animator.StringToHash("Attack_Right");
+    public static readonly int AttackTop = Animator.StringToHash("Attack_Top");
+    public static readonly int DamageHit = Animator.StringToHash("Damage_Hit");
 
     public CountdownTimer Timer;
 
     private Transform playerTargetPos;
     [SerializeField] CharacterRegistry _characterRegistry;
-    
+    private Animator _enemyAnimator;
+
     private void Awake()
     {
         SetPlayerTargetPos();
+        _enemyAnimator = GetComponent<Animator>();
+    }
+    void SetPlayerTargetPos()
+    {
+        playerTargetPos = _characterRegistry.Player.transform;
     }
 
     void Start()
@@ -28,24 +45,117 @@ public class EnemyProjectileHandler : MonoBehaviour
         CurrentStateProjectileHandler = ProjectileHandlerState.Idle;
     }
 
-    void SetPlayerTargetPos()
-    {
-        playerTargetPos = _characterRegistry.Player.transform;
-    }
-
-
     public void StartAttackCoroutine()
     {
         CurrentStateProjectileHandler = ProjectileHandlerState.InProgress;
-        StartCoroutine(AttackCoroutine());
+        SortAttackData();
+        StartCoroutine(BeginAttackAnimationCoroutine());
+    }
+    void SortAttackData()
+    {
+        BasicAttackData currentAttackData = null;
+
+        for (int i = 0; i < BasicAttackData.Count; i++)
+        {
+            if (currentAttackData == null)
+            {
+                currentAttackData = BasicAttackData[0];
+                AttackOrder.Add(BasicAttackData[0]);
+            }
+            else if(currentAttackData.SpawnLocation != BasicAttackData[i].SpawnLocation)
+            {
+                AttackOrder.Add(BasicAttackData[i]);
+            }
+
+            switch (BasicAttackData[i].SpawnLocation)
+            {
+                case SpawnLoactions.Left:
+                    LeftProjectileList.Add(BasicAttackData[i]);                        
+                    break;
+                case SpawnLoactions.Right:
+                    RightProjectileList.Add(BasicAttackData[i]);
+                    break;
+                case SpawnLoactions.Top:
+                    TopProjectileList.Add(BasicAttackData[i]);
+                    break;
+            }            
+        }
     }
 
-    public IEnumerator AttackCoroutine()
+    public IEnumerator BeginAttackAnimationCoroutine()
     {
-        yield return StartCoroutine(AttackListCoroutine());
-        Debug.Log("This should appear last in the experiment");
-        yield return new WaitForSeconds(1);
-        CurrentStateProjectileHandler = ProjectileHandlerState.Complete;
+        CurrentStateProjectileHandler = ProjectileHandlerState.InProgress;
+        yield return StartCoroutine(AttackAnimationCoroutine());
+    }
+
+    public IEnumerator AttackAnimationCoroutine()
+    {
+        Debug.Log("Attack animation should start");
+        WaitForSeconds waitBetweenAnimations = new WaitForSeconds(3.5f);
+        for (int i = 0; i < AttackOrder.Count; i++)
+        {
+            switch (AttackOrder[i].SpawnLocation)
+            {
+                case SpawnLoactions.Left:
+                    _enemyAnimator.SetTrigger("Attack_Left");                   
+                    break;
+                case SpawnLoactions.Right:
+                    _enemyAnimator.SetTrigger("Attack_Right");
+                    break;
+                case SpawnLoactions.Top:
+                    _enemyAnimator.SetTrigger("Attack_Top");
+                    break;
+            }
+            yield return waitBetweenAnimations;
+        }
+    }
+
+    public void LeftProjectileAttack()
+    {
+        //StartCoroutine(LeftAttackCoroutine());
+        StartCoroutine(AttackCoroutine(LeftProjectileList, BasicProjectileSpawnLocations[0], Portals[0]));
+    }
+
+    public void TopProjectileAttack()
+    {
+        StartCoroutine(AttackCoroutine(TopProjectileList, BasicProjectileSpawnLocations[1], Portals[1]));
+    }
+
+    public void RightProjectileAttack()
+    {
+        StartCoroutine(AttackCoroutine(RightProjectileList, BasicProjectileSpawnLocations[2], Portals[2]));
+    }
+
+    public IEnumerator AttackCoroutine(List<BasicAttackData> projectileList, Transform spawnLocation, GameObject portal)
+    {
+        portal.SetActive(true);
+        for (int i = 0; i < projectileList.Count; i++)
+        {
+            Debug.Log($"Firing attack {i} ");
+            yield return new WaitForSeconds(projectileList[i].WaitBeforeAttackBegins);
+            yield return StartCoroutine(SpawnBasicProjectiles(projectileList[i].ProjectileNumber, spawnLocation, projectileList[i].TimeBetweenProjectiles));
+            Debug.Log($"Waiting time before next attack is {projectileList[i].WaitAfterAttackEnds}");
+            yield return new WaitForSeconds(projectileList[i].WaitAfterAttackEnds);
+        }
+        Debug.Log("There should only be one of this at the end");
+        portal.SetActive(false);
+        projectileList.Clear();
+    }
+
+    public IEnumerator SpawnBasicProjectiles(int projectileRetreivalNumber, Transform projectileSpawnLocation, float timeBetweenProjectiles)
+    {
+        for (int i = 0; i < projectileRetreivalNumber; i++)
+        {
+            GameObject projectile = EnemyProjectilePool.RetrieveBasicProjectile();
+            if (projectile != null)
+            {
+                SetPlayerAsTarget(projectile, playerTargetPos);
+                projectile.transform.position = projectileSpawnLocation.transform.position;
+                projectile.transform.rotation = Quaternion.identity;
+                projectile.SetActive(true);              
+                yield return new WaitForSeconds(timeBetweenProjectiles);
+            }
+        }
     }
 
     public IEnumerator AttackListCoroutine()
@@ -92,5 +202,4 @@ public class EnemyProjectileHandler : MonoBehaviour
         var projectileController = projectile.GetComponent<Enemy_projectile>();
         projectileController.targetPos = playerTargetPos;
     }
-
 }

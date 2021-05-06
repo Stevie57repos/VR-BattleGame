@@ -5,6 +5,8 @@ using System;
 
 public class EnemyCharacter : Character_Base, ICharacter
 {
+    private Animator _enemyAnimator;
+
     public string NameCharacter { get { return _nameCharacter; } }
 
     public int Health { get { return _health; } set { _health = value; } }
@@ -17,6 +19,12 @@ public class EnemyCharacter : Character_Base, ICharacter
 
     public GameManagerEventChannelSO WonEvent;
 
+    protected override void Awake()
+    {
+        base.Awake();
+        _enemyAnimator = GetComponent<Animator>();
+    }
+
     public GameObject getGameObject()
     {
         return this.gameObject;
@@ -28,6 +36,7 @@ public class EnemyCharacter : Character_Base, ICharacter
         {
             Health -= damageAmount;
             HealthUpdate.Raise();
+            _enemyAnimator.SetTrigger("Damage_Hit");
         }
         else if ((Health - damageAmount) <= 0)
         {

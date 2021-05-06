@@ -21,4 +21,7 @@ MonoBehaviour:
     trueState: {fileID: 11400000, guid: 0c7ece8686e67714d87d1a26677b998d, type: 2}
     falseState: {fileID: 11400000, guid: a9c16b711930fce4aa87bc4de97fc7fc, type: 2}
   BasicAttackDataList:
+  - {fileID: 11400000, guid: 9724ce616b6facf46b888934a6e39649, type: 2}
+  - {fileID: 11400000, guid: 9724ce616b6facf46b888934a6e39649, type: 2}
   - {fileID: 11400000, guid: 0d9d0c87ad610ca4db55e6cb7e0beb65, type: 2}
+  - {fileID: 11400000, guid: ddf53568d14a0c24d93957d5721682c8, type: 2}

@@ -179,18 +179,18 @@ MonoBehaviour:
   _cardPrefab: {fileID: 8021366866025846666, guid: 9a2a1e9d50797e740bfb778110c3f74e,
     type: 3}
   _deckData: {fileID: 11400000, guid: 131a916b9e30fef41b6b120425a8508e, type: 2}
-  deck: []
-  hand: []
-  graveyard: []
-  burn: []
   _gameManagerLossEvent: {fileID: 11400000, guid: 966e4a2382709594f8e365972795baef,
     type: 2}
   _gameManagerWonEvent: {fileID: 11400000, guid: f01c93f4f1b24db40958a695efedeaa8,
     type: 2}
-  handCards: []
   _gameManagerBattleStart: {fileID: 11400000, guid: 49f4caa8aa981fd41bb178c0f030aaf1,
     type: 2}
   _cardEffectEvent: {fileID: 11400000, guid: da8ef699fbd93a5409d5b91caa88a6c7, type: 2}
+  deck: []
+  hand: []
+  graveyard: []
+  burn: []
+  handCards: []
 --- !u!114 &64656115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -439,7 +439,7 @@ PrefabInstance:
     - target: {fileID: 1885381074969262479, guid: 64fe679dce3e9774eadc8528d2ab7828,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1885381075085329266, guid: 64fe679dce3e9774eadc8528d2ab7828,
         type: 3}
@@ -543,18 +543,18 @@ MonoBehaviour:
   _cardPrefab: {fileID: 8021366866025846666, guid: 9a2a1e9d50797e740bfb778110c3f74e,
     type: 3}
   _deckData: {fileID: 11400000, guid: 131a916b9e30fef41b6b120425a8508e, type: 2}
-  deck: []
-  hand: []
-  graveyard: []
-  burn: []
   _gameManagerLossEvent: {fileID: 11400000, guid: 966e4a2382709594f8e365972795baef,
     type: 2}
   _gameManagerWonEvent: {fileID: 11400000, guid: f01c93f4f1b24db40958a695efedeaa8,
     type: 2}
-  handCards: []
   _gameManagerBattleStart: {fileID: 11400000, guid: 49f4caa8aa981fd41bb178c0f030aaf1,
     type: 2}
   _cardEffectEvent: {fileID: 11400000, guid: da8ef699fbd93a5409d5b91caa88a6c7, type: 2}
+  deck: []
+  hand: []
+  graveyard: []
+  burn: []
+  handCards: []
 --- !u!114 &586900880
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -608,7 +608,7 @@ Transform:
   - {fileID: 1294616162}
   - {fileID: 1596552396}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &866643943 stripped
 Transform:
@@ -933,7 +933,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1302129991
 Transform:
   m_ObjectHideFlags: 0
@@ -1104,7 +1104,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1598313403
 MonoBehaviour:
@@ -1163,7 +1163,7 @@ MonoBehaviour:
   EnemyHealthUpdate: {fileID: 11400000, guid: 057c42c9186e5fd42bc1c9f13bbe4a89, type: 2}
   EnemyManaUpdate: {fileID: 11400000, guid: 4075baa9b3549864989a01c3ae58e0a2, type: 2}
   enemyList:
-  - {fileID: 3462137900874149307, guid: dfa378ce6fbdf2e4a819954392393af8, type: 3}
+  - {fileID: 1468016664259030591, guid: ccd17721f0762674d9bca6b30966fd3a, type: 3}
   currentLevel: 0
   _gameManagerBattleStart: {fileID: 11400000, guid: 49f4caa8aa981fd41bb178c0f030aaf1,
     type: 2}

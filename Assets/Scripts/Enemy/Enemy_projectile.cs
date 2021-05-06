@@ -76,6 +76,10 @@ public class Enemy_projectile : MonoBehaviour
             other.gameObject.GetComponent<PlayerCharacter>().TakeDamage(_chargeValue);
             this.gameObject.SetActive(false);
         }
+        else if (other.gameObject.GetComponent<Enemy_projectile>())
+        {
+
+        }
         else
         {
             this.gameObject.SetActive(false);
