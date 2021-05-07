@@ -182,7 +182,6 @@ public class DeckManager : MonoBehaviour
         {
             CardUnselected();
             Draw();
-            Debug.Log("new turn draw has been executed");
         }
     }
 

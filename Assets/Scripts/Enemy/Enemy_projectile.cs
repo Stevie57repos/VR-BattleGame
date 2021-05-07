@@ -10,6 +10,8 @@ public class Enemy_projectile : MonoBehaviour
     public Transform targetPos;
     public float speed = 5f;
     public Rigidbody RBody;
+    [Range(0,10)]
+    [SerializeField] private float SelfDestructionTime = 6;
 
     private CountdownTimer _timer;
 
@@ -25,10 +27,10 @@ public class Enemy_projectile : MonoBehaviour
     {
         StopMomentum();
         StartCoroutine(MoveToTargetCoroutine(targetPos));
-        StartTimer(4);
+        StartTimer(SelfDestructionTime);
     }
 
-    void StartTimer(int TimerValue)
+    void StartTimer(float TimerValue)
     {
         _timer.StartTimer(TimerValue);
     }

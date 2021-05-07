@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 9081342521655140643}
   - component: {fileID: 7358269486385244489}
   - component: {fileID: 691488176993368401}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Projectile_Basic_Enemy_V2.1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,7 +127,8 @@ MonoBehaviour:
   _chargeValue: 1
   targetPos: {fileID: 0}
   speed: 5
-  RbBody: {fileID: 0}
+  RBody: {fileID: 0}
+  SelfDestructionTime: 8.09
   _characterRegistry: {fileID: 11400000, guid: d574c7e257a701f40bf7bfef9748e6f9, type: 2}
 --- !u!114 &691488176993368401
 MonoBehaviour:

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1615879541900829705}
   - component: {fileID: 1803477334185345567}
   m_Layer: 0
-  m_Name: handSword
+  m_Name: Attack_Sword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -382,12 +382,12 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: a78f6e1734d862d429550c022fc3ddd3,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a78f6e1734d862d429550c022fc3ddd3,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.228
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a78f6e1734d862d429550c022fc3ddd3,
         type: 3}
@@ -407,12 +407,12 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: a78f6e1734d862d429550c022fc3ddd3,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a78f6e1734d862d429550c022fc3ddd3,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a78f6e1734d862d429550c022fc3ddd3,
         type: 3}

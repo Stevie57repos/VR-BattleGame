@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2288220256172957729
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3064674213051800682}
+  m_Layer: 0
+  m_Name: Blade - Start
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3064674213051800682
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2288220256172957729}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.13, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3065464423552174462}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2486663204161808130
 GameObject:
   m_ObjectHideFlags: 0
@@ -14,6 +44,7 @@ GameObject:
   - component: {fileID: 1803477334185345567}
   - component: {fileID: 3634747001724259416}
   - component: {fileID: 9218682980898559896}
+  - component: {fileID: 1516812660339727019}
   m_Layer: 0
   m_Name: Attack_SwordV2
   m_TagString: Untagged
@@ -36,6 +67,8 @@ Transform:
   - {fileID: 3727502433207533704}
   - {fileID: 3793943295120639163}
   - {fileID: 7854290448501657849}
+  - {fileID: 3064674213051800682}
+  - {fileID: 7511096298424139000}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -276,10 +309,31 @@ MonoBehaviour:
   StartLine: {fileID: 4349934688208251901}
   EndLine: {fileID: 5908563896142112165}
   SwordBeam: {fileID: 0}
+  _bladeStart: {fileID: 3064674213051800682}
+  _bladeEnd: {fileID: 7511096298424139000}
+  sliceableLayer:
+    serializedVersion: 2
+    m_Bits: 4096
+  _velocityEstimator: {fileID: 1516812660339727019}
   Event_SwordDamage: {fileID: 11400000, guid: 90c571ebfa2a92a4bba3750c57c2ce9d, type: 2}
   _cardEffectEvent: {fileID: 11400000, guid: da8ef699fbd93a5409d5b91caa88a6c7, type: 2}
   _cardSelectionEvent: {fileID: 11400000, guid: 3264c742e9141dc439f14460e04d5b7b,
     type: 2}
+--- !u!114 &1516812660339727019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2486663204161808130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8bf814569461b04b94a0ff564a08f92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  velocityAverageFrames: 5
+  angularVelocityAverageFrames: 11
+  estimateOnAwake: 1
 --- !u!1 &3095410770263079725
 GameObject:
   m_ObjectHideFlags: 0
@@ -303,13 +357,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3095410770263079725}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0.27059805, y: 0.6532815, z: 0.27059805, w: 0.6532815}
   m_LocalPosition: {x: 0, y: -0.352, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3065464423552174462}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -45, y: 90, z: 0}
 --- !u!1 &4349934688208251901
 GameObject:
   m_ObjectHideFlags: 0
@@ -320,7 +374,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3727502433207533704}
   m_Layer: 0
-  m_Name: StartLine
+  m_Name: Beam - StartLine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -350,7 +404,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5086404339823008445}
   m_Layer: 0
-  m_Name: EndLine
+  m_Name: Beam - EndLine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -381,8 +435,38 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.22529621, y: 1.0898416, z: 0.100551724}
-  m_Center: {x: -0.0014035031, y: 0.6214932, z: 0.000000014901161}
+  m_Size: {x: 0.22529621, y: 0.35330176, z: 0.100551724}
+  m_Center: {x: -0.0014035031, y: -0.10234773, z: 0.000000014901161}
+--- !u!1 &8066676678765592139
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7511096298424139000}
+  m_Layer: 0
+  m_Name: Blade - End
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7511096298424139000
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8066676678765592139}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.903, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3065464423552174462}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &7677145266974242578
 PrefabInstance:
   m_ObjectHideFlags: 0

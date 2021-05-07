@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using EzySlice;
 
 public class AttackSwordHandler : MonoBehaviour, ICardDataTransfer, ICardEffect
 {
@@ -13,6 +15,12 @@ public class AttackSwordHandler : MonoBehaviour, ICardDataTransfer, ICardEffect
     public GameObject StartLine;
     public GameObject EndLine;
     public LineRenderer SwordBeam;
+
+    [SerializeField] Transform _bladeStart;
+    [SerializeField] Transform _bladeEnd;
+    public LayerMask sliceableLayer;
+    [SerializeField] VelocityEstimator _velocityEstimator;
+    [NonSerialized] float _cutVelocityForce = 100f;
 
     public GameEvent Event_SwordDamage;
     [SerializeField] CardEffectEventChannelSO _cardEffectEvent;
@@ -35,22 +43,6 @@ public class AttackSwordHandler : MonoBehaviour, ICardDataTransfer, ICardEffect
         _swordMatHandler = GetComponent<SwordMatHandler>();
     }
 
-    private void OnCollisionEnter(Collision other)
-    {
-        if (other.gameObject.GetComponent<Enemy_projectile>())
-        {
-            var enemyProjectile = other.gameObject.GetComponent<Enemy_projectile>();
-            _currChargeCount += enemyProjectile._chargeValue;
-            _swordMatHandler.SetMaterial(_currChargeCount, _neededCharge);
-            enemyProjectile.gameObject.SetActive(false);
-        }
-        else if(other.gameObject.CompareTag("Ground"))
-        {
-            _cardEffectEvent.RaiseEvent(_cardInfo.gameObject, _cardData);
-            ResetPlayerCardSelection();
-            Destroy(this.gameObject);
-        }
-    }
     public void OnHoverEntered()
     {
 
@@ -111,11 +103,13 @@ public class AttackSwordHandler : MonoBehaviour, ICardDataTransfer, ICardEffect
         Vector3 startPos = StartLine.transform.position;
         Vector3 endPos = EndLine.transform.position;
         Vector3 direction = endPos - startPos;
+
         if (Physics.Raycast(startPos, direction, out RaycastHit hit))
         {
             Debug.Log($"Firebeam has been activated. Damage value is {_cardData.value}");
             if (hit.collider.GetComponent<EnemyCharacter>())
             {
+                Debug.Log("you just fired at an enemy");
                 var enemyController = hit.collider.GetComponent<EnemyCharacter>();
                 enemyController.TakeDamage(_cardData.value);
                 SwordBeam.endWidth = 2f;
@@ -123,6 +117,10 @@ public class AttackSwordHandler : MonoBehaviour, ICardDataTransfer, ICardEffect
 
                 ResetPlayerCardSelection();
                 Destroy(this.gameObject);
+            }
+            else
+            {
+                Debug.Log("didn't hit anything");
             }
         }
     }
@@ -134,7 +132,67 @@ public class AttackSwordHandler : MonoBehaviour, ICardDataTransfer, ICardEffect
 
     void Update()
     {
+        RaycastHit hit;
+        Vector3 bladeDirection = _bladeEnd.position - _bladeStart.position;
+        bool hasHit = Physics.Raycast(_bladeStart.position, bladeDirection, out hit, bladeDirection.magnitude, sliceableLayer);
+        if (hasHit)
+        {
+            ChargeSword(hit.transform.gameObject);
+            Slice(hit.transform.gameObject, hit.point, _velocityEstimator.GetVelocityEstimate());
+        }
         if (_currChargeCount >= _neededCharge)
             DisplaySwordBeam();
+    }
+
+    void ChargeSword(GameObject enemyProjectileGO)
+    {
+        var enemyProjectile = enemyProjectileGO.GetComponent<Enemy_projectile>();
+        _currChargeCount += enemyProjectile._chargeValue;
+        _swordMatHandler.SetMaterial(_currChargeCount, _neededCharge);
+    }
+
+    private void Slice(GameObject target, Vector3 planePosition, Vector3 bladeVelocity)
+    {
+        Vector3 bladeCutDirection = _bladeEnd.position - _bladeStart.position;
+        Vector3 planeNormal = Vector3.Cross(bladeVelocity, bladeCutDirection);
+        
+        SlicedHull hull = target.Slice(planePosition, planeNormal);
+        if(hull != null)
+        {
+            GameObject upperHull = hull.CreateUpperHull(target);
+            GameObject lowerHull = hull.CreateLowerHull(target);
+
+            CreateSlicedComponents(upperHull);
+            CreateSlicedComponents(lowerHull);
+
+            target.SetActive(false);
+        }
+
+    }
+
+    void CreateSlicedComponents(GameObject slicedHull)
+    {
+        Rigidbody rb = slicedHull.AddComponent<Rigidbody>();
+        MeshCollider collider = slicedHull.AddComponent<MeshCollider>();
+        collider.convex = true;
+
+        rb.AddExplosionForce(_cutVelocityForce, slicedHull.transform.position, 1);
+
+        Destroy(slicedHull, 2);
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("Ground"))
+        {
+            Reset();
+        }
+    }
+
+    void Reset()
+    {
+        _cardEffectEvent.RaiseEvent(_cardInfo.gameObject, _cardData);
+        ResetPlayerCardSelection();
+        Destroy(this.gameObject);
     }
 }

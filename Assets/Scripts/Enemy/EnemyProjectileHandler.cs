@@ -49,6 +49,7 @@ public class EnemyProjectileHandler : MonoBehaviour
     {
         CurrentStateProjectileHandler = ProjectileHandlerState.InProgress;
         SortAttackData();
+        BasicAttackData.Clear();
         StartCoroutine(BeginAttackAnimationCoroutine());
     }
     void SortAttackData()
@@ -78,19 +79,19 @@ public class EnemyProjectileHandler : MonoBehaviour
                 case SpawnLoactions.Top:
                     TopProjectileList.Add(BasicAttackData[i]);
                     break;
-            }            
+            }                     
         }
     }
 
     public IEnumerator BeginAttackAnimationCoroutine()
     {
-        CurrentStateProjectileHandler = ProjectileHandlerState.InProgress;
         yield return StartCoroutine(AttackAnimationCoroutine());
+        AttackOrder.Clear();
+
     }
 
     public IEnumerator AttackAnimationCoroutine()
     {
-        Debug.Log("Attack animation should start");
         WaitForSeconds waitBetweenAnimations = new WaitForSeconds(3.5f);
         for (int i = 0; i < AttackOrder.Count; i++)
         {
@@ -108,6 +109,7 @@ public class EnemyProjectileHandler : MonoBehaviour
             }
             yield return waitBetweenAnimations;
         }
+        CurrentStateProjectileHandler = ProjectileHandlerState.Complete;
     }
 
     public void LeftProjectileAttack()
@@ -131,10 +133,8 @@ public class EnemyProjectileHandler : MonoBehaviour
         portal.SetActive(true);
         for (int i = 0; i < projectileList.Count; i++)
         {
-            Debug.Log($"Firing attack {i} ");
             yield return new WaitForSeconds(projectileList[i].WaitBeforeAttackBegins);
             yield return StartCoroutine(SpawnBasicProjectiles(projectileList[i].ProjectileNumber, spawnLocation, projectileList[i].TimeBetweenProjectiles));
-            Debug.Log($"Waiting time before next attack is {projectileList[i].WaitAfterAttackEnds}");
             yield return new WaitForSeconds(projectileList[i].WaitAfterAttackEnds);
         }
         Debug.Log("There should only be one of this at the end");

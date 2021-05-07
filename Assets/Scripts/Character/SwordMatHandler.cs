@@ -27,27 +27,20 @@ public class SwordMatHandler : MonoBehaviour
     public void SetMaterial(float currentCharge, float neededCharge)
     {
         var currPercentCharge = currentCharge / neededCharge;
-
-        Debug.Log($"percentCharge is currently {currentCharge}");
-
         if(currPercentCharge == 0)
         {
-            Debug.Log($" The currPercentCharge is {currPercentCharge} and material is m_default");
             meshRend.materials = m_Default;
         }
         else if (currPercentCharge >= 0.3f && currPercentCharge <= 0.5f)
         {
-            Debug.Log($" The currPercentCharge is {currPercentCharge} and material is m_default");
             meshRend.materials = m_Default;
         }
         else if (currPercentCharge>= 0.5f && currPercentCharge < 1)
         {
-            Debug.Log($" The currPercentCharge is {currPercentCharge} and material is m_midcharged");
             meshRend.materials = m_MidCharged;
         }
         else if(currPercentCharge == 1)
         {
-            Debug.Log($" The currPercentCharge is {currPercentCharge} and material is full charged");
             meshRend.materials = m_FullCharged;
         }
     }

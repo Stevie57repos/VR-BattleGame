@@ -24,7 +24,7 @@ public class CountdownTimer : MonoBehaviour
         isCountDownComplete = true;
     }
 
-    public void StartTimer(int CountDownValue)
+    public void StartTimer(float CountDownValue)
     {
         isCountDownComplete = false;
         StartCoroutine(StartCountDown(CountDownValue));
