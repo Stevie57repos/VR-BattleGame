@@ -216,7 +216,7 @@ public class AttackSwordHandler : MonoBehaviour, ICardDataTransfer, ICardEffect
 
             PlaySliceSound();
             PlayRandomDestructionSound();
-            TriggerHaptics(0.5f, 0.3f);
+            TriggerHaptics(0.7f, 0.3f);
             target.SetActive(false);
         }
     }
