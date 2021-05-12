@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class SpellHealHandler : MonoBehaviour, ICardEffect, ICardDataTransfer
 {
@@ -9,10 +10,11 @@ public class SpellHealHandler : MonoBehaviour, ICardEffect, ICardDataTransfer
     private PlayerCharacter _player;
     public GameEvent Event_SpellHeal;
 
+    private XRController controller;
+
     [SerializeField] CharacterRegistry _characterRegistry;
     [SerializeField] CardEffectEventChannelSO _cardEffectEvent;
     [SerializeField] CardSelectionEventSO _cardSelectionEvent;
-
     private void Awake()
     {
         _player = _characterRegistry.Player.GetComponent<PlayerCharacter>();
@@ -74,6 +76,8 @@ public class SpellHealHandler : MonoBehaviour, ICardEffect, ICardDataTransfer
     {
         _cardSelectionEvent.RaiseEvent("None");
     }
-
-
+    public void PassController(XRController controller)
+    {
+        this.controller = controller;
+    }
 }

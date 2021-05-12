@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class SpellDamageHandler : MonoBehaviour, ICardEffect, ICardDataTransfer
 {
     private CardScriptableObject _cardData = null;
     private CardController _cardInfo = null;
+
+    private XRController controller;
 
     bool inAir = false;
     public Transform targetPos;
@@ -100,9 +103,12 @@ public class SpellDamageHandler : MonoBehaviour, ICardEffect, ICardDataTransfer
         enenyCharacter.TakeDamage(_cardData.value);
         _cardEffectEvent.RaiseEvent(cardObject, cardData);
     }
-
     void ResetPlayerCardSelection()
     {
         _cardSelectionEvent.RaiseEvent("None");
+    }
+    public void PassController(XRController controller)
+    {
+        this.controller = controller;
     }
 }

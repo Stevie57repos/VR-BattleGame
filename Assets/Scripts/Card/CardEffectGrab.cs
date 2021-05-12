@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR;
 
 public class CardEffectGrab : XRGrabInteractable
 {
@@ -23,12 +24,16 @@ public class CardEffectGrab : XRGrabInteractable
     {
         base.OnHoverExited(interactor);
         cardEffect.OnHoverExited();
+        
     }
 
     protected override void OnSelectEntered(XRBaseInteractor interactor)
     {
         base.OnSelectEntered(interactor);
         cardEffect.OnSelectEntered();
+        XRController controller = interactor.GetComponent<XRController>();
+        AttackSwordHandler swordHandler = GetComponent<AttackSwordHandler>();
+        swordHandler.PassController(controller);
     }
 
     protected override void OnSelectExited(XRBaseInteractor interactor)

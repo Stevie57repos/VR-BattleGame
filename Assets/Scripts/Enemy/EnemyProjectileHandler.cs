@@ -87,7 +87,6 @@ public class EnemyProjectileHandler : MonoBehaviour
     {
         yield return StartCoroutine(AttackAnimationCoroutine());
         AttackOrder.Clear();
-
     }
 
     public IEnumerator AttackAnimationCoroutine()

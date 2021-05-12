@@ -10,12 +10,12 @@ public class Enemy_projectile : MonoBehaviour
     public Transform targetPos;
     public float speed = 5f;
     public Rigidbody RBody;
-    [Range(0,10)]
+    [Range(0,10)]    
     [SerializeField] private float SelfDestructionTime = 6;
 
     private CountdownTimer _timer;
-
     [SerializeField] CharacterRegistry _characterRegistry;
+
 
     private void Awake()
     {

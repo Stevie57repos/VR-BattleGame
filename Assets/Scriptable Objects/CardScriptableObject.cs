@@ -25,7 +25,7 @@ public class CardScriptableObject : ScriptableObject
 
 	public bool singleUse;
 
-	public Sprite art;
+	public AudioClip CardSpawn;
 	public AudioClip soundRelease;
 	public AudioClip soundFlying;
 	public AudioClip soundHit;

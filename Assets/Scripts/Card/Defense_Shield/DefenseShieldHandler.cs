@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class DefenseShieldHandler : MonoBehaviour, ICardDataTransfer, ICardEffect
 {
     [SerializeField] private int _currDurability = 2;
     [SerializeField] PlayerCharacter _playerCharacter;
+
+    private XRController controller;
 
     private CardScriptableObject _cardData = null;
     private CardController _cardInfo = null;
@@ -94,5 +97,10 @@ public class DefenseShieldHandler : MonoBehaviour, ICardDataTransfer, ICardEffec
     public void OnDeactivate()
     {
 
+    }
+
+    public void PassController(XRController controller)
+    {
+        this.controller = controller;
     }
 }

@@ -10,18 +10,11 @@ public class SwordMatHandler : MonoBehaviour
     public Material[] m_MidCharged = new Material[3];
     public Material[] m_FullCharged = new Material[4];
 
-    Attack_Sword_Grab sword;
     Renderer meshRend;
 
     private void Awake()
     {
-        sword = GetComponent<Attack_Sword_Grab>();
         meshRend = swordMeshGO.GetComponent<MeshRenderer>();
-    }
-
-    private void Start()
-    {
-        SetMaterial(0, 1);
     }
 
     public void SetMaterial(float currentCharge, float neededCharge)
@@ -31,15 +24,15 @@ public class SwordMatHandler : MonoBehaviour
         {
             meshRend.materials = m_Default;
         }
-        else if (currPercentCharge >= 0.3f && currPercentCharge <= 0.5f)
+        else if (currPercentCharge >= 0.3f && currPercentCharge < 0.5f)
         {
             meshRend.materials = m_Default;
         }
-        else if (currPercentCharge>= 0.5f && currPercentCharge < 1)
+        else if (currPercentCharge >= 0.5f && currPercentCharge < 1)
         {
             meshRend.materials = m_MidCharged;
         }
-        else if(currPercentCharge == 1)
+        else if(currPercentCharge >= 1)
         {
             meshRend.materials = m_FullCharged;
         }

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94334315093459442bd44f6353cbe2c5, type: 3}
+  m_Name: Enemy_Projectile_Explosions
+  m_EditorClassIdentifier: 
+  SoundsArray:
+  - {fileID: 8300000, guid: beff1ef86e61d92449add44e95c512d8, type: 3}
+  - {fileID: 8300000, guid: cf60ef42bfae37646af2eb6b0825b90d, type: 3}
+  - {fileID: 8300000, guid: 5738c98d990e22c4f99290ebfbb51f9c, type: 3}
+  - {fileID: 8300000, guid: c1d3e9c1b1d22a346be6999ad1278006, type: 3}
