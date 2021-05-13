@@ -32,8 +32,7 @@ public class CardEffectGrab : XRGrabInteractable
         base.OnSelectEntered(interactor);
         cardEffect.OnSelectEntered();
         XRController controller = interactor.GetComponent<XRController>();
-        AttackSwordHandler swordHandler = GetComponent<AttackSwordHandler>();
-        swordHandler.PassController(controller);
+        cardEffect.PassController(controller);
     }
 
     protected override void OnSelectExited(XRBaseInteractor interactor)

@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 9218682980898559896}
   - component: {fileID: 1516812660339727019}
   - component: {fileID: 8753606855138447273}
+  - component: {fileID: 1536465049214129727}
   m_Layer: 0
   m_Name: Attack_SwordV2
   m_TagString: Untagged
@@ -317,12 +318,10 @@ MonoBehaviour:
   _currChargeCount: 3
   _neededCharge: 3
   _swordSounds: {fileID: 11400000, guid: 9fa93db1216e35946ada6a3b0711e758, type: 2}
-  _audioSource: {fileID: 8753606855138447273}
-  _LightningCast: {fileID: 8300000, guid: 81dbc2b345d4a4d8aa98f60aa04e5145, type: 3}
   _projectilerandomDestructionSounds: {fileID: 11400000, guid: 9535508e24f1f9b4e99000374d85f78b,
     type: 2}
-  _tempSoundPrefab: {fileID: 4582370762322393627, guid: adc31751574410b49ba17987f473f7b6,
-    type: 3}
+  _audioSource: {fileID: 8753606855138447273}
+  _LightningCast: {fileID: 8300000, guid: 81dbc2b345d4a4d8aa98f60aa04e5145, type: 3}
   StartLine: {fileID: 4349934688208251901}
   EndLine: {fileID: 5908563896142112165}
   SwordBeam: {fileID: 1803477334185345567}
@@ -339,7 +338,6 @@ MonoBehaviour:
   _cardEffectEvent: {fileID: 11400000, guid: da8ef699fbd93a5409d5b91caa88a6c7, type: 2}
   _cardSelectionEvent: {fileID: 11400000, guid: 3264c742e9141dc439f14460e04d5b7b,
     type: 2}
-  controller: {fileID: 0}
 --- !u!114 &1516812660339727019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -452,6 +450,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1536465049214129727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2486663204161808130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a17d89ba553c4244c834730214216175, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerSettings: {fileID: 11400000, guid: 7cc9accc7191ec3428a3b85e8bc0549d, type: 2}
 --- !u!1 &3095410770263079725
 GameObject:
   m_ObjectHideFlags: 0

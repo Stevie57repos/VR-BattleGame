@@ -439,7 +439,7 @@ PrefabInstance:
     - target: {fileID: 1885381074969262479, guid: 64fe679dce3e9774eadc8528d2ab7828,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1885381075085329266, guid: 64fe679dce3e9774eadc8528d2ab7828,
         type: 3}
@@ -542,7 +542,7 @@ MonoBehaviour:
   CardspawnSpotGO: {fileID: 1596552395}
   _cardPrefab: {fileID: 8021366866025846666, guid: 9a2a1e9d50797e740bfb778110c3f74e,
     type: 3}
-  _deckData: {fileID: 11400000, guid: 131a916b9e30fef41b6b120425a8508e, type: 2}
+  _deckData: {fileID: 11400000, guid: 03a4bc171d1a2c04498361a4dd16c6e5, type: 2}
   _gameManagerLossEvent: {fileID: 11400000, guid: 966e4a2382709594f8e365972795baef,
     type: 2}
   _gameManagerWonEvent: {fileID: 11400000, guid: f01c93f4f1b24db40958a695efedeaa8,
@@ -933,7 +933,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1302129991
 Transform:
   m_ObjectHideFlags: 0

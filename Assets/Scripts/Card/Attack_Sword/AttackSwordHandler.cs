@@ -14,7 +14,6 @@ public class AttackSwordHandler : MonoBehaviour, ICardDataTransfer, ICardEffect
     [SerializeField] SoundsListSO _projectilerandomDestructionSounds;
     [SerializeField] AudioSource _audioSource;
     [SerializeField] AudioClip _LightningCast;
-    //[SerializeField] GameObject _tempSoundPrefab;
 
     private CardScriptableObject _cardData = null;
     private CardController _cardInfo = null;
@@ -38,8 +37,7 @@ public class AttackSwordHandler : MonoBehaviour, ICardDataTransfer, ICardEffect
 
     private Rigidbody RbBody;
     private SwordMatHandler _swordMatHandler;
-
-    public XRController controller;
+    private HapticsManager _hapticsManager;
 
     public void TransferCardData(CardController cardInfo)
     {
@@ -54,6 +52,7 @@ public class AttackSwordHandler : MonoBehaviour, ICardDataTransfer, ICardEffect
         DisableSwordBeam();
         RbBody = GetComponent<Rigidbody>();
         _swordMatHandler = GetComponent<SwordMatHandler>();
+        _hapticsManager = GetComponent<HapticsManager>();
         PlaySliceSound();
     }
 
@@ -109,11 +108,6 @@ public class AttackSwordHandler : MonoBehaviour, ICardDataTransfer, ICardEffect
         }
     }
 
-    public void PassController(XRController controller)
-    {
-        this.controller = controller;
-    }
-
     void DisplaySwordBeam()
     {
         Vector3 startPos = StartLine.transform.position;
@@ -136,7 +130,7 @@ public class AttackSwordHandler : MonoBehaviour, ICardDataTransfer, ICardEffect
 
     void FireBeam()
     {
-        TriggerHaptics(0.5f, 0.3f);
+        _hapticsManager.TriggerHaptics(0.5f, 0.3f);
         SwordBeam.material = LaserBlastMaterial;
         SwordBeam.startWidth = 0.75f;
         SwordBeam.endWidth = 2f;
@@ -216,20 +210,8 @@ public class AttackSwordHandler : MonoBehaviour, ICardDataTransfer, ICardEffect
 
             PlaySliceSound();
             PlayRandomDestructionSound();
-            TriggerHaptics(0.7f, 0.3f);
+            _hapticsManager.TriggerHaptics(0.7f, 0.3f);
             target.SetActive(false);
-        }
-    }
-
-    void TriggerHaptics(float pulseStrength, float duration)
-    {
-        if(controller != null)
-        {
-            controller.SendHapticImpulse(pulseStrength, duration);
-        }
-        else
-        {
-            Debug.Log($"controller variable is currently empty and it is {controller.name}");
         }
     }
 
@@ -277,8 +259,16 @@ public class AttackSwordHandler : MonoBehaviour, ICardDataTransfer, ICardEffect
     {
         _cardEffectEvent.RaiseEvent(_cardInfo.gameObject, _cardData);
         //ResetPlayerCardSelection(0f);
-        controller = null;
+        _hapticsManager.ClearController();
         //Destroy(this.gameObject);
         Destroy(this.gameObject, SecondsBeforeDestruction);
+    }
+
+    public void PassController(XRController controller)
+    {
+        if (_hapticsManager == null)
+            _hapticsManager = GetComponent<HapticsManager>();
+
+        _hapticsManager.SetController(controller);
     }
 }
