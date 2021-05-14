@@ -13,21 +13,20 @@ public class CountdownTimer : MonoBehaviour
         isCountDownComplete = false;
     }
 
+    public void StartTimer(float CountDownValue)
+    {
+        isCountDownComplete = false;
+        StartCoroutine(StartCountDown(CountDownValue));
+    }
     private IEnumerator StartCountDown(float countDownValue)
     {
         currCowntDownValue = countDownValue;
-        while(currCowntDownValue > 0)
+        while (currCowntDownValue > 0)
         {
             yield return new WaitForSeconds(1.0f);
             currCowntDownValue--;
         }
         isCountDownComplete = true;
-    }
-
-    public void StartTimer(float CountDownValue)
-    {
-        isCountDownComplete = false;
-        StartCoroutine(StartCountDown(CountDownValue));
     }
 
     public bool CheckTimer()

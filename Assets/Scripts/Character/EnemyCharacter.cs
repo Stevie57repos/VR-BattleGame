@@ -6,6 +6,8 @@ using System;
 public class EnemyCharacter : Character_Base, ICharacter
 {
     private Animator _enemyAnimator;
+    private AudioSource _audioSource;
+    [SerializeField] SoundsListSO _enemyDamageSounds;
 
     public string NameCharacter { get { return _nameCharacter; } }
 
@@ -23,6 +25,7 @@ public class EnemyCharacter : Character_Base, ICharacter
     {
         base.Awake();
         _enemyAnimator = GetComponent<Animator>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     public GameObject getGameObject()
@@ -37,6 +40,9 @@ public class EnemyCharacter : Character_Base, ICharacter
             Health -= damageAmount;
             HealthUpdate.Raise();
             _enemyAnimator.SetTrigger("Damage_Hit");
+            AudioClip randomClip = _enemyDamageSounds.SoundsArray[UnityEngine.Random.Range(0, _enemyDamageSounds.SoundsArray.Length)];
+            PlayEnemyDamageSound(randomClip);
+
         }
         else if ((Health - damageAmount) <= 0)
         {
@@ -47,6 +53,11 @@ public class EnemyCharacter : Character_Base, ICharacter
         }
     }
 
+    void PlayEnemyDamageSound(AudioClip randomClip)
+    {
+        _audioSource.PlayOneShot(randomClip);
+    }
+
     public override void SpendMana(int spellCost)
     {
         Mana -= spellCost;
@@ -55,6 +66,6 @@ public class EnemyCharacter : Character_Base, ICharacter
 
     public override void HealHealth(int healthAmount)
     {
-
+        Health += healthAmount;
     }
 }

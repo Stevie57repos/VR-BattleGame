@@ -7,8 +7,12 @@ public class SpellDamageHandler : MonoBehaviour, ICardEffect, ICardDataTransfer
 {
     private CardScriptableObject _cardData = null;
     private CardController _cardInfo = null;
+    
+    [SerializeField] HapticsManager _hapticsManager;
 
-    private XRController controller;
+    [SerializeField] AudioSource _audioSource;
+    [SerializeField] AudioClip _idleSpell;
+    [SerializeField] SoundsListSO _castSpell;
 
     bool inAir = false;
     public Transform targetPos;
@@ -21,6 +25,15 @@ public class SpellDamageHandler : MonoBehaviour, ICardEffect, ICardDataTransfer
     {
         targetPos = _characterRegistry.CurrentEnemy.transform;
         inAir = false;
+        if(_hapticsManager == null)
+            _hapticsManager = GetComponent<HapticsManager>();
+
+        if (_audioSource == null)
+            _audioSource = GetComponent<AudioSource>();
+
+        _audioSource.clip = _idleSpell;
+        _audioSource.loop = true;
+        _audioSource.Play();
     }
 
     public void TransferCardData(CardController cardInfo)
@@ -47,6 +60,10 @@ public class SpellDamageHandler : MonoBehaviour, ICardEffect, ICardDataTransfer
     public void OnSelectExited()
     {
         inAir = true;
+        _audioSource.Stop();
+        _audioSource.loop = false;
+        AudioClip randomClip = _castSpell.SoundsArray[UnityEngine.Random.Range(0, _castSpell.SoundsArray.Length)];
+        _audioSource.PlayOneShot(randomClip);
     }
     public void OnActivate()
     {
@@ -92,10 +109,24 @@ public class SpellDamageHandler : MonoBehaviour, ICardEffect, ICardDataTransfer
     {
         if (Vector3.Distance(transform.position, target.position) < 1.5f)
         {
-            SpellDamageEvent(_cardInfo.gameObject, _cardData);
-            ResetPlayerCardSelection();
-            Destroy(this.gameObject);
+            SpellProjectileDestruction();
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.GetComponent<EnemyCharacter>())
+        {
+            SpellProjectileDestruction();
+        }
+    }
+
+    void SpellProjectileDestruction()
+    {
+        StopAllCoroutines();
+        SpellDamageEvent(_cardInfo.gameObject, _cardData);
+        ResetPlayerCardSelection();
+        Destroy(this.gameObject, 0.5f);
     }
     void SpellDamageEvent(GameObject cardObject, CardScriptableObject cardData)
     {
@@ -109,6 +140,10 @@ public class SpellDamageHandler : MonoBehaviour, ICardEffect, ICardDataTransfer
     }
     public void PassController(XRController controller)
     {
-        this.controller = controller;
+        if (_hapticsManager == null)
+            _hapticsManager = GetComponent<HapticsManager>();
+
+        _hapticsManager.SetController(controller);
+        _hapticsManager.TriggerHaptics(0.3f, 0.3f);
     }
 }

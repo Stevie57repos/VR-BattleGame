@@ -32,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 4945351958919720738}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -129,9 +129,13 @@ MonoBehaviour:
   targetPos: {fileID: 0}
   speed: 5
   RBody: {fileID: 0}
+  MaxValueRandomX: 0.36
+  MinValueRandomX: -0.62
   SelfDestructionTime: 8.09
   _characterRegistry: {fileID: 11400000, guid: d574c7e257a701f40bf7bfef9748e6f9, type: 2}
-  _explosionsSounds: {fileID: 11400000, guid: 9535508e24f1f9b4e99000374d85f78b, type: 2}
+  _explosionSounds: {fileID: 11400000, guid: 9535508e24f1f9b4e99000374d85f78b, type: 2}
+  _meshRend: {fileID: 7959748412396211020}
+  _sphereCol: {fileID: 5844347805861772992}
 --- !u!114 &691488176993368401
 MonoBehaviour:
   m_ObjectHideFlags: 0

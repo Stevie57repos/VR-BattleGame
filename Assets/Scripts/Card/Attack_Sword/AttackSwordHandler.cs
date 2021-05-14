@@ -270,5 +270,6 @@ public class AttackSwordHandler : MonoBehaviour, ICardDataTransfer, ICardEffect
             _hapticsManager = GetComponent<HapticsManager>();
 
         _hapticsManager.SetController(controller);
+        _hapticsManager.TriggerHaptics(0.3f, 0.3f);
     }
 }

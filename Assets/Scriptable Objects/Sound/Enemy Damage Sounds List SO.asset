@@ -9,7 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d4b1f5b16d8b564e904fa963595b9f1, type: 3}
-  m_Name: Player Settings
+  m_Script: {fileID: 11500000, guid: 94334315093459442bd44f6353cbe2c5, type: 3}
+  m_Name: Enemy Damage Sounds List SO
   m_EditorClassIdentifier: 
-  isHapticsOn: 0
+  SoundsArray:
+  - {fileID: 8300000, guid: 85a0a2ee5a15b0e40a0161d7a7a1965d, type: 3}
+  - {fileID: 8300000, guid: fef04b4c2cf7db04db5be032882cae63, type: 3}

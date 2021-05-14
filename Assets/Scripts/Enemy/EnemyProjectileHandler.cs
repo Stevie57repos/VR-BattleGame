@@ -154,6 +154,10 @@ public class EnemyProjectileHandler : MonoBehaviour
                 projectile.SetActive(true);              
                 yield return new WaitForSeconds(timeBetweenProjectiles);
             }
+            else
+            {
+                Debug.Log("projectile retrieval returned null");
+            }
         }
     }
 

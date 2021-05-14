@@ -45,7 +45,6 @@ public class DefenseShieldHandler : MonoBehaviour, ICardDataTransfer, ICardEffec
         _shieldMeshRender = _shieldModelGO.GetComponent<MeshRenderer>();
         _collider = _shieldModelGO.GetComponent<BoxCollider>();
         _hapticsManager = GetComponent<HapticsManager>();
-        _hapticsManager.TriggerHaptics(0.3f, 0.2f);
     }
 
     private void OnCollisionEnter(Collision other)
@@ -134,6 +133,8 @@ public class DefenseShieldHandler : MonoBehaviour, ICardDataTransfer, ICardEffec
     {
         if (_hapticsManager == null)
             _hapticsManager = GetComponent<HapticsManager>();
+
         _hapticsManager.SetController(controller);
+        _hapticsManager.TriggerHaptics(0.3f, 0.3f);
     }
 }

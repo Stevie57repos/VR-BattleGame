@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94334315093459442bd44f6353cbe2c5, type: 3}
+  m_Name: FireBall Casting
+  m_EditorClassIdentifier: 
+  SoundsArray:
+  - {fileID: 8300000, guid: eab4c6c1b74397e45b2206121392784e, type: 3}
+  - {fileID: 8300000, guid: e12add94a3a5e8340902f49ec4ab8d0f, type: 3}
+  - {fileID: 8300000, guid: 4b03f2902bfba384989464c11681b6c1, type: 3}
+  - {fileID: 8300000, guid: 6355345c325c3fc48920dd726e75845a, type: 3}
+  - {fileID: 8300000, guid: 234e65171b5f2474f811f861c29a3cef, type: 3}
+  - {fileID: 8300000, guid: 9801d63584b2c9b46aaa861de92c2e41, type: 3}
+  - {fileID: 8300000, guid: 6b2d88d48076432499d38ea94da084a9, type: 3}
+  - {fileID: 8300000, guid: c0f4fea170ce88748857aedc95c52f33, type: 3}
