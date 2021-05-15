@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9682257d9976bf04cb5297c3092bd509, type: 3}
-  m_Name: EnemyOne
+  m_Name: EnemyOne Data
   m_EditorClassIdentifier: 
   NameCharacter: EnemyOne
-  Health: 10
+  Health: 20
   MaxHealth: 10
   Mana: 10
   MaxMana: 10

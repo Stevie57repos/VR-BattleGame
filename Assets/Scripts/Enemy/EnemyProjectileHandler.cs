@@ -10,14 +10,16 @@ public class EnemyProjectileHandler : MonoBehaviour
 { 
     public ProjectileHandlerState CurrentStateProjectileHandler;
     public EnemyProjectileObjectPool EnemyProjectilePool;
+
     public List<Transform> BasicProjectileSpawnLocations = new List<Transform>();
+    public GameObject[] Portals = new GameObject[3];
 
     public List<BasicAttackData> BasicAttackData = new List<BasicAttackData>();
     public List<BasicAttackData> LeftProjectileList = new List<BasicAttackData>();
     public List<BasicAttackData> RightProjectileList = new List<BasicAttackData>();
     public List<BasicAttackData> TopProjectileList = new List<BasicAttackData>();
     public List<BasicAttackData> AttackOrder = new List<BasicAttackData>();
-    public GameObject[] Portals = new GameObject[3];
+
 
     public static readonly int AttackLeft = Animator.StringToHash("Attack_Left");
     public static readonly int AttackRight = Animator.StringToHash("Attack_Right");
@@ -133,7 +135,7 @@ public class EnemyProjectileHandler : MonoBehaviour
         for (int i = 0; i < projectileList.Count; i++)
         {
             yield return new WaitForSeconds(projectileList[i].WaitBeforeAttackBegins);
-            yield return StartCoroutine(SpawnBasicProjectiles(projectileList[i].ProjectileNumber, spawnLocation, projectileList[i].TimeBetweenProjectiles));
+            yield return StartCoroutine(SpawnBasicProjectiles(projectileList[i].ProjectileNumber, portal.transform, projectileList[i].TimeBetweenProjectiles));
             yield return new WaitForSeconds(projectileList[i].WaitAfterAttackEnds);
         }
         Debug.Log("There should only be one of this at the end");

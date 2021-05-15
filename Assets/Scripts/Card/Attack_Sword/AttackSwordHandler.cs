@@ -154,8 +154,7 @@ public class AttackSwordHandler : MonoBehaviour, ICardDataTransfer, ICardEffect
         }
         else
         {
-            Debug.Log("didn't hit anything");
-            
+            Debug.Log("didn't hit anything");           
             Reset(1f);
         }
     }
@@ -258,9 +257,7 @@ public class AttackSwordHandler : MonoBehaviour, ICardDataTransfer, ICardEffect
     void Reset(float SecondsBeforeDestruction)
     {
         _cardEffectEvent.RaiseEvent(_cardInfo.gameObject, _cardData);
-        //ResetPlayerCardSelection(0f);
         _hapticsManager.ClearController();
-        //Destroy(this.gameObject);
         Destroy(this.gameObject, SecondsBeforeDestruction);
     }
 

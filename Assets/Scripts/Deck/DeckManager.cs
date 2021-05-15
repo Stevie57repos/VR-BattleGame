@@ -16,6 +16,8 @@ public class DeckManager : MonoBehaviour
     [SerializeField] GameManagerEventChannelSO _gameManagerWonEvent;
     [SerializeField] GameManagerEventChannelSO _gameManagerBattleStart;
     [SerializeField] CardEffectEventChannelSO _cardEffectEvent;
+    [SerializeField] CharacterRegistry _characterRegistry;
+    private PlayerController _playerController;
 
     [Header("Card List")]
     public List<CardScriptableObject> deck;
@@ -178,6 +180,10 @@ public class DeckManager : MonoBehaviour
     private void NewTurnV2(GameObject cardObject, CardScriptableObject cardData)
     {
         UpdateCardLists(cardObject, cardData);
+        if (_playerController == null)
+            _playerController = _characterRegistry.Player.GetComponent<PlayerController>();
+        _playerController.CurrentStatus = PlayerStatus.Idle;
+
         if (_gameManager.CheckIfInBattleState())
         {
             CardUnselected();

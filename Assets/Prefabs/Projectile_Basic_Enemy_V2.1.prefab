@@ -127,10 +127,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _chargeValue: 1
   targetPos: {fileID: 0}
-  speed: 5
-  RBody: {fileID: 0}
+  speed: 6.12
+  RBody: {fileID: 9081342521655140643}
   MaxValueRandomX: 0.36
   MinValueRandomX: -0.62
+  MaxValueRandomY: 0
   SelfDestructionTime: 8.09
   _characterRegistry: {fileID: 11400000, guid: d574c7e257a701f40bf7bfef9748e6f9, type: 2}
   _explosionSounds: {fileID: 11400000, guid: 9535508e24f1f9b4e99000374d85f78b, type: 2}
@@ -207,7 +208,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0

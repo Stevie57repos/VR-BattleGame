@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "PluggableAI/Decisions/AttackTypeSelection")]
-public class AttackTypeSelection : Decision
+[CreateAssetMenu(menuName = "PluggableAI/Decisions/DefenseTypeSelection")]
+public class DefenseTypeSelection : Decision
 {
     public override bool Decide(EnemyStateController controller)
     {
         var cardType = controller.PlayerControl.CardType;
-        if (cardType == CardTypeSelected.Attack)
+        if (cardType == CardTypeSelected.Defend )
         {
             Debug.Log($"Decision detected that it card selected was spell damage");
             cardType = CardTypeSelected.None;
@@ -16,6 +16,6 @@ public class AttackTypeSelection : Decision
             return true;
         }
         else
-            return false;      
+            return false;
     }
 }

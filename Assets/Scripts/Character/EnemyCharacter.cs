@@ -42,7 +42,6 @@ public class EnemyCharacter : Character_Base, ICharacter
             _enemyAnimator.SetTrigger("Damage_Hit");
             AudioClip randomClip = _enemyDamageSounds.SoundsArray[UnityEngine.Random.Range(0, _enemyDamageSounds.SoundsArray.Length)];
             PlayEnemyDamageSound(randomClip);
-
         }
         else if ((Health - damageAmount) <= 0)
         {

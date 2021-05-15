@@ -9,7 +9,9 @@ public class Enemy_projectile : MonoBehaviour
     // TO DO : make private later and set properties
     public int _chargeValue = 1;
     public Transform targetPos;
-    public float speed = 5f;
+
+    [Range(2,10)]
+    public float speed;
     public Rigidbody RBody;
 
     [Range(0.05f, 5f)]
@@ -35,14 +37,6 @@ public class Enemy_projectile : MonoBehaviour
         RBody = GetComponent<Rigidbody>();
         _timer = GetComponent<CountdownTimer>();
 
-        if(_meshRend == null)
-            _meshRend = GetComponent<MeshRenderer>();
-        _meshRend.enabled = true;
-        
-        if(_sphereCol == null)       
-            _sphereCol = GetComponent<SphereCollider>();
-         _sphereCol.enabled = true;
-
         if (_audioSource == null)
             _audioSource = GetComponent<AudioSource>();
     }
@@ -52,6 +46,13 @@ public class Enemy_projectile : MonoBehaviour
         StopMomentum();
         StartCoroutine(MoveToTargetCoroutine(targetPos));
         StartTimer(SelfDestructionTime);
+        if (_meshRend == null)
+            _meshRend = GetComponent<MeshRenderer>();
+        _meshRend.enabled = true;
+
+        if (_sphereCol == null)
+            _sphereCol = GetComponent<SphereCollider>();
+        _sphereCol.enabled = true;
     }
 
     void StartTimer(float TimerValue)
@@ -93,37 +94,32 @@ public class Enemy_projectile : MonoBehaviour
         float randomX = UnityEngine.Random.Range(MinValueRandomX, MaxValueRandomX);
         float randomY = UnityEngine.Random.Range(0.25f, MaxValueRandomY);
         Vector3 newTargetPos = new Vector3((target.position.x + randomX), (target.position.y + randomY), target.position.z);
-        Debug.Log("Target pos is " + target.position);
-        Debug.Log("newtargetpos is " + newTargetPos);
         Vector3 direction = newTargetPos - transform.position;
         Vector3 directionNorm = direction.normalized;
         RBody.velocity = directionNorm * speed;
-    }
 
+    }
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.GetComponent<PlayerCharacter>())
         {
-            _meshRend.enabled = false;
-            _sphereCol.enabled = false;
-            AudioClip randomClip = _explosionSounds.SoundsArray[UnityEngine.Random.Range(0, _explosionSounds.SoundsArray.Length)];
-            _audioSource.PlayOneShot(randomClip);
             other.gameObject.GetComponent<PlayerCharacter>().TakeDamage(_chargeValue);
-            Invoke("DisableProjectile", 1.25f);
-        }
-        else if (other.gameObject.GetComponent<Enemy_projectile>())
-        {
-
+            StartCoroutine(DisableProjectile(1.25f));
         }
         else
         {
-            Debug.Log($"projectile destroyed because it touched {other.gameObject.name}");            
-            this.gameObject.SetActive(false);
+            Debug.Log($"projectile destroyed because it touched {other.gameObject.name}");
+            StartCoroutine(DisableProjectile(1.25f));
         }
     }
 
-    private void DisableProjectile()
+   IEnumerator DisableProjectile(float secondsDelay)
     {
+        _meshRend.enabled = false;
+        _sphereCol.enabled = false;
+        AudioClip randomClip = _explosionSounds.SoundsArray[UnityEngine.Random.Range(0, _explosionSounds.SoundsArray.Length)];
+        _audioSource.PlayOneShot(randomClip);
+        yield return new WaitForSeconds(secondsDelay);
         this.gameObject.SetActive(false);
     }
 

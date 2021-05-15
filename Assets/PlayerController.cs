@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum PlayerStatus { Idle, InProgress }
 public enum CardTypeSelected { None, Attack, SpellDamage, Defend, SpellHeal }
 public class PlayerController : MonoBehaviour
 {
+    public PlayerStatus CurrentStatus;
     public CardTypeSelected CardType;
     private Dictionary<string, CardTypeSelected> CardTypeDictionary = new Dictionary<string, CardTypeSelected>();
     [SerializeField] CardSelectionEventSO _cardSelectionEvent;
@@ -27,6 +29,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         CardType = CardTypeSelected.None;
+        CurrentStatus = PlayerStatus.Idle;
     }
 
     private void LoadDictionary()

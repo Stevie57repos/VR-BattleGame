@@ -36,7 +36,6 @@ public class UIBattleMenuController : UIMenuController
     private void Start()
     {
         StartBattle();
-
     }
 
     private void GetTextMesh()
