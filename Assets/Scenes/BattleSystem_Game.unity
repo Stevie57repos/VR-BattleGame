@@ -218,7 +218,7 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 2
   m_Height: 2
-  m_Radius: 0.5
+  m_Radius: 1
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
@@ -545,7 +545,7 @@ MonoBehaviour:
   CardspawnSpotGO: {fileID: 781238248}
   _cardPrefab: {fileID: 8021366866025846666, guid: 9a2a1e9d50797e740bfb778110c3f74e,
     type: 3}
-  _deckData: {fileID: 11400000, guid: 131a916b9e30fef41b6b120425a8508e, type: 2}
+  _deckData: {fileID: 11400000, guid: 01f08dcaf0a06fa4b9a75aa1252e2149, type: 2}
   _gameManagerLossEvent: {fileID: 11400000, guid: 966e4a2382709594f8e365972795baef,
     type: 2}
   _gameManagerWonEvent: {fileID: 11400000, guid: f01c93f4f1b24db40958a695efedeaa8,

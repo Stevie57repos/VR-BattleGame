@@ -47,8 +47,11 @@ public class EnemyCharacter : Character_Base, ICharacter
         {
             Health = 0;
             HealthUpdate.Raise();
-            WonEvent.RaiseEvent();
-            Destroy(this.gameObject);
+            AudioClip randomClip = _enemyDamageSounds.SoundsArray[UnityEngine.Random.Range(0, _enemyDamageSounds.SoundsArray.Length)];
+            _enemyAnimator.SetBool("isDead", true);
+            Debug.Log("isdead");
+            //WonEvent.RaiseEvent();
+            //Destroy(this.gameObject);
         }
     }
 

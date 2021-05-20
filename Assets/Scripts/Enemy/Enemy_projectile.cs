@@ -97,7 +97,6 @@ public class Enemy_projectile : MonoBehaviour
         Vector3 direction = newTargetPos - transform.position;
         Vector3 directionNorm = direction.normalized;
         RBody.velocity = directionNorm * speed;
-
     }
     private void OnCollisionEnter(Collision other)
     {
@@ -105,6 +104,10 @@ public class Enemy_projectile : MonoBehaviour
         {
             other.gameObject.GetComponent<PlayerCharacter>().TakeDamage(_chargeValue);
             StartCoroutine(DisableProjectile(1.25f));
+        }
+        else if(other.gameObject.GetComponent<SpellDamageHandler>())
+        {
+
         }
         else
         {

@@ -8,11 +8,11 @@ public class AttackTypeSelection : Decision
     public override bool Decide(EnemyStateController controller)
     {
         var playerController = controller.PlayerControl;
-        if (playerController.CardType == CardTypeSelected.Attack && playerController.CurrentStatus == PlayerStatus.Idle) 
+        if (playerController.CardType == CardTypeSelected.Attack && playerController.CurrentStatus == PlayerStatus.isIdle) 
         {
             Debug.Log($"Decision detected that it card selected was Attack Card");
             playerController.CardType = CardTypeSelected.None;
-            playerController.CurrentStatus = PlayerStatus.InProgress;
+            playerController.CurrentStatus = PlayerStatus.isInProgress;
             return true;
         }
         else

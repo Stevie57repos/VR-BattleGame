@@ -11,8 +11,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.64220715, y: 0.63363254, z: 0.03211036}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.81422985, y: 0.8167425, z: 0.22258615}
+  m_Center: {x: -0.018880546, y: -0.03188315, z: 0.095237896}
 --- !u!1 &1819870754910609277
 GameObject:
   m_ObjectHideFlags: 0
@@ -27,7 +27,7 @@ GameObject:
   - component: {fileID: 9107642754355738868}
   - component: {fileID: 995490835913119304}
   - component: {fileID: 9025648453171663448}
-  m_Layer: 8
+  m_Layer: 13
   m_Name: Defend_Shield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -381,7 +381,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: e968d8456ff9d324c95f7a4dae4150c9,
         type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e968d8456ff9d324c95f7a4dae4150c9, type: 3}

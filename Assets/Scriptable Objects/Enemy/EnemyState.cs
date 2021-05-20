@@ -20,6 +20,7 @@ public class EnemyState : ScriptableObject
             EnterStateActions[i].Act(controller);
         }
     }
+
     public void UpdateStateActions(EnemyStateController controller)
     {
         DoUpdateActions(controller);

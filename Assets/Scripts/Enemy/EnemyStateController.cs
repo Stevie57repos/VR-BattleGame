@@ -14,6 +14,8 @@ public class EnemyStateController : MonoBehaviour
     public PlayerController PlayerControl;
     public CountdownTimer Timer;
     public Animator CubeBossAnimator;
+    public GameObject CubeModelTargetGO;
+    public EnemyState isDeadState;
 
     private void Awake()
     {
@@ -42,4 +44,20 @@ public class EnemyStateController : MonoBehaviour
             currentState?.EnterState(this);
         }
     }
+    public void EnterDeadState()
+    {
+        TransitionToState(isDeadState);
+        Destroy(this.gameObject, 3.5f);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(currentState == isDeadState)
+        {
+            _enemyCharacter.WonEvent.RaiseEvent();
+            Debug.Log("won event has been called");
+            Destroy(this.gameObject);
+        }
+    }
+
 }

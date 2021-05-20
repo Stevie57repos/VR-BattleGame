@@ -24,9 +24,7 @@ public class EndBasicAttack : Decision
     {
         if (enemyProjectileHandler.CurrentStateProjectileHandler == ProjectileHandlerState.Complete)
         {
-            Debug.Log($"enemy projectile handler status is complete");
-            enemyProjectileHandler.CurrentStateProjectileHandler = ProjectileHandlerState.Idle;
-            Debug.Log($"enemy projectile is complete and handler status is resetting and is now {enemyProjectileHandler.CurrentStateProjectileHandler}");
+            enemyProjectileHandler.CurrentStateProjectileHandler = ProjectileHandlerState.Idle;     
             return true;
         }
         else

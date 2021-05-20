@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7869416583438649150}
   - component: {fileID: 8255823438767220840}
   - component: {fileID: 1879277836530826212}
-  m_Layer: 8
+  m_Layer: 13
   m_Name: Spell_Heal
   m_TagString: Untagged
   m_Icon: {fileID: 0}

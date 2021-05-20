@@ -10,6 +10,8 @@ public class AttackSwordHandler : MonoBehaviour, ICardDataTransfer, ICardEffect
     [SerializeField] private float _currChargeCount = 0;
     [SerializeField] private float _neededCharge = 3;
 
+    [SerializeField] Material testMaterial;
+
     [SerializeField] SoundsListSO _swordSounds;
     [SerializeField] SoundsListSO _projectilerandomDestructionSounds;
     [SerializeField] AudioSource _audioSource;
@@ -242,8 +244,14 @@ public class AttackSwordHandler : MonoBehaviour, ICardDataTransfer, ICardEffect
         MeshCollider collider = slicedHull.AddComponent<MeshCollider>();
         collider.convex = true;
 
+        DissolveV2 dissolveV2 = slicedHull.AddComponent<DissolveV2>();
+        MeshRenderer meshRend = slicedHull.GetComponent<MeshRenderer>();
+        Material[] tempMat = new Material[] { testMaterial};
+        meshRend.materials = tempMat;
+        dissolveV2.BeginDissolve();
+
         rb.AddExplosionForce(_cutVelocityForce, slicedHull.transform.position, 1);
-        Destroy(slicedHull, 2);
+        //Destroy(slicedHull, 2);
     }
 
     private void OnCollisionEnter(Collision other)

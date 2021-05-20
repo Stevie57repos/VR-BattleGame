@@ -136,9 +136,9 @@ public class EnemyProjectileHandler : MonoBehaviour
         {
             yield return new WaitForSeconds(projectileList[i].WaitBeforeAttackBegins);
             yield return StartCoroutine(SpawnBasicProjectiles(projectileList[i].ProjectileNumber, portal.transform, projectileList[i].TimeBetweenProjectiles));
-            yield return new WaitForSeconds(projectileList[i].WaitAfterAttackEnds);
+            if(projectileList[i] != null)
+                yield return new WaitForSeconds(projectileList[i].WaitAfterAttackEnds);
         }
-        Debug.Log("There should only be one of this at the end");
         portal.SetActive(false);
         projectileList.Clear();
     }

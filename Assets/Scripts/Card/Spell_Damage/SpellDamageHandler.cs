@@ -13,17 +13,24 @@ public class SpellDamageHandler : MonoBehaviour, ICardEffect, ICardDataTransfer
     [SerializeField] AudioSource _audioSource;
     [SerializeField] AudioClip _idleSpell;
     [SerializeField] SoundsListSO _castSpell;
+    [SerializeField] AudioClip _chargeSpell;
 
     bool inAir = false;
-    public Transform targetPos;
+    //public Transform targetPos;
+    private GameObject targetGO;
     [SerializeField] private float speed;
     [SerializeField] CardEffectEventChannelSO _cardEffectEvent;
     [SerializeField] CharacterRegistry _characterRegistry;
     [SerializeField] CardSelectionEventSO _cardSelectionEvent;
 
+    [SerializeField] SphereCollider _sphereCol;
+    [SerializeField] Rigidbody _rBody;
+    private int _currentSpellDamage;
+    [SerializeField] int maxAdditionalCharge = 1;
+    private int maxCharge;
+
     private void Awake()
     {
-        targetPos = _characterRegistry.CurrentEnemy.transform;
         inAir = false;
         if(_hapticsManager == null)
             _hapticsManager = GetComponent<HapticsManager>();
@@ -40,6 +47,8 @@ public class SpellDamageHandler : MonoBehaviour, ICardEffect, ICardDataTransfer
     {
         _cardInfo = cardInfo;
         _cardData = cardInfo.CardData;
+        _currentSpellDamage = _cardData.value;
+        maxCharge = _cardData.value + maxAdditionalCharge;
     }
 
     public void OnHoverEntered()
@@ -64,6 +73,8 @@ public class SpellDamageHandler : MonoBehaviour, ICardEffect, ICardDataTransfer
         _audioSource.loop = false;
         AudioClip randomClip = _castSpell.SoundsArray[UnityEngine.Random.Range(0, _castSpell.SoundsArray.Length)];
         _audioSource.PlayOneShot(randomClip);
+        targetGO = _characterRegistry.CurrentEnemy.GetComponent<EnemyStateController>().CubeModelTargetGO;
+        StartCoroutine(MoveToTargetCoroutine(targetGO));
     }
     public void OnActivate()
     {
@@ -79,14 +90,17 @@ public class SpellDamageHandler : MonoBehaviour, ICardEffect, ICardDataTransfer
     {
         if (inAir)
         {
-            StartCoroutine(MoveToTargetCoroutine(targetPos));
+            //StartCoroutine(MoveToTargetCoroutine(targetPos
+            CheckDistance(targetGO);
         }
-        CheckDistance(targetPos);
+
     }
 
-    IEnumerator MoveToTargetCoroutine(Transform target)
+    IEnumerator MoveToTargetCoroutine(GameObject targetGO)
     {
         yield return new WaitForSeconds(1.5f);
+
+        var target = targetGO.transform;
 
         while (Vector3.Distance(transform.position, target.position) > 1.5f)
         {
@@ -105,9 +119,9 @@ public class SpellDamageHandler : MonoBehaviour, ICardEffect, ICardDataTransfer
         }
     }
 
-    void CheckDistance(Transform target)
+    void CheckDistance(GameObject target)
     {
-        if (Vector3.Distance(transform.position, target.position) < 1.5f)
+        if (Vector3.Distance(transform.position, target.transform.position) < 1.5f && target != null)
         {
             SpellProjectileDestruction();
         }
@@ -119,19 +133,40 @@ public class SpellDamageHandler : MonoBehaviour, ICardEffect, ICardDataTransfer
         {
             SpellProjectileDestruction();
         }
+        else if (collision.gameObject.GetComponent<Enemy_projectile>()) 
+        {
+            _audioSource.PlayOneShot(_chargeSpell);
+            ChargeSpell();
+            collision.gameObject.SetActive(false);
+        }
+    }
+
+    private void ChargeSpell()
+    {
+        _currentSpellDamage++;
+        if(_currentSpellDamage > maxCharge)      
+            _currentSpellDamage = maxCharge;       
     }
 
     void SpellProjectileDestruction()
     {
         StopAllCoroutines();
+        StopMomentum();
         SpellDamageEvent(_cardInfo.gameObject, _cardData);
         ResetPlayerCardSelection();
         Destroy(this.gameObject, 0.5f);
     }
+    private void StopMomentum()
+    {
+        if (_rBody == null)
+            _rBody = GetComponent<Rigidbody>();
+        _rBody.velocity = Vector3.zero;
+        _rBody.angularVelocity = Vector3.zero;
+    }
     void SpellDamageEvent(GameObject cardObject, CardScriptableObject cardData)
     {
         EnemyCharacter enenyCharacter = _characterRegistry.CurrentEnemy.GetComponent<EnemyCharacter>();
-        enenyCharacter.TakeDamage(_cardData.value);
+        enenyCharacter.TakeDamage(_currentSpellDamage);
         _cardEffectEvent.RaiseEvent(cardObject, cardData);
     }
     void ResetPlayerCardSelection()

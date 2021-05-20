@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5551380411371420417}
   - component: {fileID: 862861903069784035}
   - component: {fileID: 392324993197773776}
-  m_Layer: 8
+  m_Layer: 13
   m_Name: Spell_Damage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48,7 +48,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.2
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &7072798370393411826
 Rigidbody:
@@ -159,12 +159,16 @@ MonoBehaviour:
   _audioSource: {fileID: 392324993197773776}
   _idleSpell: {fileID: 8300000, guid: 9af99e99d070a1d40af2933f28186bfa, type: 3}
   _castSpell: {fileID: 11400000, guid: e128a65c02d42dd4eb29270107c2bf4f, type: 2}
+  _chargeSpell: {fileID: 8300000, guid: 9af99e99d070a1d40af2933f28186bfa, type: 3}
   targetPos: {fileID: 0}
-  speed: 0.5
+  speed: 5
   _cardEffectEvent: {fileID: 11400000, guid: da8ef699fbd93a5409d5b91caa88a6c7, type: 2}
   _characterRegistry: {fileID: 11400000, guid: d574c7e257a701f40bf7bfef9748e6f9, type: 2}
   _cardSelectionEvent: {fileID: 11400000, guid: 3264c742e9141dc439f14460e04d5b7b,
     type: 2}
+  _sphereCol: {fileID: 8829282715099153096}
+  _rBody: {fileID: 7072798370393411826}
+  maxAdditionalCharge: 1
 --- !u!114 &862861903069784035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -364,7 +368,7 @@ SphereCollider:
   m_GameObject: {fileID: 8061537138354684682}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.3
   m_Center: {x: 0, y: 0, z: 0}

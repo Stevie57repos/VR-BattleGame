@@ -9,7 +9,7 @@ public class DefenseShieldHandler : MonoBehaviour, ICardDataTransfer, ICardEffec
     [SerializeField] PlayerCharacter _playerCharacter;
 
     private XRController controller;
-
+    
     private HapticsManager _hapticsManager;
 
     private CardScriptableObject _cardData = null;
@@ -53,12 +53,12 @@ public class DefenseShieldHandler : MonoBehaviour, ICardDataTransfer, ICardEffec
         if (other.gameObject.GetComponent<Enemy_projectile>())
         {
             var enemyProjectile = other.gameObject.GetComponent<Enemy_projectile>();
-            int chargeValue = enemyProjectile._chargeValue;
-
-            _playerCharacter.IncreaseMana(chargeValue);
+            int damageValue = enemyProjectile._chargeValue;
+            
+            _playerCharacter.IncreaseMana(_cardData.value);
 
             _audioSource.PlayOneShot(RandomAudioClip(_projectileDestructionAudio));
-            CheckShieldDurability(chargeValue);
+            CheckShieldDurability(damageValue);
             _audioSource.PlayOneShot(RandomAudioClip(_shieldBlockAudio));
             _hapticsManager.TriggerHaptics(0.7f, 0.3f);
             enemyProjectile.gameObject.SetActive(false);
@@ -78,9 +78,9 @@ public class DefenseShieldHandler : MonoBehaviour, ICardDataTransfer, ICardEffec
         return randomClip;
     }
 
-    void CheckShieldDurability(int chargeValue)
+    void CheckShieldDurability(int damageValue)
     {
-        _currDurability -= chargeValue;
+        _currDurability -= damageValue;
 
         if (_currDurability <= 0)
         {

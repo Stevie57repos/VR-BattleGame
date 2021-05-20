@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum PlayerStatus { Idle, InProgress }
+public enum PlayerStatus { isIdle, isInProgress }
 public enum CardTypeSelected { None, Attack, SpellDamage, Defend, SpellHeal }
 public class PlayerController : MonoBehaviour
 {
@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         CardType = CardTypeSelected.None;
-        CurrentStatus = PlayerStatus.Idle;
+        CurrentStatus = PlayerStatus.isIdle;
     }
 
     private void LoadDictionary()

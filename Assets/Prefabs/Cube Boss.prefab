@@ -97,15 +97,15 @@ MonoBehaviour:
   - {fileID: 7835524135353154118}
   - {fileID: 3824635560046040578}
   - {fileID: 3934853064627934601}
+  Portals:
+  - {fileID: 3028356873727446078}
+  - {fileID: 2248444684560556334}
+  - {fileID: 3475020092312539490}
   BasicAttackData: []
   LeftProjectileList: []
   RightProjectileList: []
   TopProjectileList: []
   AttackOrder: []
-  Portals:
-  - {fileID: 3028356873727446078}
-  - {fileID: 2248444684560556334}
-  - {fileID: 3475020092312539490}
   Timer: {fileID: 1468016664259030587}
   _characterRegistry: {fileID: 11400000, guid: d574c7e257a701f40bf7bfef9748e6f9, type: 2}
 --- !u!114 &1468016664259030588
@@ -130,6 +130,8 @@ MonoBehaviour:
   PlayerControl: {fileID: 0}
   Timer: {fileID: 0}
   CubeBossAnimator: {fileID: 0}
+  CubeModelTargetGO: {fileID: 1773882452034954756}
+  isDeadState: {fileID: 11400000, guid: a26b417dd18cb144fb3ddd6a6a4750f4, type: 2}
 --- !u!114 &1468016664259030587
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -575,6 +577,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 92a7fc404c5d6074882c1a9595ea35ab, type: 3}
+--- !u!1 &1773882452034954756 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 92a7fc404c5d6074882c1a9595ea35ab,
+    type: 3}
+  m_PrefabInstance: {fileID: 1468016664818391893}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1429268485928123582 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 92a7fc404c5d6074882c1a9595ea35ab,

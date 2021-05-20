@@ -111,7 +111,7 @@ public class Card_GrabV4 : XRGrabInteractable
         PlayerCharacter Player = _characterRegistry.Player.GetComponent<PlayerCharacter>();
         var CardManaCost = _cardController.CardData.cost;
 
-        if (Player.Mana > CardManaCost)
+        if (Player.Mana >= CardManaCost)
         {
             Player.SpendMana(CardManaCost);
             return true;

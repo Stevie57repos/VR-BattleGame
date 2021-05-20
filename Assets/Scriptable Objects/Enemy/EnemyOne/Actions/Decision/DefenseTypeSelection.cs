@@ -7,12 +7,12 @@ public class DefenseTypeSelection : Decision
 {
     public override bool Decide(EnemyStateController controller)
     {
-        var cardType = controller.PlayerControl.CardType;
-        if (cardType == CardTypeSelected.Defend )
+        var playerController = controller.PlayerControl;
+        if (playerController.CardType == CardTypeSelected.Defend && playerController.CurrentStatus == PlayerStatus.isIdle)
         {
-            Debug.Log($"Decision detected that it card selected was spell damage");
-            cardType = CardTypeSelected.None;
-            Debug.Log($"Returning true and cardtype has been reset to {cardType}");
+            Debug.Log($"Decision detected that it card selected was Attack Card");
+            playerController.CardType = CardTypeSelected.None;
+            playerController.CurrentStatus = PlayerStatus.isInProgress;
             return true;
         }
         else

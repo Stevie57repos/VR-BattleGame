@@ -23,12 +23,6 @@ public class UI_Manager : MonoBehaviour
 
     [SerializeField] CharacterRegistry _characterRegistry; 
 
-    //public GameEvent BattleStart;
-    //[SerializeField] GameManagerEventChannelSO _gameManagerStartEvent;
-    //[SerializeField] GameManagerEventChannelSO _gameManagerBattleEvent;
-    //[SerializeField] GameManagerEventChannelSO _gameManagerLossEvent;
-    //[SerializeField] GameManagerEventChannelSO _gameManagerWonEvent;
-
     private void Awake()
     {
         gameManager = GetComponent<GameManager_BS>();
@@ -37,22 +31,6 @@ public class UI_Manager : MonoBehaviour
     private void Start()
     {
         Player = _characterRegistry.Player.GetComponent<PlayerCharacter>();
-    }
-
-    private void OnEnable()
-    {
-        //_gameManagerStartEvent.GameManagerEvent += StartUpdateUI;
-        //_gameManagerBattleEvent.GameManagerEvent += LoadBattleMenuUI;
-        //_gameManagerWonEvent.GameManagerEvent += LoadWinMenuUI;
-        //_gameManagerLossEvent.GameManagerEvent += LoadLossMenuUI;
-    }
-
-    private void OnDisable()
-    {
-        //_gameManagerStartEvent.GameManagerEvent -= StartUpdateUI;
-        //_gameManagerBattleEvent.GameManagerEvent -= LoadBattleMenuUI;
-        //_gameManagerWonEvent.GameManagerEvent -= LoadWinMenuUI;
-        //_gameManagerLossEvent.GameManagerEvent -= LoadLossMenuUI;
     }
 
     public void LoadMainMenu()
