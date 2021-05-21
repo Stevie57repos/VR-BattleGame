@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class CardMatController : MonoBehaviour, ICardMatGetter
 {
-
     string cardName = null;
     string cardType = null;
 
@@ -24,11 +23,9 @@ public class CardMatController : MonoBehaviour, ICardMatGetter
     //electrical material overlay
     [SerializeField] private Material Mat_Electrical;
 
-    // Start is called before the first frame update
     void Awake()
     {
         loadDictionary();
-        //get mesh renderer compononent
         meshRend = GetComponent<MeshRenderer>();
     }
     private void loadDictionary()
@@ -50,13 +47,6 @@ public class CardMatController : MonoBehaviour, ICardMatGetter
         SetDefaultMat(cardType);
     }
 
-
-    public void SetTriggerMaterial()
-    {
-        Material[] eletricalMatArray = { materialDirectory[cardType], Mat_Electrical };
-        meshRend.materials = eletricalMatArray;
-    }
-
     public void SetDefaultMat(string cardtype)
     {
         if (meshRend == null)
@@ -66,6 +56,12 @@ public class CardMatController : MonoBehaviour, ICardMatGetter
 
         Material[] defaultmat = { materialDirectory[cardtype] };
         meshRend.materials = defaultmat;
+    }
+
+    public void SetTriggerMaterial()
+    {
+        Material[] eletricalMatArray = { materialDirectory[cardType], Mat_Electrical };
+        meshRend.materials = eletricalMatArray;
     }
 }
 

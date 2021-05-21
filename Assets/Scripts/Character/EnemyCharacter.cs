@@ -19,13 +19,12 @@ public class EnemyCharacter : Character_Base, ICharacter
 
     public int MaxMana { get { return _maxMana; } }
 
-    public GameManagerEventChannelSO WonEvent;
-
     protected override void Awake()
     {
         base.Awake();
         _enemyAnimator = GetComponent<Animator>();
         _audioSource = GetComponent<AudioSource>();
+        
     }
 
     public GameObject getGameObject()
@@ -50,8 +49,6 @@ public class EnemyCharacter : Character_Base, ICharacter
             AudioClip randomClip = _enemyDamageSounds.SoundsArray[UnityEngine.Random.Range(0, _enemyDamageSounds.SoundsArray.Length)];
             _enemyAnimator.SetBool("isDead", true);
             Debug.Log("isdead");
-            //WonEvent.RaiseEvent();
-            //Destroy(this.gameObject);
         }
     }
 

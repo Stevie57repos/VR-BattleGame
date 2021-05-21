@@ -13,7 +13,7 @@ public class DeckManager : MonoBehaviour
 
     [Header("Game Manager Events")]
     [SerializeField] GameManagerEventChannelSO _gameManagerLossEvent;
-    [SerializeField] GameManagerEventChannelSO _gameManagerWonEvent;
+    [SerializeField] GameManagerEventChannelSO _gameManagerBattleFinishEvent;
     [SerializeField] GameManagerEventChannelSO _gameManagerBattleStart;
     [SerializeField] CardEffectEventChannelSO _cardEffectEvent;
     [SerializeField] CharacterRegistry _characterRegistry;
@@ -32,7 +32,7 @@ public class DeckManager : MonoBehaviour
     {
         _gameManagerBattleStart.GameManagerEvent += DeckStart;
         _cardEffectEvent.OnCardEffectActivate += NewTurnV2;
-        _gameManagerWonEvent.GameManagerEvent += BattleFinish;
+        _gameManagerBattleFinishEvent.GameManagerEvent += BattleFinish;
         _gameManagerLossEvent.GameManagerEvent += BattleFinish;
     }
 
@@ -40,7 +40,7 @@ public class DeckManager : MonoBehaviour
     {
         _gameManagerBattleStart.GameManagerEvent -= DeckStart;
         _cardEffectEvent.OnCardEffectActivate -= NewTurnV2;
-        _gameManagerWonEvent.GameManagerEvent -= BattleFinish;
+        _gameManagerBattleFinishEvent.GameManagerEvent -= BattleFinish;
         _gameManagerLossEvent.GameManagerEvent -= BattleFinish;
     }
 
@@ -118,7 +118,7 @@ public class DeckManager : MonoBehaviour
             var CardspawnPos = CardspawnSpotGO.transform.position;
             Vector3 cardSpot = new Vector3((cardSpreadDistance + CardspawnPos.x), CardspawnPos.y, CardspawnPos.z);
             handCards[i].transform.position = cardSpot;
-            cardSpreadDistance = cardSpreadDistance + 0.25f;
+            cardSpreadDistance += 0.25f;
         }
         cardSpreadDistance = 0f;
     }
@@ -213,5 +213,17 @@ public class DeckManager : MonoBehaviour
         }
         graveyard.Clear();
     }
+
+    // enemy defeat - Select cards
+
+    // two pop up cards
+
+    // select a card
+
+    // deck added
+
+    // game win UI appears
+
+
 
 }

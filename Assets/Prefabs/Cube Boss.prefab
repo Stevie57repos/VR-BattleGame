@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 2490783359295389509}
   - component: {fileID: 1786126441876579934}
   - component: {fileID: 155555193783465471}
+  - component: {fileID: 4799668565799464350}
   m_Layer: 0
   m_Name: Cube Boss
   m_TagString: Untagged
@@ -65,7 +66,6 @@ MonoBehaviour:
   HealthUpdate: {fileID: 11400000, guid: 057c42c9186e5fd42bc1c9f13bbe4a89, type: 2}
   ManaUpdate: {fileID: 11400000, guid: 4075baa9b3549864989a01c3ae58e0a2, type: 2}
   _enemyDamageSounds: {fileID: 11400000, guid: 6fca4a83b0405774495640ce732514bf, type: 2}
-  WonEvent: {fileID: 11400000, guid: f01c93f4f1b24db40958a695efedeaa8, type: 2}
 --- !u!114 &1468016664259030590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,6 +132,7 @@ MonoBehaviour:
   CubeBossAnimator: {fileID: 0}
   CubeModelTargetGO: {fileID: 1773882452034954756}
   isDeadState: {fileID: 11400000, guid: a26b417dd18cb144fb3ddd6a6a4750f4, type: 2}
+  BattleFinish: {fileID: 11400000, guid: 4a154d8e0f72ec243b21110593c75387, type: 2}
 --- !u!114 &1468016664259030587
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -309,6 +310,26 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4799668565799464350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1468016664259030585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eb0eaa021c95d14e9af74a00069323d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RewardCards:
+  - {fileID: 11400000, guid: 379d9c7de3a74664ba0f3653010f0e41, type: 2}
+  - {fileID: 11400000, guid: 87a4ac4e7ee896640965c51b61ab8260, type: 2}
+  _cardPrefab: {fileID: 8021366866025846666, guid: 1d0f0e037d36bfd4ebdfd5283bdaa6a6,
+    type: 3}
+  _characterRegistry: {fileID: 11400000, guid: d574c7e257a701f40bf7bfef9748e6f9, type: 2}
+  SpawnCardLocation:
+  - {fileID: 0}
 --- !u!1 &3827579080710630887
 GameObject:
   m_ObjectHideFlags: 0

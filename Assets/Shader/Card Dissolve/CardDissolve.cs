@@ -17,55 +17,42 @@ public class CardDissolve : MonoBehaviour
     private void Start()
     {
         DissolvePS = GetComponent<ParticleSystem>();
-        
     }
 
     private void OnEnable()
     {
         Spawn();
     }
+    //public void BeginDissolve()
+    //{
+    //    Debug.Log("coroutine starting");
+    //    StartCoroutine(Dissolve());
+    //}
 
-    public void BeginDissolve()
-    {
-        Debug.Log("coroutine starting");
-        StartCoroutine(Dissolve());
-    }
+    //IEnumerator Dissolve()
+    //{
+    //    while (timeElapsed < lerpDuration)
+    //    {
+    //        //Debug.Log("running lerp");
+    //        valueToLerp = Mathf.Lerp(startValue, endValue, timeElapsed / lerpDuration);
+    //        _cardRenderer.material.SetFloat("_Dissolve", (1f - valueToLerp ));
+    //        timeElapsed += Time.deltaTime;
 
-    IEnumerator Dissolve()
-    {
-        //Debug.Log("dissolve started");
-
-
-        while (timeElapsed < lerpDuration)
-        {
-            //Debug.Log("running lerp");
-            valueToLerp = Mathf.Lerp(startValue, endValue, timeElapsed / lerpDuration);
-            _cardRenderer.material.SetFloat("_Dissolve", (1f - valueToLerp ));
-            timeElapsed += Time.deltaTime;
-
-            yield return null;
-        }
-        
-        
-        valueToLerp = endValue;
-        DissolvePS.Play();
-        //Debug.Log("end");        
-    }
+    //        yield return null;
+    //    }     
+    //    valueToLerp = endValue;
+    //    DissolvePS.Play();  
+    //}
 
     public void Spawn()
     {
-        //Debug.Log("coroutine starting");
         StartCoroutine(SpawnEffect());
     }
 
     IEnumerator SpawnEffect()
     {
-        //Debug.Log("dissolve started");
-
-
         while (timeElapsed < lerpDuration)
         {
-            //Debug.Log("running lerp");
             valueToLerp = Mathf.Lerp(startValue, endValue, timeElapsed / lerpDuration);
             _cardRenderer.material.SetFloat("_Dissolve", valueToLerp);
             timeElapsed += Time.deltaTime;
@@ -73,8 +60,5 @@ public class CardDissolve : MonoBehaviour
             yield return null;
         }
         valueToLerp = endValue;
-        //Debug.Log("Spawned");
     }
-
-
 }
