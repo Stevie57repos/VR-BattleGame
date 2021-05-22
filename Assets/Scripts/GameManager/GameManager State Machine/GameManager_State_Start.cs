@@ -2,7 +2,6 @@
 
 public class GameManager_State_Start : GameManagerState
 {
-    //public event Action<GameManager_BS> OnGameStart;
 
     public override void Start(GameManager_BS gameManager)
     {
@@ -11,6 +10,7 @@ public class GameManager_State_Start : GameManagerState
 
     public override void EnterState(GameManager_BS gameManager)
     {
+        gameManager.UImanager.UnloadPreviousScene();
         gameManager.UImanager.LoadMainMenu();
     }
 

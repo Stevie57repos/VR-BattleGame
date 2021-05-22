@@ -325,7 +325,7 @@ MonoBehaviour:
   RewardCards:
   - {fileID: 11400000, guid: 379d9c7de3a74664ba0f3653010f0e41, type: 2}
   - {fileID: 11400000, guid: 87a4ac4e7ee896640965c51b61ab8260, type: 2}
-  _cardPrefab: {fileID: 8021366866025846666, guid: 1d0f0e037d36bfd4ebdfd5283bdaa6a6,
+  _prefabRewardCardsGO: {fileID: 6024666216353438624, guid: 09c384796e46b544fa57995e89309dec,
     type: 3}
   _characterRegistry: {fileID: 11400000, guid: d574c7e257a701f40bf7bfef9748e6f9, type: 2}
   SpawnCardLocation:

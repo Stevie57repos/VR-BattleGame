@@ -18,16 +18,24 @@ public class CardController : MonoBehaviour
     public GameObject CardValueLabelGO;
 
     public CardMatController CardMatManager;
+    [SerializeField] RewardCardHandler _rewardCardHandler;
+    [SerializeField] CharacterRegistry _characterRegistry;
 
     private void Awake()
     {
-        CardMatManager = GetComponent<CardMatController>();
+        if (CardMatManager == null)
+            CardMatManager = GetComponent<CardMatController>();
     }
 
-    private void Start()
+    public void SetupCard(CardScriptableObject cardData, RewardsManager rewardsManager)
     {
+        CardData = cardData;
         SetCardMaterial();
         SetUpCardUI();
+        if (_rewardCardHandler == null)
+            _rewardCardHandler = GetComponent<RewardCardHandler>();
+        _rewardCardHandler.CardData = cardData;
+        _rewardCardHandler.SetRewardsManager(rewardsManager);
     }
 
     public void SetCardMaterial()
@@ -42,6 +50,10 @@ public class CardController : MonoBehaviour
         CardValueLabelGO.GetComponent<TextMeshProUGUI>().text = CardData.value.ToString();
     }
 
-
+    public void CardAddToDeck()
+    {
+        DeckManager deckManager = _characterRegistry.Player.GetComponent<DeckManager>();
+        deckManager.AddToDeck(CardData);
+    }
 
 }

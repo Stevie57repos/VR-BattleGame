@@ -17,7 +17,7 @@ public class EnemyStateController : MonoBehaviour
     public GameObject CubeModelTargetGO;
     public EnemyState isDeadState;
 
-    private RewardController _rewardController;
+    private EnemyRewardController  _enemyRewardController;
     public GameManagerEventChannelSO BattleFinish;
 
     private void Awake()
@@ -27,7 +27,7 @@ public class EnemyStateController : MonoBehaviour
         PlayerControl = CharacterRegistry.Player.GetComponent<PlayerController>();
         Timer = GetComponent<CountdownTimer>();
         CubeBossAnimator = GetComponent<Animator>();
-        _rewardController = GetComponent<RewardController>();
+        _enemyRewardController = GetComponent<EnemyRewardController>();
     }
 
     void Start()
@@ -59,7 +59,7 @@ public class EnemyStateController : MonoBehaviour
         if(currentState == isDeadState)
         {
             BattleFinish.RaiseEvent();
-            _rewardController.SpawnCards();
+            _enemyRewardController.TriggerRewards();
             Destroy(this.gameObject);
         }
     }

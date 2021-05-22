@@ -1,9 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
-using System;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class UI_Manager : MonoBehaviour
@@ -21,7 +16,20 @@ public class UI_Manager : MonoBehaviour
     public GameObject EnemyHealthPanelGO = null;
     public GameObject EnemyManaPanelGO = null;
 
-    [SerializeField] CharacterRegistry _characterRegistry; 
+    public Scene currentScene;
+
+    [SerializeField] CharacterRegistry _characterRegistry;
+    [SerializeField] GameManagerEventChannelSO battleFinish;
+
+    private void OnEnable()
+    {
+        battleFinish.GameManagerEvent += UnloadPreviousScene;
+    }
+
+    private void OnDisable()
+    {
+        battleFinish.GameManagerEvent -= UnloadPreviousScene;
+    }
 
     private void Awake()
     {
@@ -36,28 +44,51 @@ public class UI_Manager : MonoBehaviour
     public void LoadMainMenu()
     {
         SceneManager.LoadSceneAsync("UI_MainMenu", LoadSceneMode.Additive);
+        currentScene = SceneManager.GetSceneByName("UI_MainMenu");
     }
 
-    public void UnloadMainMenu()
+    public void UnloadPreviousScene()
     {
-        SceneManager.UnloadSceneAsync("UI_MainMenu");
+        if (currentScene.IsValid())
+            SceneManager.UnloadSceneAsync(currentScene);
     }
 
     public void LoadBattleMenuUI()
     {
         SceneManager.LoadSceneAsync("UI_Battle", LoadSceneMode.Additive);
-        UnloadMainMenu();
+        currentScene = SceneManager.GetSceneByName("UI_Battle");
     }
 
     public void LoadLossMenuUI()
     {        
-        SceneManager.UnloadSceneAsync("UI_Battle");
+        //SceneManager.UnloadSceneAsync("UI_Battle");
         SceneManager.LoadSceneAsync("UI_LossMenu", LoadSceneMode.Additive);
+        currentScene = SceneManager.GetSceneByName("UI_LossMenu");
     }
 
     public void LoadWinMenuUI()
     {
-        SceneManager.UnloadSceneAsync("UI_Battle");
         SceneManager.LoadSceneAsync("UI_WonMenu", LoadSceneMode.Additive);
+        currentScene = SceneManager.GetSceneByName("UI_WonMenu");
     }
+
+    //public void UnloadMainMenu()
+    //{
+    //    if (SceneManager.GetSceneByName("UI_MainMenu") != null)
+    //        SceneManager.UnloadSceneAsync("UI_MainMenu");
+    //}
+
+    //public void UnloadWinMenu()
+    //{
+    //    Scene tempScene = SceneManager.GetSceneByName("UI_WinMenu");
+    //    if (tempScene != null)
+    //        SceneManager.UnloadSceneAsync("UI_WinMenu");
+    //}
+
+
+    //public void UnLoadBattleMenuUI()
+    //{
+    //    UnloadPreviousScene();
+    //    //SceneManager.UnloadSceneAsync("UI_Battle");
+    //}
 }

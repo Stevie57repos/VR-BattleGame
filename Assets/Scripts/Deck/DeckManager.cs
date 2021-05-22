@@ -26,8 +26,6 @@ public class DeckManager : MonoBehaviour
 	public List<CardScriptableObject> burn;
     public List<GameObject> handCards;
     float cardSpreadDistance = 0f;
-
-
     private void OnEnable()
     {
         _gameManagerBattleStart.GameManagerEvent += DeckStart;
@@ -212,6 +210,11 @@ public class DeckManager : MonoBehaviour
             deck.Add(card);
         }
         graveyard.Clear();
+    }
+
+    public void AddToDeck(CardScriptableObject card)
+    {
+        deck.Add(card);
     }
 
     // enemy defeat - Select cards

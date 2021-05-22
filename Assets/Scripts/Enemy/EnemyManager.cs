@@ -68,4 +68,10 @@ public class EnemyManager : MonoBehaviour
     {
         _currentEnemyChar.SpendMana(5);
     }
+
+    public void NextLevel()
+    {
+        currentLevel++;
+        BattleEnemyStart();
+    }
 }

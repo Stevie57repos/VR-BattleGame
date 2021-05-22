@@ -46,9 +46,9 @@ public class CardDissolve : MonoBehaviour
 
     public void Spawn()
     {
+        timeElapsed = 0f;
         StartCoroutine(SpawnEffect());
     }
-
     IEnumerator SpawnEffect()
     {
         while (timeElapsed < lerpDuration)
@@ -56,7 +56,24 @@ public class CardDissolve : MonoBehaviour
             valueToLerp = Mathf.Lerp(startValue, endValue, timeElapsed / lerpDuration);
             _cardRenderer.material.SetFloat("_Dissolve", valueToLerp);
             timeElapsed += Time.deltaTime;
+            yield return null;
+        }
+        valueToLerp = endValue;
+    }
 
+    public void Dissolve()
+    {
+        timeElapsed = 0f;
+        StartCoroutine(DissolveEffect());
+    }
+
+    IEnumerator DissolveEffect()
+    {
+        while (timeElapsed < lerpDuration)
+        {
+            valueToLerp = Mathf.Lerp(startValue, endValue, timeElapsed / lerpDuration);
+            _cardRenderer.material.SetFloat("_Dissolve", (1-valueToLerp));
+            timeElapsed += Time.deltaTime;
             yield return null;
         }
         valueToLerp = endValue;

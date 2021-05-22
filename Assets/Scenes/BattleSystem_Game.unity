@@ -182,7 +182,7 @@ MonoBehaviour:
   _deckData: {fileID: 11400000, guid: 131a916b9e30fef41b6b120425a8508e, type: 2}
   _gameManagerLossEvent: {fileID: 11400000, guid: 966e4a2382709594f8e365972795baef,
     type: 2}
-  _gameManagerWonEvent: {fileID: 11400000, guid: f01c93f4f1b24db40958a695efedeaa8,
+  _gameManagerBattleFinishEvent: {fileID: 11400000, guid: 4a154d8e0f72ec243b21110593c75387,
     type: 2}
   _gameManagerBattleStart: {fileID: 11400000, guid: 49f4caa8aa981fd41bb178c0f030aaf1,
     type: 2}
@@ -548,7 +548,7 @@ MonoBehaviour:
   _deckData: {fileID: 11400000, guid: 01f08dcaf0a06fa4b9a75aa1252e2149, type: 2}
   _gameManagerLossEvent: {fileID: 11400000, guid: 966e4a2382709594f8e365972795baef,
     type: 2}
-  _gameManagerWonEvent: {fileID: 11400000, guid: f01c93f4f1b24db40958a695efedeaa8,
+  _gameManagerBattleFinishEvent: {fileID: 11400000, guid: 4a154d8e0f72ec243b21110593c75387,
     type: 2}
   _gameManagerBattleStart: {fileID: 11400000, guid: 49f4caa8aa981fd41bb178c0f030aaf1,
     type: 2}
@@ -1180,6 +1180,7 @@ MonoBehaviour:
   EnemyHealthPanelGO: {fileID: 0}
   EnemyManaPanelGO: {fileID: 0}
   _characterRegistry: {fileID: 11400000, guid: d574c7e257a701f40bf7bfef9748e6f9, type: 2}
+  battleFinish: {fileID: 11400000, guid: 4a154d8e0f72ec243b21110593c75387, type: 2}
 --- !u!114 &1598313405
 MonoBehaviour:
   m_ObjectHideFlags: 0
