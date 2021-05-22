@@ -12,7 +12,6 @@ public class Timer : MonoBehaviour
 
     private IEnumerator BeginTimer(float duration)
     {
-        Debug.Log($"timer has been started and it is for {duration} ");
         yield return new WaitForSeconds(duration);
         onTimerEnd?.Invoke();
     }
@@ -22,8 +21,5 @@ public class Timer : MonoBehaviour
         StopAllCoroutines();
         Debug.Log("timer has been stopped");
     }
-
-
-
 }
 

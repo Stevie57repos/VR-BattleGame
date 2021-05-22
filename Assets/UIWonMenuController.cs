@@ -10,6 +10,7 @@ public class UIWonMenuController : UIMenuController
     public GameObject MainMenuGO;
     public GameObject QuitGO;
 
+
     protected override void Awake()
     {
         base.Awake();
@@ -23,6 +24,8 @@ public class UIWonMenuController : UIMenuController
 
     public override void SetGameTransitionButtonActivation()
     {
+        EnemyManager enemyManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<EnemyManager>();
+        enemyManager.currentLevel++;
         _gameManager.TransitionToState(_gameManager.battleState);
     }
 

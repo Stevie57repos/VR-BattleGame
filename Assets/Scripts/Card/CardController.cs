@@ -6,9 +6,7 @@ using System;
 
 public class CardController : MonoBehaviour
 {
-    // TODO : Make this private
     public DeckManager DeckManager;
-
     // scriptable object contains card data
     public CardScriptableObject CardData;
 
@@ -27,15 +25,19 @@ public class CardController : MonoBehaviour
             CardMatManager = GetComponent<CardMatController>();
     }
 
-    public void SetupCard(CardScriptableObject cardData, RewardsManager rewardsManager)
+    public void SetupCard(CardScriptableObject cardData)
     {
         CardData = cardData;
         SetCardMaterial();
         SetUpCardUI();
+    }
+
+    public void SetupReward(RewardsManager rewardsManager, CardScriptableObject cardData)
+    {
         if (_rewardCardHandler == null)
             _rewardCardHandler = GetComponent<RewardCardHandler>();
-        _rewardCardHandler.CardData = cardData;
         _rewardCardHandler.SetRewardsManager(rewardsManager);
+        SetupCard(cardData);
     }
 
     public void SetCardMaterial()
@@ -49,11 +51,4 @@ public class CardController : MonoBehaviour
         CardCostLabelGO.GetComponent<TextMeshProUGUI>().text = CardData.cost.ToString();
         CardValueLabelGO.GetComponent<TextMeshProUGUI>().text = CardData.value.ToString();
     }
-
-    public void CardAddToDeck()
-    {
-        DeckManager deckManager = _characterRegistry.Player.GetComponent<DeckManager>();
-        deckManager.AddToDeck(CardData);
-    }
-
 }

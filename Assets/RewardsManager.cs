@@ -21,16 +21,13 @@ public class RewardsManager : MonoBehaviour
 
         foreach (CardScriptableObject card in _cardsList)
         {
-            int i = 1;
             GameObject cardObject = Instantiate(_cardPrefab);
             _rewardsCardsList.Add(cardObject);
             cardSpawnPos = spawnPos;
             cardObject.transform.position = new Vector3((cardSpawnPos.x + cardSpreadDistance), cardSpawnPos.y, cardSpawnPos.z);
             var cardController = cardObject.GetComponent<CardController>();
-            cardController.SetupCard(card, this);
+            cardController.SetupReward(this, card);
             cardSpreadDistance += 0.25f;
-            Debug.Log($"this has been run {i}");
-            i++;
         }
     }
 

@@ -145,6 +145,7 @@ public class DeckManager : MonoBehaviour
         GameObject cardObject = Instantiate(_cardPrefab);
         // TODO : Set this to card controller
         var cardController = cardObject.GetComponent<CardController>();
+        cardController.SetupCard(card); 
         cardController.CardData = card;
         cardController.DeckManager = this;
         handCards.Add(cardObject);

@@ -18,9 +18,7 @@ public class RewardCardHandler : MonoBehaviour, ICardEffect
 
     private XRController _controller;
     [SerializeField] private HapticsManager _hapticsManager;
-
     [SerializeField] CharacterRegistry _characterRegistry;
-    private DeckManager _playerDeck;
     private void Awake()
     {
         _cardDescriptionGO.SetActive(false);    
@@ -30,9 +28,6 @@ public class RewardCardHandler : MonoBehaviour, ICardEffect
 
         if (_hapticsManager == null)
             _hapticsManager = GetComponent<HapticsManager>();
-
-        if (_playerDeck == null)
-            _playerDeck = _characterRegistry.Player.GetComponent<DeckManager>();
     }
     public void OnActivate()
     {
@@ -87,5 +82,11 @@ public class RewardCardHandler : MonoBehaviour, ICardEffect
     public void RewardsRemoval()
     {
         _rewardsManager.RemoveRewards();
+    }
+
+    public void CardAddToDeck()
+    {
+        DeckManager deckManager = _characterRegistry.Player.GetComponent<DeckManager>();
+        deckManager.AddToDeck(CardData);
     }
 }

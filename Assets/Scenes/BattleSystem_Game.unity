@@ -1179,6 +1179,8 @@ MonoBehaviour:
   PlayerManaPanelGO: {fileID: 0}
   EnemyHealthPanelGO: {fileID: 0}
   EnemyManaPanelGO: {fileID: 0}
+  currentScene:
+    m_Handle: 0
   _characterRegistry: {fileID: 11400000, guid: d574c7e257a701f40bf7bfef9748e6f9, type: 2}
   battleFinish: {fileID: 11400000, guid: 4a154d8e0f72ec243b21110593c75387, type: 2}
 --- !u!114 &1598313405
@@ -1199,6 +1201,7 @@ MonoBehaviour:
   EnemyManaUpdate: {fileID: 11400000, guid: 4075baa9b3549864989a01c3ae58e0a2, type: 2}
   enemyList:
   - {fileID: 1468016664259030591, guid: ccd17721f0762674d9bca6b30966fd3a, type: 3}
+  - {fileID: 1468016664259030591, guid: 2a1409a1daf1418448d0a8faf5f4bf19, type: 3}
   currentLevel: 0
   _gameManagerBattleStart: {fileID: 11400000, guid: 49f4caa8aa981fd41bb178c0f030aaf1,
     type: 2}
