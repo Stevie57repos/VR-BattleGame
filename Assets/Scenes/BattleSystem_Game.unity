@@ -1201,8 +1201,8 @@ MonoBehaviour:
   EnemyManaUpdate: {fileID: 11400000, guid: 4075baa9b3549864989a01c3ae58e0a2, type: 2}
   enemyList:
   - {fileID: 1468016664259030591, guid: ccd17721f0762674d9bca6b30966fd3a, type: 3}
-  - {fileID: 1468016664259030591, guid: 2a1409a1daf1418448d0a8faf5f4bf19, type: 3}
-  currentLevel: 0
+  - {fileID: 6330816297456125551, guid: b51449ec7e94aca41a15ac0d2ee2f344, type: 3}
+  currentLevel: 1
   _gameManagerBattleStart: {fileID: 11400000, guid: 49f4caa8aa981fd41bb178c0f030aaf1,
     type: 2}
   _gameManagerWonEvent: {fileID: 0}

@@ -49,7 +49,8 @@ public class EnemyManager : MonoBehaviour
         CurrentEnemyGO = _enemyGenerator.SpawnEnemy();
 
         _currentEnemyController = CurrentEnemyGO.GetComponent<EnemyStateController>();
-        _currentEnemyController.enemyManager = this;
+        if(_currentEnemyController != null)
+            _currentEnemyController.enemyManager = this;
 
     }
 

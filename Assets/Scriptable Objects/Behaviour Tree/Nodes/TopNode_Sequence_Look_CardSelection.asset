@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cabdbed1863297c409bf9850911695dd, type: 3}
+  m_Name: TopNode_Sequence_Look_CardSelection
+  m_EditorClassIdentifier: 
+  _behaviourNodes:
+  - {fileID: 11400000, guid: 5d7a7c4b28ca0104697a3c665f9fb520, type: 2}
+  - {fileID: 11400000, guid: 3956453906bf01e48a13ff02c0839865, type: 2}
