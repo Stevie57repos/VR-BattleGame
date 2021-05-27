@@ -182,6 +182,7 @@ public class DeckManager : MonoBehaviour
         if (_playerController == null)
             _playerController = _characterRegistry.Player.GetComponent<PlayerController>();
         _playerController.CurrentStatus = PlayerStatus.isIdle;
+        _playerController.CardType = CardTypeSelected.None;
 
         if (_gameManager.CheckIfInBattleState())
         {
