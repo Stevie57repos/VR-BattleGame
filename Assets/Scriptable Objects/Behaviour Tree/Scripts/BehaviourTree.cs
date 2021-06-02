@@ -20,7 +20,7 @@ public class BehaviourTree : MonoBehaviour
     private BTBlackboard _btBoard;
     [SerializeField] CharacterRegistry _characterRegistry;
 
-    void Awake()
+    private void OnEnable()
     {
         _owner = this.gameObject;
         _currentState = BTState.Stopped;
@@ -29,6 +29,7 @@ public class BehaviourTree : MonoBehaviour
         _btBoard.SetValue("PlayerGO", _characterRegistry.Player);
         Debug.Log("player is " + _characterRegistry.Player.name);
     }
+
     public void BeginTree()
     {
         if(_topNode != null)

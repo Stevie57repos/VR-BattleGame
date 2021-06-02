@@ -12,7 +12,9 @@ public class BasicAttackData : ScriptableObject
     public AttackTypes AttackType;
     public int ProjectileNumber;
     public float TimeBetweenProjectiles;
-    public string Text;
     public float WaitBeforeAttackBegins;
     public float WaitAfterAttackEnds;
+    public string Text;
 }
+
+

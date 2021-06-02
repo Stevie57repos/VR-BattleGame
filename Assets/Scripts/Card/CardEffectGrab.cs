@@ -7,11 +7,13 @@ using UnityEngine.XR;
 public class CardEffectGrab : XRGrabInteractable
 {
     ICardEffect cardEffect;
+    [SerializeField] CharacterRegistry _characterRegistry;
 
     protected override void Awake()
     {
         base.Awake();
         cardEffect = GetComponent<ICardEffect>();
+
     }
 
     protected override void OnHoverEntered(XRBaseInteractor interactor)

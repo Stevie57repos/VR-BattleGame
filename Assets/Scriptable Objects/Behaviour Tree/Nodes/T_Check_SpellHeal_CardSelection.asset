@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cabdbed1863297c409bf9850911695dd, type: 3}
-  m_Name: Sequence_Attack
+  m_Script: {fileID: 11500000, guid: e0469f5038b8f2d49bd154e7aa1ee5da, type: 3}
+  m_Name: T_Check_SpellHeal_CardSelection
   m_EditorClassIdentifier: 
-  _behaviourNodes:
-  - {fileID: 11400000, guid: 592890a41dfe6a44fa4a4e4c12b6898d, type: 2}
-  - {fileID: 11400000, guid: e71dcbe56681bc34697528c96e68194b, type: 2}
+  _playerController: {fileID: 0}
+  _targetCardType: 4

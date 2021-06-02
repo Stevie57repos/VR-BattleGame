@@ -18,7 +18,6 @@ public class Card_Grab : XRGrabInteractable
     {
         base.Awake();
         _rigidbody = GetComponent<Rigidbody>();
-
     }
 
     protected override void OnSelectExited(XRBaseInteractor interactor)

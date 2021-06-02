@@ -15,13 +15,7 @@ public class Card_GrabV4 : XRGrabInteractable
 
     private CardController _cardController;
     private CardMatController _cardMatController;
-    //private PlayerController _playerControl;
     [SerializeField] CardSelectionEventSO _cardSelectionEvent;
-   
-
-    //public GameEvent CardSelected;
-
-
 
     //current hand interactor
     XRBaseInteractor currInteractor = null;
@@ -125,7 +119,6 @@ public class Card_GrabV4 : XRGrabInteractable
 
     private void CreateAndSelectObject()
     {
-        // Create Card Effect Object
         GameObject prefabGo = CreateCardEffectObject();
 
         //handSword handSwordGO = CreateCardEffect();
@@ -146,16 +139,6 @@ public class Card_GrabV4 : XRGrabInteractable
         GameObject prefabGO = Instantiate(SelectPrefab());
         return prefabGO;
     }
-
-    //private handSword CreateCardEffect()
-    //{
-    //    GameObject prefabGO = Instantiate(SelectPrefab());
-    //    // TO DO : Change this later to proper interface
-    //    handSword cardEffect = prefabGO.GetComponent<handSword>();
-    //    return cardEffect;
-    //}
-
-
 
     private GameObject SelectPrefab()
     {

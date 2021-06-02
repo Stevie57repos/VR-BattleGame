@@ -15,3 +15,5 @@ MonoBehaviour:
   _behaviourNodes:
   - {fileID: 11400000, guid: 8144c87c578321746882eee54df83045, type: 2}
   - {fileID: 11400000, guid: a806c11941dfdef4493192dd770150fb, type: 2}
+  - {fileID: 11400000, guid: 83c63126bbb48534d90bcf7f7d105877, type: 2}
+  - {fileID: 11400000, guid: 876f90747f13f464790178dca2dd5e9a, type: 2}

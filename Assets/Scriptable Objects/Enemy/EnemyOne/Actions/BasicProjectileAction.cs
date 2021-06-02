@@ -12,7 +12,13 @@ public class BasicProjectileAction : Action
         CheckEnemyProjectileHandler(controller);
         StartProjectileAttack(controller);
     }
-
+    private void CheckEnemyProjectileHandler(EnemyStateController controller)
+    {
+        if (enemyProjectileHandler == null)
+        {
+            enemyProjectileHandler = controller.enemyProjectileHandler;
+        }
+    }
     private void StartProjectileAttack(EnemyStateController controller)
     {
         for( int i = 0; i < controller.currentState.BasicAttackDataList.Count; i++)
@@ -23,13 +29,6 @@ public class BasicProjectileAction : Action
         enemyProjectileHandler.StartAttackCoroutine();
     }
 
-    private void CheckEnemyProjectileHandler(EnemyStateController controller)
-    {
-        if (enemyProjectileHandler == null)
-        {
-            enemyProjectileHandler = controller.enemyProjectileHandler;
-        }
-    }
     private void SpawnBasicProjectiles(EnemyStateController controller)
     {
         Debug.Log("firing spawn basic couroutine");

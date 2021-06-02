@@ -48,7 +48,7 @@ public class EnemyCharacter : Character_Base, ICharacter
             HealthUpdate.Raise();
             AudioClip randomClip = _enemyDamageSounds.SoundsArray[UnityEngine.Random.Range(0, _enemyDamageSounds.SoundsArray.Length)];
             _enemyAnimator.SetBool("isDead", true);
-            Debug.Log("isdead");
+            Debug.Log("Health is now zero");
         }
     }
 

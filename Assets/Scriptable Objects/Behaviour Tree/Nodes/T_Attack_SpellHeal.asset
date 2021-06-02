@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cabdbed1863297c409bf9850911695dd, type: 3}
-  m_Name: Sequence_Attack
+  m_Script: {fileID: 11500000, guid: 005910f49f0dd914289a70ff5c33c544, type: 3}
+  m_Name: T_Attack_SpellHeal
   m_EditorClassIdentifier: 
-  _behaviourNodes:
-  - {fileID: 11400000, guid: 592890a41dfe6a44fa4a4e4c12b6898d, type: 2}
-  - {fileID: 11400000, guid: e71dcbe56681bc34697528c96e68194b, type: 2}
+  AttackDataList:
+  - {fileID: 11400000, guid: 0d9d0c87ad610ca4db55e6cb7e0beb65, type: 2}
+  _enemyProjectileHandler: {fileID: 0}

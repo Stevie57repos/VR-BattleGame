@@ -5,6 +5,9 @@ using UnityEngine;
 public class EnemyAI_BT : MonoBehaviour
 {
     private BehaviourTree _behaviourTree;
+    bool isDead = false;
+    EnemyRewardController _enemyRewardController;
+    public GameManagerEventChannelSO BattleFinish;
 
     void Start()
     {
@@ -12,8 +15,24 @@ public class EnemyAI_BT : MonoBehaviour
         _behaviourTree.BeginTree();
     }
 
-    void Update()
+    public void EnemyDeath()
     {
-        
+        Animator enemyAnimator = GetComponent<Animator>();
+        enemyAnimator.enabled = false;
+        _behaviourTree.enabled = false;
+        isDead = true;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (isDead)
+        {
+            BattleFinish.RaiseEvent();
+            _enemyRewardController = GetComponent<EnemyRewardController>();
+            _enemyRewardController.TriggerRewards();
+            Debug.Log("collision with ground detected");
+            Debug.Log("collided with" + collision.gameObject.name);
+            Destroy(this.gameObject);
+        }
     }
 }

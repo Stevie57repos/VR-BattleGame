@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cabdbed1863297c409bf9850911695dd, type: 3}
-  m_Name: Sequence_Attack
+  m_Name: Sequence_SpellHeal
   m_EditorClassIdentifier: 
   _behaviourNodes:
-  - {fileID: 11400000, guid: 592890a41dfe6a44fa4a4e4c12b6898d, type: 2}
-  - {fileID: 11400000, guid: e71dcbe56681bc34697528c96e68194b, type: 2}
+  - {fileID: 11400000, guid: dfc5b1aa6a4873840868093716cc27bb, type: 2}
+  - {fileID: 11400000, guid: 1fce9133f4a3f0546bd3206179cf2c43, type: 2}

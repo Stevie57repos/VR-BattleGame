@@ -179,7 +179,7 @@ MonoBehaviour:
   CardspawnSpotGO: {fileID: 1596552395}
   _cardPrefab: {fileID: 8021366866025846666, guid: 9a2a1e9d50797e740bfb778110c3f74e,
     type: 3}
-  _deckData: {fileID: 11400000, guid: 131a916b9e30fef41b6b120425a8508e, type: 2}
+  _deckData: {fileID: 11400000, guid: 2032b38fd6f61df4faa75e3b9c6ca264, type: 2}
   _gameManagerLossEvent: {fileID: 11400000, guid: 966e4a2382709594f8e365972795baef,
     type: 2}
   _gameManagerBattleFinishEvent: {fileID: 11400000, guid: 4a154d8e0f72ec243b21110593c75387,

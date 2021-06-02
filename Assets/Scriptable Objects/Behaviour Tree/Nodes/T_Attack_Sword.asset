@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 005910f49f0dd914289a70ff5c33c544, type: 3}
+  m_Name: T_Attack_Sword
+  m_EditorClassIdentifier: 
+  AttackDataList:
+  - {fileID: 11400000, guid: 9724ce616b6facf46b888934a6e39649, type: 2}
+  - {fileID: 11400000, guid: f85e4d306d15551448a510cd90ef59be, type: 2}
+  _enemyProjectileHandler: {fileID: 0}

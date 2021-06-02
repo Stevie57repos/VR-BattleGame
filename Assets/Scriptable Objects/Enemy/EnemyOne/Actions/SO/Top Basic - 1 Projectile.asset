@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpawnLocation: 2
   AttackType: 0
-  ProjectileNumber: 2
+  ProjectileNumber: 1
   TimeBetweenProjectiles: 1
-  Text: 
   WaitBeforeAttackBegins: 0
   WaitAfterAttackEnds: 0
+  Text: 

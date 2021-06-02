@@ -20,7 +20,6 @@ public class EnemyProjectileHandler : MonoBehaviour
     public List<BasicAttackData> TopProjectileList = new List<BasicAttackData>();
     public List<BasicAttackData> AttackOrder = new List<BasicAttackData>();
 
-
     public static readonly int AttackLeft = Animator.StringToHash("Attack_Left");
     public static readonly int AttackRight = Animator.StringToHash("Attack_Right");
     public static readonly int AttackTop = Animator.StringToHash("Attack_Top");
@@ -36,6 +35,11 @@ public class EnemyProjectileHandler : MonoBehaviour
     {
         SetPlayerTargetPos();
         _enemyAnimator = GetComponent<Animator>();
+
+        if(EnemyProjectilePool == null)
+        {
+            EnemyProjectilePool = GameObject.FindGameObjectWithTag("GameManager").GetComponent<EnemyProjectileObjectPool>();
+        }
     }
     void SetPlayerTargetPos()
     {
@@ -110,12 +114,31 @@ public class EnemyProjectileHandler : MonoBehaviour
             }
             yield return waitBetweenAnimations;
         }
-        CurrentStateProjectileHandler = ProjectileHandlerState.Complete;
+
+        CurrentStateProjectileHandler = CheckForStateMachine() ? ProjectileHandlerState.Complete : ProjectileHandlerState.Idle; 
+        // conditional operator
+        //if (CheckForStateMachine())
+        //{
+        //    CurrentStateProjectileHandler = ProjectileHandlerState.Complete;
+        //}
+        //else
+        //{
+        //    CurrentStateProjectileHandler = ProjectileHandlerState.Idle;
+        //}                  
     }
+
+    bool CheckForStateMachine()
+    {
+        EnemyStateController stateMachine = GetComponent<EnemyStateController>();
+        if (stateMachine != null)
+            return true;
+        else
+            return false;
+    }
+
 
     public void LeftProjectileAttack()
     {
-        //StartCoroutine(LeftAttackCoroutine());
         StartCoroutine(AttackCoroutine(LeftProjectileList, BasicProjectileSpawnLocations[0], Portals[0]));
     }
 

@@ -16,7 +16,7 @@ public class SpellDamageHandler : MonoBehaviour, ICardEffect, ICardDataTransfer
     [SerializeField] AudioClip _chargeSpell;
 
     bool inAir = false;
-    //public Transform targetPos;
+    public Vector3 targetPos;
     private GameObject targetGO;
     [SerializeField] private float speed;
     [SerializeField] CardEffectEventChannelSO _cardEffectEvent;
@@ -73,7 +73,7 @@ public class SpellDamageHandler : MonoBehaviour, ICardEffect, ICardDataTransfer
         _audioSource.loop = false;
         AudioClip randomClip = _castSpell.SoundsArray[UnityEngine.Random.Range(0, _castSpell.SoundsArray.Length)];
         _audioSource.PlayOneShot(randomClip);
-        targetGO = _characterRegistry.CurrentEnemy.GetComponent<EnemyStateController>().CubeModelTargetGO;
+        targetGO = _characterRegistry.CurrentEnemy;
         StartCoroutine(MoveToTargetCoroutine(targetGO));
     }
     public void OnActivate()
@@ -90,45 +90,56 @@ public class SpellDamageHandler : MonoBehaviour, ICardEffect, ICardDataTransfer
     {
         if (inAir)
         {
-            //StartCoroutine(MoveToTargetCoroutine(targetPos
-            CheckDistance(targetGO);
+            targetPos = FindTargetPos(targetGO);
+            //CheckDistance(targetGO);
         }
-
     }
-
+    Vector3 FindTargetPos(GameObject targetGO)
+    {
+        Transform TargetTransform = targetGO.transform;
+        Debug.Log("findtarget pos has been called");
+        return TargetTransform.position;
+    }
     IEnumerator MoveToTargetCoroutine(GameObject targetGO)
     {
         yield return new WaitForSeconds(1.5f);
 
-        var target = targetGO.transform;
+        var target = targetPos;
 
-        while (Vector3.Distance(transform.position, target.position) > 1.5f)
+        while (Vector3.Distance(transform.position, target) > 0.5f)
         {
-            Vector3 lookAtTarget = target.position - transform.position;
+            Vector3 lookAtTarget = target - transform.position;
             Quaternion newRotation = Quaternion.LookRotation(lookAtTarget, transform.up);
             transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, Time.fixedDeltaTime);
 
-            float dot = Vector3.Dot(transform.forward, (target.position - transform.position).normalized);
+            float dot = Vector3.Dot(transform.forward, (target - transform.position).normalized);
             if (dot > .8f)
             {
                 float step = speed * Time.fixedDeltaTime;
-                Vector3 targetPos = new Vector3(target.position.x, target.position.y, target.position.z);
+                Vector3 targetPos = new Vector3(target.x, target.y, target.z);
                 transform.position = Vector3.MoveTowards(transform.position, targetPos, step);
             }
             yield return null;
+        }
+
+        if (Vector3.Distance(transform.position, target) < 0.5f)
+        {
+            Debug.Log("distance has been reached");
         }
     }
 
     void CheckDistance(GameObject target)
     {
-        if (Vector3.Distance(transform.position, target.transform.position) < 1.5f && target != null)
+        if (Vector3.Distance(transform.position, target.transform.position) < 2.5f && target != null)
         {
+            Debug.Log("distance check execution");
             SpellProjectileDestruction();
         }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("collision detected with " + collision.gameObject.name);
         if (collision.gameObject.GetComponent<EnemyCharacter>())
         {
             SpellProjectileDestruction();
@@ -154,8 +165,20 @@ public class SpellDamageHandler : MonoBehaviour, ICardEffect, ICardDataTransfer
         StopMomentum();
         SpellDamageEvent(_cardInfo.gameObject, _cardData);
         ResetPlayerCardSelection();
-        Destroy(this.gameObject, 0.5f);
+        Destroy(this.gameObject);
+        //Destroy(this.gameObject, 0.5f);
     }
+
+    void ProjectileTimeOut()
+    {
+        if (this.enabled == true)
+        {
+            //ResetPlayerCardSelection();
+            //Debug.Log("timed out");
+            //Destroy(this.gameObject);
+        }
+    }
+
     private void StopMomentum()
     {
         if (_rBody == null)
