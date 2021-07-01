@@ -13,5 +13,8 @@ MonoBehaviour:
   m_Name: T_Attack_SpellHeal
   m_EditorClassIdentifier: 
   AttackDataList:
-  - {fileID: 11400000, guid: 0d9d0c87ad610ca4db55e6cb7e0beb65, type: 2}
+  - {fileID: 11400000, guid: 9724ce616b6facf46b888934a6e39649, type: 2}
+  - {fileID: 11400000, guid: 9724ce616b6facf46b888934a6e39649, type: 2}
+  - {fileID: 11400000, guid: 9724ce616b6facf46b888934a6e39649, type: 2}
   _enemyProjectileHandler: {fileID: 0}
+  _playerController: {fileID: 0}

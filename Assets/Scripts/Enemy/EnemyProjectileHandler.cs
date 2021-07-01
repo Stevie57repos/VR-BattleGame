@@ -13,6 +13,8 @@ public class EnemyProjectileHandler : MonoBehaviour
 
     public List<Transform> BasicProjectileSpawnLocations = new List<Transform>();
     public GameObject[] Portals = new GameObject[3];
+    public GameObject PortalPrefab;
+
 
     public List<BasicAttackData> BasicAttackData = new List<BasicAttackData>();
     public List<BasicAttackData> LeftProjectileList = new List<BasicAttackData>();
@@ -115,16 +117,7 @@ public class EnemyProjectileHandler : MonoBehaviour
             yield return waitBetweenAnimations;
         }
 
-        CurrentStateProjectileHandler = CheckForStateMachine() ? ProjectileHandlerState.Complete : ProjectileHandlerState.Idle; 
-        // conditional operator
-        //if (CheckForStateMachine())
-        //{
-        //    CurrentStateProjectileHandler = ProjectileHandlerState.Complete;
-        //}
-        //else
-        //{
-        //    CurrentStateProjectileHandler = ProjectileHandlerState.Idle;
-        //}                  
+        CurrentStateProjectileHandler = CheckForStateMachine() ? ProjectileHandlerState.Complete : ProjectileHandlerState.Idle;            
     }
 
     bool CheckForStateMachine()
@@ -139,32 +132,48 @@ public class EnemyProjectileHandler : MonoBehaviour
 
     public void LeftProjectileAttack()
     {
-        StartCoroutine(AttackCoroutine(LeftProjectileList, BasicProjectileSpawnLocations[0], Portals[0]));
+        StartCoroutine(AttackCoroutine(LeftProjectileList, BasicProjectileSpawnLocations[0], Portals[0], PortalPrefab));
     }
 
     public void TopProjectileAttack()
     {
-        StartCoroutine(AttackCoroutine(TopProjectileList, BasicProjectileSpawnLocations[1], Portals[1]));
+        StartCoroutine(AttackCoroutine(TopProjectileList, BasicProjectileSpawnLocations[1], Portals[1], PortalPrefab));
     }
 
     public void RightProjectileAttack()
     {
-        StartCoroutine(AttackCoroutine(RightProjectileList, BasicProjectileSpawnLocations[2], Portals[2]));
+        StartCoroutine(AttackCoroutine(RightProjectileList, BasicProjectileSpawnLocations[2], Portals[2], PortalPrefab));
     }
 
-    public IEnumerator AttackCoroutine(List<BasicAttackData> projectileList, Transform spawnLocation, GameObject portal)
+    public IEnumerator AttackCoroutine(List<BasicAttackData> projectileList, Transform spawnLocation, GameObject portal, GameObject prefab)
     {
-        portal.SetActive(true);
+        GameObject portalGO = Instantiate(PortalPrefab);
+        portalGO.transform.position = portal.transform.position;
+
         for (int i = 0; i < projectileList.Count; i++)
         {
             yield return new WaitForSeconds(projectileList[i].WaitBeforeAttackBegins);
-            yield return StartCoroutine(SpawnBasicProjectiles(projectileList[i].ProjectileNumber, portal.transform, projectileList[i].TimeBetweenProjectiles));
-            if(projectileList[i] != null)
+            yield return StartCoroutine(SpawnBasicProjectiles(projectileList[i].ProjectileNumber, portalGO.transform, projectileList[i].TimeBetweenProjectiles));
+            if (projectileList[i] != null)
                 yield return new WaitForSeconds(projectileList[i].WaitAfterAttackEnds);
         }
-        portal.SetActive(false);
+        portalGO.SetActive(false);
         projectileList.Clear();
     }
+    //public IEnumerator AttackCoroutine(List<BasicAttackData> projectileList, Transform spawnLocation, GameObject portal)
+    //{
+    //    portal.SetActive(true);
+
+    //    for (int i = 0; i < projectileList.Count; i++)
+    //    {
+    //        yield return new WaitForSeconds(projectileList[i].WaitBeforeAttackBegins);
+    //        yield return StartCoroutine(SpawnBasicProjectiles(projectileList[i].ProjectileNumber, portal.transform, projectileList[i].TimeBetweenProjectiles));
+    //        if(projectileList[i] != null)
+    //            yield return new WaitForSeconds(projectileList[i].WaitAfterAttackEnds);
+    //    }
+    //    portal.SetActive(false);
+    //    projectileList.Clear();
+    //}
 
     public IEnumerator SpawnBasicProjectiles(int projectileRetreivalNumber, Transform projectileSpawnLocation, float timeBetweenProjectiles)
     {

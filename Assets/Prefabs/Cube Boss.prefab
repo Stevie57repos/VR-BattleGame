@@ -101,6 +101,8 @@ MonoBehaviour:
   - {fileID: 3028356873727446078}
   - {fileID: 2248444684560556334}
   - {fileID: 3475020092312539490}
+  PortalPrefab: {fileID: 1284808616508951085, guid: 185a6acb96826f047b7b45df301b0889,
+    type: 3}
   BasicAttackData: []
   LeftProjectileList: []
   RightProjectileList: []
