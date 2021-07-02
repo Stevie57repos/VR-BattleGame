@@ -66,6 +66,7 @@ public class Enemy_projectile : MonoBehaviour
         RBody.angularVelocity = Vector3.zero;
     }
 
+
     IEnumerator MoveToTargetCoroutine(Transform target)
     {
         yield return new WaitForSeconds(1f);
@@ -88,6 +89,9 @@ public class Enemy_projectile : MonoBehaviour
         }
         FlyTowardsPlayer(target);
     }
+
+
+
 
     private void FlyTowardsPlayer(Transform target)
     {
