@@ -75,6 +75,8 @@ public class SpellDamageHandler : MonoBehaviour, ICardEffect, ICardDataTransfer
         _audioSource.PlayOneShot(randomClip);
         targetGO = _characterRegistry.CurrentEnemy;
         StartCoroutine(MoveToTargetCoroutine(targetGO));
+        Timer timer = GetComponent<Timer>();
+        timer.StartTimer(10f);
     }
     public void OnActivate()
     {
@@ -88,37 +90,40 @@ public class SpellDamageHandler : MonoBehaviour, ICardEffect, ICardDataTransfer
 
     private void FixedUpdate()
     {
-        if (inAir)
-        {
-            targetPos = FindTargetPos(targetGO);
-            //CheckDistance(targetGO);
-        }
+        //if (inAir)
+        //{
+        //    if (targetGO == null)
+        //        targetGO = _characterRegistry.CurrentEnemy;
+        //    targetPos = FindTargetPos(targetGO);
+        //    //CheckDistance(targetGO);
+        //}
     }
     Vector3 FindTargetPos(GameObject targetGO)
     {
+        if(targetGO == null)
+            targetGO = _characterRegistry.CurrentEnemy;
         Transform TargetTransform = targetGO.transform;
         Debug.Log("findtarget pos has been called");
         return TargetTransform.position;
     }
     IEnumerator MoveToTargetCoroutine(GameObject targetGO)
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(0.5f);
 
-        var target = targetPos;
+        var target = FindTargetPos(targetGO);
 
         while (Vector3.Distance(transform.position, target) > 0.5f)
         {
+            Debug.Log("moving towards target");
             Vector3 lookAtTarget = target - transform.position;
             Quaternion newRotation = Quaternion.LookRotation(lookAtTarget, transform.up);
             transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, Time.fixedDeltaTime);
 
-            float dot = Vector3.Dot(transform.forward, (target - transform.position).normalized);
-            if (dot > .8f)
-            {
-                float step = speed * Time.fixedDeltaTime;
-                Vector3 targetPos = new Vector3(target.x, target.y, target.z);
-                transform.position = Vector3.MoveTowards(transform.position, targetPos, step);
-            }
+
+            float step = speed * Time.fixedDeltaTime;
+            Vector3 targetPos = FindTargetPos(targetGO);
+            Vector3 updatedPos = new Vector3(targetPos.x, targetPos.y + 1f, targetPos.z);
+            transform.position = Vector3.MoveTowards(transform.position, updatedPos, step);
             yield return null;
         }
 
@@ -128,14 +133,7 @@ public class SpellDamageHandler : MonoBehaviour, ICardEffect, ICardDataTransfer
         }
     }
 
-    void CheckDistance(GameObject target)
-    {
-        if (Vector3.Distance(transform.position, target.transform.position) < 2.5f && target != null)
-        {
-            Debug.Log("distance check execution");
-            SpellProjectileDestruction();
-        }
-    }
+
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -159,24 +157,21 @@ public class SpellDamageHandler : MonoBehaviour, ICardEffect, ICardDataTransfer
             _currentSpellDamage = maxCharge;       
     }
 
-    void SpellProjectileDestruction()
+    public void SpellProjectileDestruction()
     {
         StopAllCoroutines();
         StopMomentum();
         SpellDamageEvent(_cardInfo.gameObject, _cardData);
         ResetPlayerCardSelection();
         Destroy(this.gameObject);
-        //Destroy(this.gameObject, 0.5f);
     }
 
-    void ProjectileTimeOut()
+    public void SpellProjectileFailDestruction()
     {
-        if (this.enabled == true)
-        {
-            //ResetPlayerCardSelection();
-            //Debug.Log("timed out");
-            //Destroy(this.gameObject);
-        }
+        StopAllCoroutines();
+        StopMomentum();
+        ResetPlayerCardSelection();
+        Destroy(this.gameObject);
     }
 
     private void StopMomentum()
@@ -186,7 +181,7 @@ public class SpellDamageHandler : MonoBehaviour, ICardEffect, ICardDataTransfer
         _rBody.velocity = Vector3.zero;
         _rBody.angularVelocity = Vector3.zero;
     }
-    void SpellDamageEvent(GameObject cardObject, CardScriptableObject cardData)
+    public void SpellDamageEvent(GameObject cardObject, CardScriptableObject cardData)
     {
         EnemyCharacter enenyCharacter = _characterRegistry.CurrentEnemy.GetComponent<EnemyCharacter>();
         enenyCharacter.TakeDamage(_currentSpellDamage);
