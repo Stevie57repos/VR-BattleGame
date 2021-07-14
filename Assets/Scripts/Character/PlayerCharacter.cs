@@ -53,6 +53,7 @@ public class PlayerCharacter : Character_Base, ICharacter
             Health = 0;
             LossEvent.RaiseEvent();
             HealthUpdate.Raise();
+            this._health = characterData.Health;
         }
         HealthUpdate.Raise();
     }

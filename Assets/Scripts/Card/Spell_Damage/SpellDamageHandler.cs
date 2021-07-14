@@ -132,9 +132,6 @@ public class SpellDamageHandler : MonoBehaviour, ICardEffect, ICardDataTransfer
             Debug.Log("distance has been reached");
         }
     }
-
-
-
     private void OnCollisionEnter(Collision collision)
     {
         Debug.Log("collision detected with " + collision.gameObject.name);
@@ -149,14 +146,12 @@ public class SpellDamageHandler : MonoBehaviour, ICardEffect, ICardDataTransfer
             collision.gameObject.SetActive(false);
         }
     }
-
     private void ChargeSpell()
     {
         _currentSpellDamage++;
         if(_currentSpellDamage > maxCharge)      
             _currentSpellDamage = maxCharge;       
     }
-
     public void SpellProjectileDestruction()
     {
         StopAllCoroutines();
@@ -165,7 +160,6 @@ public class SpellDamageHandler : MonoBehaviour, ICardEffect, ICardDataTransfer
         ResetPlayerCardSelection();
         Destroy(this.gameObject);
     }
-
     public void SpellProjectileFailDestruction()
     {
         StopAllCoroutines();
@@ -173,7 +167,6 @@ public class SpellDamageHandler : MonoBehaviour, ICardEffect, ICardDataTransfer
         ResetPlayerCardSelection();
         Destroy(this.gameObject);
     }
-
     private void StopMomentum()
     {
         if (_rBody == null)

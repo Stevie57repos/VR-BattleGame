@@ -12,6 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39286882cffb69745bbd0228d1188322, type: 3}
   m_Name: Character Registry
   m_EditorClassIdentifier: 
-  CharacterList:
-  - {fileID: 0}
-  - {fileID: 0}
+  Player: {fileID: 0}
+  CurrentEnemy: {fileID: 0}

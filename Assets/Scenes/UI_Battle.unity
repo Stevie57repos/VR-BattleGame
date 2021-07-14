@@ -611,13 +611,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7178150647077998544, guid: c70ecb41d4bfae14abd6d2c187544eca,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7178150647077998544, guid: c70ecb41d4bfae14abd6d2c187544eca,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 970816386}
+      objectReference: {fileID: 970816387}
     - target: {fileID: 7178150647077998544, guid: c70ecb41d4bfae14abd6d2c187544eca,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: 
+      value: DamagePlayer
+      objectReference: {fileID: 0}
+    - target: {fileID: 7178150647077998544, guid: c70ecb41d4bfae14abd6d2c187544eca,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c70ecb41d4bfae14abd6d2c187544eca, type: 3}

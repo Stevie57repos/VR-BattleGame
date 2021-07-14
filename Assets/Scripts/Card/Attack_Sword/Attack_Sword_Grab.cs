@@ -12,33 +12,27 @@ public class Attack_Sword_Grab : XRGrabInteractable
     private CardScriptableObject _cardData = null;
     private CardController _cardInfo = null;
 
+    [Header("Beam Attack Settings")]
     public GameObject StartLine;
     public GameObject EndLine;
     public LineRenderer SwordBeam;
-
     public GameEvent Event_SwordDamage;
 
-    private Rigidbody RbBody;
+    private Rigidbody _rbBody;
     private SwordMatHandler _swordMatHandler;
-
-    // TO DO : force select the sword back into the players hand if its been dropped
-    //bool inAir = false;
-
     public void TransferCardData(CardController cardInfo)
     {
         _cardInfo = cardInfo;
         _cardData = cardInfo.CardData;
     }
-
     protected override void Awake()
     {
         base.Awake();
         SwordBeam = GetComponent<LineRenderer>();
         SwordBeam.enabled = false;
-        RbBody = GetComponent<Rigidbody>();
+        _rbBody = GetComponent<Rigidbody>();
         _swordMatHandler = GetComponent<SwordMatHandler>();
     }
-
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.GetComponent<Enemy_projectile>())
@@ -52,16 +46,13 @@ public class Attack_Sword_Grab : XRGrabInteractable
     protected override void OnSelectEntered(XRBaseInteractor interactor)
     {
         base.OnSelectEntered(interactor);
-        RbBody.isKinematic = false;
-        // 
+        _rbBody.isKinematic = false;
     }
-
     protected override void OnSelectExited(XRBaseInteractor interactor)
     {
         base.OnSelectExited(interactor);
         SwordBeam.enabled = false;
     }
-
     protected override void OnActivate(XRBaseInteractor interactor)
     {
         base.OnActivate(interactor);
@@ -70,7 +61,6 @@ public class Attack_Sword_Grab : XRGrabInteractable
         else
             Debug.Log($" current charge is {_currChargeCount} and you need {_neededCharge}");
     }
-
     void DisplaySwordBeam()
     {
         SwordBeam.enabled = true;
@@ -93,7 +83,6 @@ public class Attack_Sword_Grab : XRGrabInteractable
         SwordBeam.startWidth = .1f;
         SwordBeam.endWidth = .1f;
     }
-
     void FireBeam()
     {
         Vector3 startPos = StartLine.transform.position;
@@ -119,5 +108,4 @@ public class Attack_Sword_Grab : XRGrabInteractable
         if(_currChargeCount >= _neededCharge)
             DisplaySwordBeam();
     }
-
 }

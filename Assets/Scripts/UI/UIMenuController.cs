@@ -7,12 +7,10 @@ public abstract class UIMenuController : MonoBehaviour
 {
     private Canvas _canvas;
     private Canvas[] _canvasList;
-
     protected virtual void Awake()
     {
         SetupCamaera();
     }
-
     public void SetupCamaera()
     {
         //_canvas = GetComponent<Canvas>();
@@ -25,4 +23,8 @@ public abstract class UIMenuController : MonoBehaviour
         }
     }
     public abstract void SetGameTransitionButtonActivation();
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }

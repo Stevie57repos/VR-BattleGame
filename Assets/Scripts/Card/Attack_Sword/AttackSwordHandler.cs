@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using EzySlice;
 using UnityEngine.XR.Interaction.Toolkit;
-
 public class AttackSwordHandler : MonoBehaviour, ICardDataTransfer, ICardEffect
 {
+    [Header("Sword Settings")]
     [SerializeField] private float _currChargeCount = 0;
     [SerializeField] private float _neededCharge = 3;
+    [SerializeField] Material _dissolveMat;
 
-    [SerializeField] Material testMaterial;
-
+    [Header("Audio")]
     [SerializeField] SoundsListSO _swordSounds;
     [SerializeField] SoundsListSO _projectilerandomDestructionSounds;
     [SerializeField] AudioSource _audioSource;
@@ -20,64 +20,58 @@ public class AttackSwordHandler : MonoBehaviour, ICardDataTransfer, ICardEffect
     private CardScriptableObject _cardData = null;
     private CardController _cardInfo = null;
 
+    [Header("Projectile Aim Assist")]
     public GameObject StartLine;
     public GameObject EndLine;
     public LineRenderer SwordBeam;
     [SerializeField] ParticleSystem _particleSystem;
     public Material TargetingLine;
     public Material LaserBlastMaterial;
-
     [SerializeField] Transform _bladeStart;
     [SerializeField] Transform _bladeEnd;
     public LayerMask sliceableLayer;
     [SerializeField] VelocityEstimator _velocityEstimator;
     [NonSerialized] float _cutVelocityForce = 1000f;
 
-    public GameEvent Event_SwordDamage;
+    [Header("Events")]
+    [SerializeField] GameEvent Event_SwordDamage;
     [SerializeField] CardEffectEventChannelSO _cardEffectEvent;
     [SerializeField] CardSelectionEventSO _cardSelectionEvent;
 
-    private Rigidbody RbBody;
+    private Rigidbody _rbBody;
     private SwordMatHandler _swordMatHandler;
     private HapticsManager _hapticsManager;
-
     public void TransferCardData(CardController cardInfo)
     {
         _cardInfo = cardInfo;
         _cardData = cardInfo.CardData;
     }
-
     void Awake()
     {
         if(SwordBeam == null)
             SwordBeam = GetComponent<LineRenderer>();
         DisableSwordBeam();
-        RbBody = GetComponent<Rigidbody>();
+        _rbBody = GetComponent<Rigidbody>();
         _swordMatHandler = GetComponent<SwordMatHandler>();
         _hapticsManager = GetComponent<HapticsManager>();
         PlaySliceSound();
     }
-
     public void OnHoverEntered()
     {
 
     }
-
     public void OnHoverExited()
     {
 
     }
-
     public void OnSelectEntered()
     {
-        RbBody.isKinematic = false;
+        _rbBody.isKinematic = false;
     }
-
     public void OnSelectExited()
     {
         SwordBeam.enabled = false;
     }
-
     public void OnActivate()
     {
         if (_currChargeCount >= _neededCharge)
@@ -97,7 +91,6 @@ public class AttackSwordHandler : MonoBehaviour, ICardDataTransfer, ICardEffect
             DisplaySwordBeam();
         }
     }
-
     private void CheckForBladeCutting()
     {
         RaycastHit hit;
@@ -109,7 +102,6 @@ public class AttackSwordHandler : MonoBehaviour, ICardDataTransfer, ICardEffect
             Slice(hit.transform.gameObject, hit.point, _velocityEstimator.GetVelocityEstimate());
         }
     }
-
     void DisplaySwordBeam()
     {
         Vector3 startPos = StartLine.transform.position;
@@ -129,7 +121,6 @@ public class AttackSwordHandler : MonoBehaviour, ICardDataTransfer, ICardEffect
             SwordBeam.SetPosition(1, endPos);
         }
     }
-
     void FireBeam()
     {
         _hapticsManager.TriggerHaptics(0.5f, 0.3f);
@@ -145,12 +136,10 @@ public class AttackSwordHandler : MonoBehaviour, ICardDataTransfer, ICardEffect
 
         if (Physics.Raycast(startPos, direction, out RaycastHit hit))
         {
-            Debug.Log($"Firebeam has been activated. Damage value is {_cardData.value}");
             if (hit.collider.GetComponent<EnemyCharacter>())
             {               
                 var enemyController = hit.collider.GetComponent<EnemyCharacter>();
                 enemyController.TakeDamage(_cardData.value);
-                //_cardEffectEvent.RaiseEvent(_cardInfo.gameObject, _cardData);
                 Reset(1f);
             }
         }
@@ -160,18 +149,10 @@ public class AttackSwordHandler : MonoBehaviour, ICardDataTransfer, ICardEffect
             Reset(1f);
         }
     }
-
     void DisableSwordBeam()
     {
         SwordBeam.enabled = false;
     }
-
-    //void ResetPlayerCardSelection(float timeBeforeDestruction)
-    //{
-    //    _cardSelectionEvent.RaiseEvent("None");
-    //    controller = null;
-    //    Destroy(this.gameObject, timeBeforeDestruction);
-    //}
     void ChargeSword(GameObject enemyProjectileGO)
     {
         var enemyProjectile = enemyProjectileGO.GetComponent<Enemy_projectile>();
@@ -186,7 +167,6 @@ public class AttackSwordHandler : MonoBehaviour, ICardDataTransfer, ICardEffect
             ActivateParticles();
         }
     }
-
     void ActivateParticles()
     {
         if (_particleSystem == null)
@@ -194,7 +174,6 @@ public class AttackSwordHandler : MonoBehaviour, ICardDataTransfer, ICardEffect
 
         _particleSystem.Play();
     }
-
     private void Slice(GameObject target, Vector3 planePosition, Vector3 bladeVelocity)
     {
         Vector3 bladeCutDirection = _bladeEnd.position - _bladeStart.position;
@@ -215,7 +194,6 @@ public class AttackSwordHandler : MonoBehaviour, ICardDataTransfer, ICardEffect
             target.SetActive(false);
         }
     }
-
     private void PlaySliceSound()
     {
         if (_audioSource == null)
@@ -224,20 +202,14 @@ public class AttackSwordHandler : MonoBehaviour, ICardDataTransfer, ICardEffect
         _audioSource.clip = _swordSounds.SoundsArray[UnityEngine.Random.Range(0, _swordSounds.SoundsArray.Length)];
         _audioSource.Play();
     }
-
     private void PlayRandomDestructionSound()
     {
-        //GameObject tempSoundGameObject = Instantiate(_tempSoundPrefab, spawnPosition);
-        //TempSoundController tempSoundController = tempSoundGameObject.GetComponent<TempSoundController>();
-        //var randomDestructionSound = _projectilerandomDestructionSounds.SoundsArray[UnityEngine.Random.Range(0, _projectilerandomDestructionSounds.SoundsArray.Length)];
-        //tempSoundController.PlayTempSound(randomDestructionSound, spawnPosition, 100f);
         if (_audioSource == null)
             _audioSource = GetComponent<AudioSource>();
 
         var randomDestructionSound = _projectilerandomDestructionSounds.SoundsArray[UnityEngine.Random.Range(0, _projectilerandomDestructionSounds.SoundsArray.Length)];
         _audioSource.PlayOneShot(randomDestructionSound);
     }
-
     private void CreateSlicedComponents(GameObject slicedHull)
     {
         Rigidbody rb = slicedHull.AddComponent<Rigidbody>();
@@ -246,14 +218,12 @@ public class AttackSwordHandler : MonoBehaviour, ICardDataTransfer, ICardEffect
 
         DissolveV2 dissolveV2 = slicedHull.AddComponent<DissolveV2>();
         MeshRenderer meshRend = slicedHull.GetComponent<MeshRenderer>();
-        Material[] tempMat = new Material[] { testMaterial};
+        Material[] tempMat = new Material[] { _dissolveMat};
         meshRend.materials = tempMat;
         dissolveV2.BeginDissolve();
 
         rb.AddExplosionForce(_cutVelocityForce, slicedHull.transform.position, 1);
-        //Destroy(slicedHull, 2);
     }
-
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Ground"))
@@ -261,14 +231,12 @@ public class AttackSwordHandler : MonoBehaviour, ICardDataTransfer, ICardEffect
             Reset(0f);
         }
     }
-
     void Reset(float SecondsBeforeDestruction)
     {
         _cardEffectEvent.RaiseEvent(_cardInfo.gameObject, _cardData);
         _hapticsManager.ClearController();
         Destroy(this.gameObject, SecondsBeforeDestruction);
     }
-
     public void PassController(XRController controller)
     {
         if (_hapticsManager == null)

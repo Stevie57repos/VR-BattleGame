@@ -13,20 +13,15 @@ public class UIStartMenuController : UIMenuController
         base.Awake();
         SetUpUI();
     }
-
     public void SetUpUI()
     {
         _gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager_BS>();
         SetGameTransitionButtonActivation();
     }
-    // TODO : VR settings menu button
-    // TODO : Manage Card deck
-
     public void TransitionToBattleState()
     {
         _gameManager.TransitionToState(_gameManager.battleState);
     }
-
     public override void SetGameTransitionButtonActivation()
     {
         Button _button = StartButtonGO.GetComponent<Button>();

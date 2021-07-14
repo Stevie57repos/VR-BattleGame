@@ -6,7 +6,7 @@ public class DeckManager : MonoBehaviour
 {
     public GameObject CardspawnSpotGO;
     private GameManager_BS _gameManager;
-    private int maxHandSize = 5;
+    private int _maxHandSize = 5;
 
     [SerializeField] private GameObject _cardPrefab;
     [SerializeField] private DeckScriptableObject _deckData;
@@ -20,12 +20,14 @@ public class DeckManager : MonoBehaviour
     private PlayerController _playerController;
 
     [Header("Card List")]
-    public List<CardScriptableObject> deck;
-	public List<CardScriptableObject> hand;
-	public List<CardScriptableObject> graveyard;
-	public List<CardScriptableObject> burn;
-    public List<GameObject> handCards;
-    float cardSpreadDistance = 0f;
+    public List<CardScriptableObject> DeckSO;
+	public List<CardScriptableObject> HandSO;
+	public List<CardScriptableObject> GraveyardSO;
+	public List<CardScriptableObject> BurnSO;
+    public List<GameObject> HandCards;
+    private float cardSpreadDistance = 0f;
+
+    private bool isInitialDeckLoaded = false;
     private void OnEnable()
     {
         _gameManagerBattleStart.GameManagerEvent += DeckStart;
@@ -33,7 +35,6 @@ public class DeckManager : MonoBehaviour
         _gameManagerBattleFinishEvent.GameManagerEvent += BattleFinish;
         _gameManagerLossEvent.GameManagerEvent += BattleFinish;
     }
-
     private void OnDisable()
     {
         _gameManagerBattleStart.GameManagerEvent -= DeckStart;
@@ -41,69 +42,60 @@ public class DeckManager : MonoBehaviour
         _gameManagerBattleFinishEvent.GameManagerEvent -= BattleFinish;
         _gameManagerLossEvent.GameManagerEvent -= BattleFinish;
     }
-
     private void Awake()
     {
         _gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager_BS>();
     }
-
     void DeckStart()
     {
-        LoadCards();
+        if(!isInitialDeckLoaded)
+            LoadCards();
         ShuffleDeck();
         Draw(3);
     }
-
 	void LoadCards()
     {
+        isInitialDeckLoaded = true;
 		foreach (CardScriptableObject card in _deckData.cards)
         {
-			this.deck.Add(card);
+			this.DeckSO.Add(card);
         }
     }
-
     public void ShuffleDeck()
     {
-		for(int t = 0; t < deck.Count; t++)
+		for(int t = 0; t < DeckSO.Count; t++)
         {
-            CardScriptableObject tmp = deck[t];
-            int r = Random.Range(t, deck.Count);
-            deck[t] = deck[r];
-            deck[r] = tmp;
+            CardScriptableObject tmp = DeckSO[t];
+            int r = Random.Range(t, DeckSO.Count);
+            DeckSO[t] = DeckSO[r];
+            DeckSO[r] = tmp;
         }
     }
-
     public CardScriptableObject GetNextCard()
     {
-        return deck[0];
+        return DeckSO[0];
     }
-
     public void Draw(int n =1)
     {
         for(int i = 0; i < n; i++)
         {
-            // check if deck is empty
-            if(deck.Count == 0)
+            // check if DeckSO is empty
+            if(DeckSO.Count == 0)
             {
-                Debug.Log("Deck has run out of cards");
                 RefillDeck();
             }
             else
             {
-                // check if there is still room in the hand
                 CardScriptableObject card = GetNextCard();
-                //Debug.Log("drawing card");
-                if (hand.Count > maxHandSize)
+                if (HandSO.Count > _maxHandSize)
                 {
                     Overdraw(card);
                 }
                 else
                 {
-                    // draw the card
-                    //Debug.Log("Drew a " + card.name + " card!");
                     SpawnCard(card);
-                    hand.Add(card);
-                    deck.Remove(card);
+                    HandSO.Add(card);
+                    DeckSO.Remove(card);
                 }
             }
         }
@@ -111,18 +103,18 @@ public class DeckManager : MonoBehaviour
     }
     private void FanCards()
     {
-        for (int i = 0; i < handCards.Count; i++)
+        for (int i = 0; i < HandCards.Count; i++)
         {
             var CardspawnPos = CardspawnSpotGO.transform.position;
             Vector3 cardSpot = new Vector3((cardSpreadDistance + CardspawnPos.x), CardspawnPos.y, CardspawnPos.z);
-            handCards[i].transform.position = cardSpot;
+            HandCards[i].transform.position = cardSpot;
             cardSpreadDistance += 0.25f;
         }
         cardSpreadDistance = 0f;
     }
     public void CardSelected(GameObject SelectedCard)
     {
-        foreach (GameObject card in handCards)
+        foreach (GameObject card in HandCards)
         {
             if(SelectedCard.gameObject != card)
             {
@@ -130,52 +122,45 @@ public class DeckManager : MonoBehaviour
             }
         }
     }
-
     public void CardUnselected()
     {
-        foreach (GameObject card in handCards)
+        foreach (GameObject card in HandCards)
         {
             card.SetActive(true);
         }
         FanCards();
     }
-
     private void SpawnCard(CardScriptableObject card)
     {
         GameObject cardObject = Instantiate(_cardPrefab);
-        // TODO : Set this to card controller
         var cardController = cardObject.GetComponent<CardController>();
         cardController.SetupCard(card); 
         cardController.CardData = card;
         cardController.DeckManager = this;
-        handCards.Add(cardObject);
+        HandCards.Add(cardObject);
     }
-
     private void RefillDeck()
     {
-        foreach(CardScriptableObject card in graveyard)
+        foreach(CardScriptableObject card in GraveyardSO)
         {
-            deck.Add(card);
+            DeckSO.Add(card);
         }
-        graveyard.Clear();
+        GraveyardSO.Clear();
         ShuffleDeck();
         Draw();
     }
-
     private void Overdraw(CardScriptableObject card)
     {
-        Debug.Log("Overdrew a " + card.name + " card! It was sent to the graveyard!");
-        graveyard.Add(card);
-        deck.Remove(card);
+        Debug.Log("Overdrew a " + card.name + " card! It was sent to the GraveyardSO!");
+        GraveyardSO.Add(card);
+        DeckSO.Remove(card);
     }
-
-    public void Burn(CardScriptableObject card)
+    public void BurnCard(CardScriptableObject card)
     {
         Debug.Log("Burned a " + card.name + " card! It was sent to the burned pile It will not be refilled!");
-        burn.Add(card);
-        hand.Remove(card);
+        BurnSO.Add(card);
+        HandSO.Remove(card);
     }
-
     private void NewTurnV2(GameObject cardObject, CardScriptableObject cardData)
     {
         UpdateCardLists(cardObject, cardData);
@@ -190,45 +175,31 @@ public class DeckManager : MonoBehaviour
             Draw();
         }
     }
-
     public void UpdateCardLists(GameObject cardGO, CardScriptableObject card)
     {
-        Debug.Log("Played a " + card.name + " card!");
-        graveyard.Add(card);
-        hand.Remove(card);
-        handCards.Remove(cardGO);
+        GraveyardSO.Add(card);
+        HandSO.Remove(card);
+        HandCards.Remove(cardGO);
     }
-    void BattleFinish()
+    private void BattleFinish()
     {
-
-        foreach (GameObject card in handCards)
+        SendHandToGraveyard();
+        foreach (CardScriptableObject card in GraveyardSO)
         {
-            Debug.Log("Set hand cards to inactive");
-            card.SetActive(false);
+            DeckSO.Add(card);
         }
-
-        foreach (CardScriptableObject card in graveyard)
+        GraveyardSO.Clear();
+    }
+    private void SendHandToGraveyard()
+    {
+        for (int i = HandCards.Count; i > 0; i--)
         {
-            deck.Add(card);
+            UpdateCardLists(HandCards[i - 1], HandCards[i - 1].GetComponent<CardController>().CardData);
         }
-        graveyard.Clear();
     }
 
     public void AddToDeck(CardScriptableObject card)
     {
-        deck.Add(card);
+        DeckSO.Add(card);
     }
-
-    // enemy defeat - Select cards
-
-    // two pop up cards
-
-    // select a card
-
-    // deck added
-
-    // game win UI appears
-
-
-
 }

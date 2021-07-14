@@ -1,9 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using TMPro;
-using System;
-
+﻿using UnityEngine;
 public class GameManager_BS : MonoBehaviour
 {
     public UI_Manager UImanager;

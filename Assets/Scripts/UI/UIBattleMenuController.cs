@@ -25,19 +25,16 @@ public class UIBattleMenuController : UIMenuController
     public TextMeshProUGUI EnemyHealthPanel = null;
     public GameObject EnemyManaPanelGO;
     public TextMeshProUGUI EnemyManaPanel = null;
-
     protected override void Awake()
     {
         base.Awake();
         GetTextMesh();
         RegisterUI();
     }
-
     private void Start()
     {
         StartBattle();
     }
-
     private void GetTextMesh()
     {
         PlayerHealthPanel = PlayerHealthPanelGO.GetComponent<TextMeshProUGUI>();
@@ -45,48 +42,38 @@ public class UIBattleMenuController : UIMenuController
         EnemyHealthPanel = EnemyHealthPanelGO.GetComponent<TextMeshProUGUI>();
         EnemyManaPanel = EnemyManaPanelGO.GetComponent<TextMeshProUGUI>();
     }
-
     private void RegisterUI()
     {
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager_BS>();
         UImanager = gameManager.GetComponent<UI_Manager>();
-        //UImanager.PlayerHealthPanelGO = PlayerHealthPanelGO;
-        //UImanager.PlayerManaPanelGO = PlayerManaPanelGO;
-        //UImanager.EnemyHealthPanelGO = EnemyHealthPanelGO;
-        //UImanager.EnemyManaPanelGO = EnemyManaPanelGO;
     }
-
     private void StartBattle()
     {
+        Debug.Log($"start battle has been called");
         _playerCharacter = _characterRegistry.Player.GetComponent<PlayerCharacter>();
         _playerCharacter.BattleStartUISetup();
         _gameManagerBattleEvent.RaiseEvent();
     }
-
     public void UpdatePlayerHealthPanel()
     {
         PlayerHealthPanel.text = _playerCharacter.Health.ToString();
     }
-
     public void UpdatePlayerManaPanel()
     {
         PlayerManaPanel.text = _playerCharacter.Mana.ToString();
     }
-
     public void UpdateEnemyHealthPanel()
     {
         CheckForEnemy();
         EnemyHealthPanel = EnemyHealthPanelGO.GetComponent<TextMeshProUGUI>();
         EnemyHealthPanel.text = _enemyCharacter.Health.ToString();
     }
-
     public void UpdateEnemyManaPanel()
     {
         CheckForEnemy();
         EnemyManaPanel = EnemyManaPanelGO.GetComponent<TextMeshProUGUI>();
         EnemyManaPanel.text = _enemyCharacter.Mana.ToString();
     }
-
     private void CheckForEnemy()
     {
         if(_enemyCharacter == null)
@@ -94,17 +81,15 @@ public class UIBattleMenuController : UIMenuController
             _enemyCharacter = _characterRegistry.CurrentEnemy.GetComponent<EnemyCharacter>();
         }
     }
-
     public override void SetGameTransitionButtonActivation()
     {
-        throw new System.NotImplementedException();
-    }
 
-    public void DamagePlayer()
+    }
+    public void DamagePlayer(int damageValue)
     {
-        _playerCharacter.Take5Damage();
+        //_playerCharacter.Take5Damage();
+        _playerCharacter.TakeDamage(damageValue);
     }
-
     public void DamageEnemy()
     {
         _enemyCharacter.TakeDamage(5);

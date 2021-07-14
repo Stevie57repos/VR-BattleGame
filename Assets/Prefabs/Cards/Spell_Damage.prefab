@@ -180,7 +180,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2883799518484059389}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a17d89ba553c4244c834730214216175, type: 3}
+  m_Script: {fileID: 11500000, guid: 58e48821c78ad644db5cc9d92b865c8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _playerSettings: {fileID: 11400000, guid: 7cc9accc7191ec3428a3b85e8bc0549d, type: 2}
@@ -290,23 +290,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 2883799518484059389}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f7db1e94b4878a41831cdced90de080, type: 3}
+  m_Script: {fileID: 11500000, guid: 4512284a1241a90408bddcebc0caac94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   onTimerEnd:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5551380411371420417}
-        m_MethodName: SpellProjectileDestruction
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &8061537138354684682
 GameObject:
   m_ObjectHideFlags: 0

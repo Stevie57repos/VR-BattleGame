@@ -19,6 +19,7 @@ public class EnemyManager : MonoBehaviour
 
     [SerializeField] GameManagerEventChannelSO _gameManagerBattleStart;
     [SerializeField] GameManagerEventChannelSO _gameManagerWonEvent;
+    [SerializeField] GameManagerEventChannelSO _gameManagerLossEvent;
 
     void Awake()
     {
@@ -51,16 +52,13 @@ public class EnemyManager : MonoBehaviour
         _currentEnemyController = CurrentEnemyGO.GetComponent<EnemyStateController>();
         if(_currentEnemyController != null)
             _currentEnemyController.enemyManager = this;
-
     }
-
     void UpdateEnemyUI()
     {
         _currentEnemyChar = CurrentEnemyGO.GetComponent<EnemyCharacter>();
         _currentEnemyChar.TakeDamage(0);
         _currentEnemyChar.SpendMana(0);
     }
-
     public void EnemyTake5Damage()
     {
         _currentEnemyChar.TakeDamage(5);
@@ -69,7 +67,6 @@ public class EnemyManager : MonoBehaviour
     {
         _currentEnemyChar.SpendMana(5);
     }
-
     public void NextLevel()
     {
         currentLevel++;
