@@ -158,20 +158,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currDurability: 2
-  _playerCharacter: {fileID: 0}
   _characterRegistry: {fileID: 11400000, guid: d574c7e257a701f40bf7bfef9748e6f9, type: 2}
+  _shieldModelGO: {fileID: 1549259294442639124}
   _cardEffectEvent: {fileID: 11400000, guid: da8ef699fbd93a5409d5b91caa88a6c7, type: 2}
   _cardSelectionEvent: {fileID: 11400000, guid: 3264c742e9141dc439f14460e04d5b7b,
     type: 2}
-  _ShieldSummonAudioClip: {fileID: 8300000, guid: b47d3d2e7abe29448a3afd7d14578edd,
+  _shieldSummonAudioClip: {fileID: 8300000, guid: 02a65a15968ad7c48b1d92dd9426cea7,
     type: 3}
   _projectileDestructionAudio: {fileID: 11400000, guid: 9535508e24f1f9b4e99000374d85f78b,
     type: 2}
   _shieldBlockAudio: {fileID: 11400000, guid: ca121607ae2e32d4bbc15f8a6dda40c6, type: 2}
   _droppedSheildAudioClip: {fileID: 8300000, guid: edf405fc59b520144bce8f908da9afa2,
     type: 3}
-  _playerSettings: {fileID: 0}
-  _shieldModelGO: {fileID: 1549259294442639124}
 --- !u!82 &995490835913119304
 AudioSource:
   m_ObjectHideFlags: 0

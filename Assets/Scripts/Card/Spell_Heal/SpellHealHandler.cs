@@ -5,18 +5,19 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class SpellHealHandler : MonoBehaviour, ICardEffect, ICardDataTransfer
 {
+    [SerializeField] private MeshRenderer _meshRend;
+    [SerializeField] CharacterRegistry _characterRegistry;
+    private HapticsManager _hapticsManager;
     private CardScriptableObject _cardData = null;
     private CardController _cardInfo = null;
     private PlayerCharacter _player;
 
-    [SerializeField] MeshRenderer _meshRend;
-    private HapticsManager _hapticsManager;
- 
+    [Header("Audio")]
     [SerializeField] AudioSource _audioSource;
     [SerializeField] AudioClip _spellStartSound;
     [SerializeField] AudioClip _spellTriggerSound;
 
-    [SerializeField] CharacterRegistry _characterRegistry;
+    [Header("Events")]
     [SerializeField] CardEffectEventChannelSO _cardEffectEvent;
     [SerializeField] CardSelectionEventSO _cardSelectionEvent;
     private void Awake()
@@ -25,51 +26,36 @@ public class SpellHealHandler : MonoBehaviour, ICardEffect, ICardDataTransfer
         _audioSource = GetComponent<AudioSource>();
         _audioSource.PlayOneShot(_spellStartSound);;
     }
-
     public void TransferCardData(CardController cardInfo)
     {
         _cardInfo = cardInfo;
         _cardData = cardInfo.CardData;
     }
-
-
     public void OnActivate()
     {
 
     }
-
     public void OnDeactivate()
     {
 
     }
-
     public void OnHoverEntered()
     {
 
     }
-
     public void OnHoverExited()
     {
 
     }
-
     public void OnSelectEntered()
     {
         Invoke("SpellHealEvent", 5f);
     }
-
     public void OnSelectExited()
     {
         SpellHealEvent();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    void SpellHealEvent()
+    private void SpellHealEvent()
     {
         _meshRend.enabled = false;
         _audioSource.Stop();
@@ -82,12 +68,10 @@ public class SpellHealHandler : MonoBehaviour, ICardEffect, ICardDataTransfer
         Destroy(this.gameObject,1.25f);
         _hapticsManager.TriggerHaptics(0.7f, 0.3f);
     }
-
-    void ResetPlayerCardSelection()
+    private void ResetPlayerCardSelection()
     {
         _cardSelectionEvent.RaiseEvent("None");
     }
-
     public void PassController(XRController controller)
     {
         if (_hapticsManager == null)

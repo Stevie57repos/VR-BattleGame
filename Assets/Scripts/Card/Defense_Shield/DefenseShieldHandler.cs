@@ -28,6 +28,7 @@ public class DefenseShieldHandler : MonoBehaviour, ICardDataTransfer, ICardEffec
     private HapticsManager _hapticsManager;
     private CardScriptableObject _cardData = null;
     private CardController _cardInfo = null;
+    private bool isTriggered;
     public void TransferCardData(CardController cardInfo)
     {
         _cardInfo = cardInfo;
@@ -41,6 +42,7 @@ public class DefenseShieldHandler : MonoBehaviour, ICardDataTransfer, ICardEffec
         _shieldMeshRender = _shieldModelGO.GetComponent<MeshRenderer>();
         _collider = _shieldModelGO.GetComponent<BoxCollider>();
         _hapticsManager = GetComponent<HapticsManager>();
+        isTriggered = false;
     }
     private void OnCollisionEnter(Collision other)
     {
@@ -57,8 +59,9 @@ public class DefenseShieldHandler : MonoBehaviour, ICardDataTransfer, ICardEffec
             _audioSource.PlayOneShot(RandomAudioClip(_shieldBlockAudio));
             _hapticsManager.TriggerHaptics(0.7f, 0.3f);
         }
-        else if (other.gameObject.CompareTag("Ground"))
+        else if (other.gameObject.CompareTag("Ground") && !isTriggered)
         {
+            isTriggered = true;
             _cardEffectEvent.RaiseEvent(_cardInfo.gameObject, _cardData);
             ResetPlayerCardSelection();
             _audioSource.PlayOneShot(_droppedSheildAudioClip);

@@ -195,7 +195,8 @@ public class DeckManager : MonoBehaviour
     {
         for (int i = HandCards.Count; i > 0; i--)
         {
-            UpdateCardLists(HandCards[i - 1], HandCards[i - 1].GetComponent<CardController>().CardData);
+            var card = HandCards.Count - 1;
+            UpdateCardLists(HandCards[card], HandCards[card].GetComponent<CardController>().CardData);
         }
     }
     public void AddToDeck(CardScriptableObject card)
