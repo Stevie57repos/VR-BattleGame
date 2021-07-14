@@ -11,14 +11,19 @@ public class AttackSwordHandler : MonoBehaviour, ICardDataTransfer, ICardEffect
     [SerializeField] private float _neededCharge = 3;
     [SerializeField] Material _dissolveMat;
 
+    [Header("Sword Properties")]
+    [SerializeField] Transform _bladeStart;
+    [SerializeField] Transform _bladeEnd;
+    public Material LaserBlastMaterial;
+    public LayerMask sliceableLayer;
+    [SerializeField] VelocityEstimator _velocityEstimator;
+    [NonSerialized] float _cutVelocityForce = 1000f;
+
     [Header("Audio")]
     [SerializeField] SoundsListSO _swordSounds;
     [SerializeField] SoundsListSO _projectilerandomDestructionSounds;
     [SerializeField] AudioSource _audioSource;
     [SerializeField] AudioClip _LightningCast;
-
-    private CardScriptableObject _cardData = null;
-    private CardController _cardInfo = null;
 
     [Header("Projectile Aim Assist")]
     public GameObject StartLine;
@@ -26,12 +31,6 @@ public class AttackSwordHandler : MonoBehaviour, ICardDataTransfer, ICardEffect
     public LineRenderer SwordBeam;
     [SerializeField] ParticleSystem _particleSystem;
     public Material TargetingLine;
-    public Material LaserBlastMaterial;
-    [SerializeField] Transform _bladeStart;
-    [SerializeField] Transform _bladeEnd;
-    public LayerMask sliceableLayer;
-    [SerializeField] VelocityEstimator _velocityEstimator;
-    [NonSerialized] float _cutVelocityForce = 1000f;
 
     [Header("Events")]
     [SerializeField] GameEvent Event_SwordDamage;
@@ -41,6 +40,9 @@ public class AttackSwordHandler : MonoBehaviour, ICardDataTransfer, ICardEffect
     private Rigidbody _rbBody;
     private SwordMatHandler _swordMatHandler;
     private HapticsManager _hapticsManager;
+    private CardScriptableObject _cardData = null;
+    private CardController _cardInfo = null;
+
     public void TransferCardData(CardController cardInfo)
     {
         _cardInfo = cardInfo;
@@ -184,14 +186,14 @@ public class AttackSwordHandler : MonoBehaviour, ICardDataTransfer, ICardEffect
         {
             GameObject upperHull = hull.CreateUpperHull(target);
             GameObject lowerHull = hull.CreateLowerHull(target);
-
             CreateSlicedComponents(upperHull);
             CreateSlicedComponents(lowerHull);
-
             PlaySliceSound();
             PlayRandomDestructionSound();
             _hapticsManager.TriggerHaptics(0.7f, 0.3f);
             target.SetActive(false);
+            Destroy(upperHull, 2);
+            Destroy(lowerHull, 2);
         }
     }
     private void PlaySliceSound()
@@ -215,7 +217,6 @@ public class AttackSwordHandler : MonoBehaviour, ICardDataTransfer, ICardEffect
         Rigidbody rb = slicedHull.AddComponent<Rigidbody>();
         MeshCollider collider = slicedHull.AddComponent<MeshCollider>();
         collider.convex = true;
-
         DissolveV2 dissolveV2 = slicedHull.AddComponent<DissolveV2>();
         MeshRenderer meshRend = slicedHull.GetComponent<MeshRenderer>();
         Material[] tempMat = new Material[] { _dissolveMat};

@@ -318,7 +318,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currChargeCount: 3
   _neededCharge: 3
-  testMaterial: {fileID: 2100000, guid: e5da3ffa27469cd4c892b80a9a5ea6eb, type: 2}
+  _dissolveMat: {fileID: 2100000, guid: e5da3ffa27469cd4c892b80a9a5ea6eb, type: 2}
+  _bladeStart: {fileID: 3064674213051800682}
+  _bladeEnd: {fileID: 7511096298424139000}
+  LaserBlastMaterial: {fileID: 2100000, guid: 25ee59a47584d5c4284a02a188e61e1e, type: 2}
+  sliceableLayer:
+    serializedVersion: 2
+    m_Bits: 4096
+  _velocityEstimator: {fileID: 1516812660339727019}
   _swordSounds: {fileID: 11400000, guid: 9fa93db1216e35946ada6a3b0711e758, type: 2}
   _projectilerandomDestructionSounds: {fileID: 11400000, guid: 9535508e24f1f9b4e99000374d85f78b,
     type: 2}
@@ -329,13 +336,6 @@ MonoBehaviour:
   SwordBeam: {fileID: 1803477334185345567}
   _particleSystem: {fileID: 1527126590923216675}
   TargetingLine: {fileID: 2100000, guid: 6cf68330f916a8f488a91e50184c75c2, type: 2}
-  LaserBlastMaterial: {fileID: 2100000, guid: 25ee59a47584d5c4284a02a188e61e1e, type: 2}
-  _bladeStart: {fileID: 3064674213051800682}
-  _bladeEnd: {fileID: 7511096298424139000}
-  sliceableLayer:
-    serializedVersion: 2
-    m_Bits: 4096
-  _velocityEstimator: {fileID: 1516812660339727019}
   Event_SwordDamage: {fileID: 11400000, guid: 90c571ebfa2a92a4bba3750c57c2ce9d, type: 2}
   _cardEffectEvent: {fileID: 11400000, guid: da8ef699fbd93a5409d5b91caa88a6c7, type: 2}
   _cardSelectionEvent: {fileID: 11400000, guid: 3264c742e9141dc439f14460e04d5b7b,

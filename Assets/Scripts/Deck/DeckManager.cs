@@ -197,7 +197,6 @@ public class DeckManager : MonoBehaviour
             UpdateCardLists(HandCards[i - 1], HandCards[i - 1].GetComponent<CardController>().CardData);
         }
     }
-
     public void AddToDeck(CardScriptableObject card)
     {
         DeckSO.Add(card);
