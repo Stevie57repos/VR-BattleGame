@@ -2,36 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
-
 public class DefenseShieldHandler : MonoBehaviour, ICardDataTransfer, ICardEffect
 {
+    [Header("Shield Settings")]
     [SerializeField] private int _currDurability = 2;
-    [SerializeField] PlayerCharacter _playerCharacter;
-
-    private XRController controller;
-    
-    private HapticsManager _hapticsManager;
-
-    private CardScriptableObject _cardData = null;
-    private CardController _cardInfo = null;
-
-    //public GameEvent ShieldDestroyed;
+    private PlayerCharacter _playerCharacter;
     [SerializeField] CharacterRegistry _characterRegistry;
+    [SerializeField] GameObject _shieldModelGO;
+    private MeshRenderer _shieldMeshRender;
+    private BoxCollider _collider;
+
+    [Header("Events")]
     [SerializeField] CardEffectEventChannelSO _cardEffectEvent;
     [SerializeField] CardSelectionEventSO _cardSelectionEvent;
 
+    [Header("Audio")]
     private AudioSource _audioSource;
     [SerializeField] AudioClip _ShieldSummonAudioClip;
     [SerializeField] SoundsListSO _projectileDestructionAudio;
     [SerializeField] SoundsListSO _shieldBlockAudio;
     [SerializeField] AudioClip _droppedSheildAudioClip;
 
-    [SerializeField] PlayerSettings _playerSettings;
-
-    [SerializeField] GameObject _shieldModelGO;
-    private MeshRenderer _shieldMeshRender;
-    private BoxCollider _collider;
-
+    //[SerializeField] PlayerSettings _playerSettings;
+    private XRController controller;
+    private HapticsManager _hapticsManager;
+    private CardScriptableObject _cardData = null;
+    private CardController _cardInfo = null;
     public void TransferCardData(CardController cardInfo)
     {
         _cardInfo = cardInfo;
@@ -46,7 +42,6 @@ public class DefenseShieldHandler : MonoBehaviour, ICardDataTransfer, ICardEffec
         _collider = _shieldModelGO.GetComponent<BoxCollider>();
         _hapticsManager = GetComponent<HapticsManager>();
     }
-
     private void OnCollisionEnter(Collision other)
     {
         Debug.Log("collision detected");
@@ -61,7 +56,6 @@ public class DefenseShieldHandler : MonoBehaviour, ICardDataTransfer, ICardEffec
             CheckShieldDurability(damageValue);
             _audioSource.PlayOneShot(RandomAudioClip(_shieldBlockAudio));
             _hapticsManager.TriggerHaptics(0.7f, 0.3f);
-            enemyProjectile.gameObject.SetActive(false);
         }
         else if (other.gameObject.CompareTag("Ground"))
         {
@@ -71,13 +65,11 @@ public class DefenseShieldHandler : MonoBehaviour, ICardDataTransfer, ICardEffec
             Destroy(this.gameObject, 1.25f);
         }
     }
-
     private AudioClip RandomAudioClip(SoundsListSO soundsListSO)
     {
         AudioClip randomClip = soundsListSO.SoundsArray[UnityEngine.Random.Range(0, soundsListSO.SoundsArray.Length)];
         return randomClip;
     }
-
     void CheckShieldDurability(int damageValue)
     {
         _currDurability -= damageValue;
@@ -93,7 +85,6 @@ public class DefenseShieldHandler : MonoBehaviour, ICardDataTransfer, ICardEffec
             Destroy(this.gameObject, 1.5f);           
         }
     }
-
     void ResetPlayerCardSelection()
     {
         _cardSelectionEvent.RaiseEvent("None");
@@ -103,32 +94,26 @@ public class DefenseShieldHandler : MonoBehaviour, ICardDataTransfer, ICardEffec
     {
 
     }
-
     public void OnHoverExited()
     {
 
     }
-
     public void OnSelectEntered()
     {
 
     }
-
     public void OnSelectExited()
     {
 
     }
-
     public void OnActivate()
     {
 
     }
-
     public void OnDeactivate()
     {
 
     }
-
     public void PassController(XRController controller)
     {
         if (_hapticsManager == null)
