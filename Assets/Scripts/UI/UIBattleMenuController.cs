@@ -8,23 +8,23 @@ using System;
 public class UIBattleMenuController : UIMenuController
 {
     [SerializeField] CharacterRegistry _characterRegistry;
-    [SerializeField] GameManagerEventChannelSO _gameManagerBattleEvent;
-
-    private PlayerCharacter _playerCharacter;
-    private EnemyCharacter _enemyCharacter;
-
     [SerializeField] GameManager_BS gameManager;
     [SerializeField] UI_Manager UImanager;
 
+    [Header("UI Elements")]
+    private PlayerCharacter _playerCharacter;
+    private EnemyCharacter _enemyCharacter;
     public GameObject PlayerHealthPanelGO;
     public TextMeshProUGUI PlayerHealthPanel = null;
     public GameObject PlayerManaPanelGO;
     public TextMeshProUGUI PlayerManaPanel = null;
-    
     public GameObject EnemyHealthPanelGO;
     public TextMeshProUGUI EnemyHealthPanel = null;
     public GameObject EnemyManaPanelGO;
     public TextMeshProUGUI EnemyManaPanel = null;
+
+    [Header("Event")]
+    [SerializeField] GameManagerEventChannelSO _gameManagerBattleEvent;
     protected override void Awake()
     {
         base.Awake();
@@ -83,7 +83,6 @@ public class UIBattleMenuController : UIMenuController
     }
     public override void SetGameTransitionButtonActivation()
     {
-
     }
     public void DamagePlayer(int damageValue)
     {

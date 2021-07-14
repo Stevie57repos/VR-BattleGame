@@ -6,20 +6,12 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class LocomotionController : MonoBehaviour
 {
-    public XRController rightTeleportRay;
-    public InputHelpers.Button teleportActivationButton;
-    public float activationThreshold = 0.1f;
-
-
-
-    public XRRayInteractor leftInteractorRay;
-    public XRRayInteractor rightInteractorRay;
-
+    public XRController RightTeleportRay;
+    public InputHelpers.Button TeleportActivationButton;
+    public float ActivationThreshold = 0.1f;
+    public XRRayInteractor LeftInteractorRay;
+    public XRRayInteractor RightInteractorRay;
     public bool EnabledRightTeleport { get; set; } = true;
-
-
-
-    // Update is called once per frame
     void Update()
     {
         Vector3 pos = new Vector3();
@@ -27,23 +19,16 @@ public class LocomotionController : MonoBehaviour
         int index = 0;
         bool validtarget = false;
 
-        if (rightTeleportRay)
+        if (RightTeleportRay)
         {
-            bool isRightInteractorRayHovering = rightInteractorRay.TryGetHitInfo(out pos, out norm, out index, out validtarget);
+            bool isRightInteractorRayHovering = RightInteractorRay.TryGetHitInfo(out pos, out norm, out index, out validtarget);
             //Debug.Log(isRightInteractorRayHovering);
-            rightTeleportRay.gameObject.SetActive(EnabledRightTeleport && CheckIfActivated(rightTeleportRay) && !isRightInteractorRayHovering);
+            RightTeleportRay.gameObject.SetActive(EnabledRightTeleport && CheckIfActivated(RightTeleportRay) && !isRightInteractorRayHovering);
         }              
     }
-
-
-
     public bool CheckIfActivated(XRController controller)
     {
-        InputHelpers.IsPressed(controller.inputDevice, teleportActivationButton, out bool isActivated, activationThreshold);
+        InputHelpers.IsPressed(controller.inputDevice, TeleportActivationButton, out bool isActivated, ActivationThreshold);
         return isActivated;
     }
-
-
-
-
 }

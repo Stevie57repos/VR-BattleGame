@@ -9,7 +9,6 @@ public class NewXRrayInteractor : XRRayInteractor
     {
         OnSelectEntered(interactable);
     }
-
     public void ForceDeinteract(XRBaseInteractable interactable)
     {
         OnSelectExited(interactable);

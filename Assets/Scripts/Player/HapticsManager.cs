@@ -5,25 +5,21 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class HapticsManager : MonoBehaviour
 {
-    private XRController controller;
-    [SerializeField] PlayerSettings _playerSettings;
-
+    private XRController _controller;
+    [SerializeField] private PlayerSettings _playerSettings;
     public void TriggerHaptics(float hapticStrength, float duration)
     {
-        if(controller != null && _playerSettings.isHapticsOn)
+        if(_controller != null && _playerSettings.isHapticsOn)
         {
-            controller.SendHapticImpulse(hapticStrength, duration);
+            _controller.SendHapticImpulse(hapticStrength, duration);
         }
     }
-
-    public void SetController(XRController controller)
+    public void SetController(XRController _controller)
     {
-        this.controller = controller;
+        this._controller = _controller;
     }
-
     public void ClearController()
     {
-        this.controller = null;
+        this._controller = null;
     }
-
 }

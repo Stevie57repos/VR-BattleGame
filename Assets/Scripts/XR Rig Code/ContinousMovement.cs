@@ -6,66 +6,56 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class ContinousMovement : MonoBehaviour
 {
-    public float speed = 1f;
-    public XRNode inputSource;
-    public float gravity = -9.81f;
-    public LayerMask groundLayer;
-    public float additionalHeight = 0.2f;
-
-    private float fallingSpeed;
-    private XRRig rig;
-    private Vector2 inputAxis;
-    private CharacterController character;
-    
-
-
-    // Start is called before the first frame update
+    public float Speed = 1f;
+    public XRNode InputSource;
+    public float Gravity = -9.81f;
+    public LayerMask GroundLayer;
+    public float AdditionalHeight = 0.2f;
+    private float FallingSpeed;
+    private XRRig Rig;
+    private Vector2 InputAxis;
+    private CharacterController Character;
+ 
     void Start()
     {
-        character = GetComponent<CharacterController>();
-        rig = GetComponent<XRRig>();
+        Character = GetComponent<CharacterController>();
+        Rig = GetComponent<XRRig>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        InputDevice device = InputDevices.GetDeviceAtXRNode(inputSource);
-        device.TryGetFeatureValue(CommonUsages.primary2DAxis, out inputAxis);
+        InputDevice device = InputDevices.GetDeviceAtXRNode(InputSource);
+        device.TryGetFeatureValue(CommonUsages.primary2DAxis, out InputAxis);
     }
-
     private void FixedUpdate()
     {
         CapsuleFollowHeadset();
-        Quaternion headYaw = Quaternion.Euler(0, rig.cameraGameObject.transform.eulerAngles.y, 0);
-        Vector3 direction = headYaw * new Vector3(inputAxis.x, 0, inputAxis.y);
+        Quaternion headYaw = Quaternion.Euler(0, Rig.cameraGameObject.transform.eulerAngles.y, 0);
+        Vector3 direction = headYaw * new Vector3(InputAxis.x, 0, InputAxis.y);
 
-        character.Move(direction * Time.fixedDeltaTime * speed );
+        Character.Move(direction * Time.fixedDeltaTime * Speed );
 
-        // gravity
         bool isGrounded = checkIfGrounded();
         if (isGrounded)
-            fallingSpeed = 0;
+            FallingSpeed = 0;
         else
-            fallingSpeed += gravity * Time.fixedDeltaTime;
+            FallingSpeed += Gravity * Time.fixedDeltaTime;
 
-        character.Move(Vector3.up * fallingSpeed * Time.fixedDeltaTime);
-
+        Character.Move(Vector3.up * FallingSpeed * Time.fixedDeltaTime);
     }
 
     bool checkIfGrounded()
     {
-        // tells us if character is touching the ground. Using spherecast
-        Vector3 rayStart = transform.TransformPoint(character.center);
+        Vector3 rayStart = transform.TransformPoint(Character.center);
 
-        float rayLength = character.center.y + 0.01f;
-        bool hasHit = Physics.SphereCast(rayStart, character.radius, Vector3.down, out RaycastHit hitInfo, rayLength, groundLayer);
+        float rayLength = Character.center.y + 0.01f;
+        bool hasHit = Physics.SphereCast(rayStart, Character.radius, Vector3.down, out RaycastHit hitInfo, rayLength, GroundLayer);
         return hasHit;
     }
-
     void CapsuleFollowHeadset()
     {
-        character.height = rig.cameraInRigSpaceHeight + additionalHeight;
-        Vector3 capsuleCenter = transform.InverseTransformPoint(rig.cameraGameObject.transform.position);
-        character.center = new Vector3(capsuleCenter.x, character.height / 2 + character.skinWidth, capsuleCenter.z);
+        Character.height = Rig.cameraInRigSpaceHeight + AdditionalHeight;
+        Vector3 capsuleCenter = transform.InverseTransformPoint(Rig.cameraGameObject.transform.position);
+        Character.center = new Vector3(capsuleCenter.x, Character.height / 2 + Character.skinWidth, capsuleCenter.z);
     }
 }

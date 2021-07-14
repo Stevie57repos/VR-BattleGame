@@ -8,9 +8,8 @@ public class HMDInfoManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log($"is device active {XRSettings.isDeviceActive}");
-        Debug.Log($"device name is : {XRSettings.loadedDeviceName} ");
-
+        //Debug.Log($"is device active {XRSettings.isDeviceActive}");
+        //Debug.Log($"device name is : {XRSettings.loadedDeviceName} ");
         if (!XRSettings.isDeviceActive)
         {
             Debug.Log("No headset plugged");
@@ -25,11 +24,5 @@ public class HMDInfoManager : MonoBehaviour
         }
 
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

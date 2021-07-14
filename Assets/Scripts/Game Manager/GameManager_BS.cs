@@ -24,35 +24,29 @@ public class GameManager_BS : MonoBehaviour
         LossEvent.GameManagerEvent -= TransitionToBattleLostState;
         WonEvent.GameManagerEvent -= TransitionToBattleWonState;
     }
-
     private void Awake()
     {
         UImanager = GetComponent<UI_Manager>();
     }
-
     void Start()
     {
         TransitionToState(StartState);      
     }
-
     public void TransitionToState(GameManagerState state)
     {
         CurrentGameManagerState = state;
         CurrentGameManagerState.EnterState(this);
     }
-
     public void TransitionToBattleLostState()
     {
         CurrentGameManagerState = LossState;
         CurrentGameManagerState.EnterState(this);
     }
-
     public void TransitionToBattleWonState()
     {
         CurrentGameManagerState = WonState;
         CurrentGameManagerState.EnterState(this);
     }
-
     public bool CheckIfInBattleState()
     {
         if(CurrentGameManagerState == BattleState)

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UILossMenuController : UIMenuController
 {
-    GameManager_BS _gameManager;
+    private GameManager_BS _gameManager;
     protected override void Awake()
     {
         base.Awake();

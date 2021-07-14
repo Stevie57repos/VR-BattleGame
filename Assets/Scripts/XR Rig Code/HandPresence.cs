@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
-
-
 public class HandPresence : MonoBehaviour
 {
     public bool showController = false;
@@ -19,10 +17,8 @@ public class HandPresence : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        TryInitialize();
-       
+        TryInitialize(); 
     }
-
     void TryInitialize()
     {
         List<InputDevice> devices = new List<InputDevice>();
@@ -57,7 +53,6 @@ public class HandPresence : MonoBehaviour
             handAnimator = spawnHandModel.GetComponent<Animator>();
         }
     }
-
     void UpdateHandAnimation()
     {
         if(targetDevice.TryGetFeatureValue(CommonUsages.trigger, out float triggerValue))
@@ -78,8 +73,6 @@ public class HandPresence : MonoBehaviour
             handAnimator.SetFloat("Grip", 0);
         }
     }
-
-    // Update is called once per frame
     void Update()
     {
         if (!targetDevice.isValid)
