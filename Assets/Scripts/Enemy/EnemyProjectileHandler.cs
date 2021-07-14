@@ -133,20 +133,16 @@ public class EnemyProjectileHandler : MonoBehaviour
     public void LeftProjectileAttack()
     {
         StartCoroutine(AttackCoroutine(LeftProjectileList, BasicProjectileSpawnLocations[0], Portals[0], PortalPrefab));
-        Debug.Log($"Left projectile attack called");
     }
 
     public void TopProjectileAttack()
     {
         StartCoroutine(AttackCoroutine(TopProjectileList, BasicProjectileSpawnLocations[1], Portals[1], PortalPrefab));
-        Debug.Log($"Top projectile attack called");
     }
 
     public void RightProjectileAttack()
     {
-        if (RightProjectileList.Count != 0)
-          StartCoroutine(AttackCoroutine(RightProjectileList, BasicProjectileSpawnLocations[2], Portals[2], PortalPrefab));
-        Debug.Log($"right projectile attack called");
+        StartCoroutine(AttackCoroutine(RightProjectileList, BasicProjectileSpawnLocations[2], Portals[2], PortalPrefab));
     }
 
     public IEnumerator AttackCoroutine(List<BasicAttackData> projectileList, Transform spawnLocation, GameObject portal, GameObject prefab)
@@ -158,10 +154,26 @@ public class EnemyProjectileHandler : MonoBehaviour
         {
             yield return new WaitForSeconds(projectileList[i].WaitBeforeAttackBegins);
             yield return StartCoroutine(SpawnBasicProjectiles(projectileList[i].ProjectileNumber, portalGO.transform, projectileList[i].TimeBetweenProjectiles));
+            if (projectileList[i] != null)
+                yield return new WaitForSeconds(projectileList[i].WaitAfterAttackEnds);
         }
+        portalGO.SetActive(false);
         projectileList.Clear();
-        Destroy(portalGO);
     }
+    //public IEnumerator AttackCoroutine(List<BasicAttackData> projectileList, Transform spawnLocation, GameObject portal)
+    //{
+    //    portal.SetActive(true);
+
+    //    for (int i = 0; i < projectileList.Count; i++)
+    //    {
+    //        yield return new WaitForSeconds(projectileList[i].WaitBeforeAttackBegins);
+    //        yield return StartCoroutine(SpawnBasicProjectiles(projectileList[i].ProjectileNumber, portal.transform, projectileList[i].TimeBetweenProjectiles));
+    //        if(projectileList[i] != null)
+    //            yield return new WaitForSeconds(projectileList[i].WaitAfterAttackEnds);
+    //    }
+    //    portal.SetActive(false);
+    //    projectileList.Clear();
+    //}
 
     public IEnumerator SpawnBasicProjectiles(int projectileRetreivalNumber, Transform projectileSpawnLocation, float timeBetweenProjectiles)
     {
