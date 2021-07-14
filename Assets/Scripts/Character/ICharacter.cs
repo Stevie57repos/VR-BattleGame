@@ -9,10 +9,7 @@ public interface ICharacter
     int MaxHealth { get; }
     int Mana { get; set; }
     int MaxMana { get; }
-
     GameObject getGameObject();
-
     void TakeDamage(int damage);
-
     void SpendMana(int Mana);
 }

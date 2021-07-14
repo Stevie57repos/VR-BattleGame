@@ -139,7 +139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea038d97b9c0f104290e659f7c6c3532, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterData: {fileID: 11400000, guid: b5823c4322d56cb4bae2de9f9fcd44d1, type: 2}
+  CharacterData: {fileID: 11400000, guid: b5823c4322d56cb4bae2de9f9fcd44d1, type: 2}
   _nameCharacter: 
   _health: 0
   _maxHealth: 0
@@ -652,7 +652,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea038d97b9c0f104290e659f7c6c3532, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterData: {fileID: 11400000, guid: b5823c4322d56cb4bae2de9f9fcd44d1, type: 2}
+  CharacterData: {fileID: 0}
   _nameCharacter: 
   _health: 0
   _maxHealth: 0

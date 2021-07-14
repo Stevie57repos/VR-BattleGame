@@ -8,13 +8,11 @@ public class EnemyAI_BT : MonoBehaviour
     bool isDead = false;
     EnemyRewardController _enemyRewardController;
     public GameManagerEventChannelSO BattleFinish;
-
     void Start()
     {
         _behaviourTree = GetComponent<BehaviourTree>();
         _behaviourTree.BeginTree();
     }
-
     public void EnemyDeath()
     {
         Animator enemyAnimator = GetComponent<Animator>();
@@ -22,7 +20,6 @@ public class EnemyAI_BT : MonoBehaviour
         _behaviourTree.enabled = false;
         isDead = true;
     }
-
     private void OnCollisionEnter(Collision collision)
     {
         if (isDead)

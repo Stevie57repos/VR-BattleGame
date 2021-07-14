@@ -198,7 +198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 800ef0bb069dcca40a2669ad0e136095, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterData: {fileID: 11400000, guid: 2ada8a766a6e55240bef90005b4bdd78, type: 2}
+  CharacterData: {fileID: 11400000, guid: 2ada8a766a6e55240bef90005b4bdd78, type: 2}
   _nameCharacter: 
   _health: 0
   _maxHealth: 0

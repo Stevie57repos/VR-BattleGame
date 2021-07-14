@@ -10,7 +10,6 @@ public class StatsUpdater : MonoBehaviour
     [SerializeField] Character_Base StatsOwner;
     [SerializeField] UI_Manager UImanager;
 
-    // Player UI elements - TO DO - Make private later
     public GameObject HealthPanelGO = null;
     public TextMeshProUGUI HealthPanel = null;
     public GameObject ManaPanelGO = null;
@@ -21,14 +20,12 @@ public class StatsUpdater : MonoBehaviour
         Setup();
         AssignStatsPanel();
     }
-
     void Setup()
     {
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager_BS>();
         StatsOwner = GetComponent<Character_Base>();
         UImanager = gameManager.GetComponent<UI_Manager>();
     }
-
     private void AssignStatsPanel()
     {
         if (StatsOwner.gameObject.CompareTag("Player"))
@@ -45,14 +42,12 @@ public class StatsUpdater : MonoBehaviour
         HealthPanel = HealthPanelGO.GetComponent<TextMeshProUGUI>();
         ManaPanel = ManaPanelGO.GetComponent<TextMeshProUGUI>();
     }
-
     public void HealthPanelUpdate()
     {
         if(HealthPanel == null) 
             AssignStatsPanel();
         HealthPanel.text = StatsOwner._health.ToString();
     }
-
     public void ManaPanelUpdate()
     {
         if (ManaPanel == null)

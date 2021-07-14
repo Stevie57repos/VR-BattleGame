@@ -4,19 +4,16 @@ using UnityEngine;
 
 public class CharacterRegisterHandler : MonoBehaviour
 {
-    [SerializeField] CharacterRegistry _characterRegistry;
+    [SerializeField] private CharacterRegistry _characterRegistry;
     private string _objectTag;
-
     private void OnEnable()
     {
         RegisterThisObject(this.gameObject);
     }
-
     private void OnDisable()
     {
         DeregisterThisObject(this.gameObject);
     }
-
     void RegisterThisObject(GameObject GO)
     {
         _objectTag = GO.tag.ToString();
@@ -25,7 +22,6 @@ public class CharacterRegisterHandler : MonoBehaviour
         else
             _characterRegistry.CurrentEnemy = this.gameObject;
     }
-
     void DeregisterThisObject(GameObject GO)
     {
         _objectTag = GO.tag.ToString();

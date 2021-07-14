@@ -7,7 +7,6 @@ public class UIStartMenuController : UIMenuController
 {
     private GameManager_BS _gameManager;
     public GameObject StartButtonGO;
-
     protected override void Awake()
     {
         base.Awake();
@@ -20,7 +19,7 @@ public class UIStartMenuController : UIMenuController
     }
     public void TransitionToBattleState()
     {
-        _gameManager.TransitionToState(_gameManager.battleState);
+        _gameManager.TransitionToState(_gameManager.BattleState);
     }
     public override void SetGameTransitionButtonActivation()
     {

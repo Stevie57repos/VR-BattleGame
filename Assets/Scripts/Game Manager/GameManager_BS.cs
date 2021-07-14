@@ -2,26 +2,23 @@
 public class GameManager_BS : MonoBehaviour
 {
     public UI_Manager UImanager;
+    public GameManagerState CurrentGameManagerState;
 
+    [Header("Events")]
     public GameManagerEventChannelSO StartEvent;
     public GameManagerEventChannelSO BattleStartEvent;
     public GameManagerEventChannelSO LossEvent;
     public GameManagerEventChannelSO WonEvent;
 
-    public GameManagerState currentGameManagerState;
-
-    public readonly GameManager_State_Start startState = new GameManager_State_Start();
-    public readonly GameManager_State_Battle battleState = new GameManager_State_Battle();
-    public readonly GameManager_State_Won wonState = new GameManager_State_Won();
-    public readonly GameManager_State_Loss lossState = new GameManager_State_Loss();
-
+    public readonly GameManager_State_Start StartState = new GameManager_State_Start();
+    public readonly GameManager_State_Battle BattleState = new GameManager_State_Battle();
+    public readonly GameManager_State_Won WonState = new GameManager_State_Won();
+    public readonly GameManager_State_Loss LossState = new GameManager_State_Loss();
     private void OnEnable()
     {
-        // triggered from player/enemy character health take damage methods
         LossEvent.GameManagerEvent += TransitionToBattleLostState;
         WonEvent.GameManagerEvent += TransitionToBattleWonState;
     }
-
     private void OnDisable()
     {
         LossEvent.GameManagerEvent -= TransitionToBattleLostState;
@@ -35,30 +32,30 @@ public class GameManager_BS : MonoBehaviour
 
     void Start()
     {
-        TransitionToState(startState);      
+        TransitionToState(StartState);      
     }
 
     public void TransitionToState(GameManagerState state)
     {
-        currentGameManagerState = state;
-        currentGameManagerState.EnterState(this);
+        CurrentGameManagerState = state;
+        CurrentGameManagerState.EnterState(this);
     }
 
     public void TransitionToBattleLostState()
     {
-        currentGameManagerState = lossState;
-        currentGameManagerState.EnterState(this);
+        CurrentGameManagerState = LossState;
+        CurrentGameManagerState.EnterState(this);
     }
 
     public void TransitionToBattleWonState()
     {
-        currentGameManagerState = wonState;
-        currentGameManagerState.EnterState(this);
+        CurrentGameManagerState = WonState;
+        CurrentGameManagerState.EnterState(this);
     }
 
     public bool CheckIfInBattleState()
     {
-        if(currentGameManagerState == battleState)
+        if(CurrentGameManagerState == BattleState)
         {
             return true;
         }

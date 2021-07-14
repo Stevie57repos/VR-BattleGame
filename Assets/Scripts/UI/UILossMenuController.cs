@@ -12,8 +12,6 @@ public class UILossMenuController : UIMenuController
     }
     public override void SetGameTransitionButtonActivation()
     {
-        _gameManager.TransitionToState(_gameManager.battleState);
+        _gameManager.TransitionToState(_gameManager.BattleState);
     }
-
-
 }
