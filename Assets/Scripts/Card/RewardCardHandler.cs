@@ -7,22 +7,24 @@ using UnityEngine.XR;
 
 public class RewardCardHandler : MonoBehaviour, ICardEffect
 {
-    public GameObject _cardDescriptionGO;
+    [Header("UI Elements")]
+    public GameObject CardDescriptionGO;
     private TextMeshProUGUI _cardDescription;
     public CardScriptableObject CardData;
 
-    private RewardsManager _rewardsManager;
-
     [SerializeField] private Timer _timer;
-    public GameManagerEventChannelSO WonEvent;
+    [Header("Event")]
+    [SerializeField] private GameManagerEventChannelSO WonEvent;
 
     private XRController _controller;
-    [SerializeField] private HapticsManager _hapticsManager;
-    [SerializeField] CharacterRegistry _characterRegistry;
+    private HapticsManager _hapticsManager;
+    [SerializeField] private CharacterRegistry _characterRegistry;
+    private RewardsManager _rewardsManager;
+
     private void Awake()
     {
-        _cardDescriptionGO.SetActive(false);    
-        _cardDescription = _cardDescriptionGO.GetComponentInChildren<TextMeshProUGUI>();
+        CardDescriptionGO.SetActive(false);    
+        _cardDescription = CardDescriptionGO.GetComponentInChildren<TextMeshProUGUI>();
         _cardDescription.text = "Add this card to your deck";
         _timer = GetComponent<Timer>();
 
@@ -43,11 +45,11 @@ public class RewardCardHandler : MonoBehaviour, ICardEffect
     }
     public void OnHoverEntered()
     {
-        _cardDescriptionGO.SetActive(true);
+        CardDescriptionGO.SetActive(true);
     }
     public void OnHoverExited()
     {
-        _cardDescriptionGO.SetActive(false);
+        CardDescriptionGO.SetActive(false);
     }
     public void OnSelectEntered()
     {

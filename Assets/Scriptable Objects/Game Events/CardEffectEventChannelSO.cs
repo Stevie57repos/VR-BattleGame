@@ -7,7 +7,6 @@ using UnityEngine.Events;
 public class CardEffectEventChannelSO : ScriptableObject
 {
     public UnityAction<GameObject, CardScriptableObject> OnCardEffectActivate;
-
     public void RaiseEvent(GameObject cardOjbect, CardScriptableObject cardData)
     {
         if(OnCardEffectActivate != null)

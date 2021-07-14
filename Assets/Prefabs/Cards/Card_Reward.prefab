@@ -431,12 +431,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DeckManager: {fileID: 0}
   CardData: {fileID: 0}
+  _rewardCardHandler: {fileID: 0}
+  _characterRegistry: {fileID: 11400000, guid: d574c7e257a701f40bf7bfef9748e6f9, type: 2}
   CardNameLabelGO: {fileID: 7425039697384719645}
   CardCostLabelGO: {fileID: 1356802844863547878}
   CardValueLabelGO: {fileID: 6122069254940276407}
-  CardMatManager: {fileID: 668616033313977785}
-  _rewardCardHandler: {fileID: 0}
-  _characterRegistry: {fileID: 11400000, guid: d574c7e257a701f40bf7bfef9748e6f9, type: 2}
 --- !u!114 &3090272066937009690
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -659,11 +658,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e27d0e2f54ddf8143bb7c119e8c66b7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cardDescriptionGO: {fileID: 6163392528386007908}
+  CardDescriptionGO: {fileID: 6163392528386007908}
   CardData: {fileID: 11400000, guid: 379d9c7de3a74664ba0f3653010f0e41, type: 2}
   _timer: {fileID: 6940614635754207909}
   WonEvent: {fileID: 11400000, guid: f01c93f4f1b24db40958a695efedeaa8, type: 2}
-  _hapticsManager: {fileID: 5695915997438996029}
   _characterRegistry: {fileID: 11400000, guid: d574c7e257a701f40bf7bfef9748e6f9, type: 2}
 --- !u!114 &6940614635754207909
 MonoBehaviour:

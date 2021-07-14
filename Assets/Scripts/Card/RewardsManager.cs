@@ -4,42 +4,42 @@ using UnityEngine;
 
 public class RewardsManager : MonoBehaviour
 {
-    public GameObject _cardPrefab;
-    public List<CardScriptableObject> _cardsList;
-    public List<GameObject> _rewardsCardsList;
-    private float cardSpreadDistance;
-    private Vector3 cardSpawnPos;
+    public GameObject CardPrefab;
+    public List<CardScriptableObject> CardsList;
+    public List<GameObject> RewardsCardsList;
+    private float _cardSpreadDistance;
+    private Vector3 _cardSpawnPos;
     private void Awake()
     {
-        cardSpreadDistance = 0f;
+        _cardSpreadDistance = 0f;
     }
     public void SpawnCards(List<CardScriptableObject> cardsList, Vector3 spawnPos)
     {
-        _cardsList = cardsList;
+        CardsList = cardsList;
 
-        foreach (CardScriptableObject card in _cardsList)
+        foreach (CardScriptableObject card in CardsList)
         {
-            GameObject cardObject = Instantiate(_cardPrefab);
-            _rewardsCardsList.Add(cardObject);
-            cardSpawnPos = spawnPos;
-            cardObject.transform.position = new Vector3((cardSpawnPos.x + cardSpreadDistance), cardSpawnPos.y, cardSpawnPos.z);
+            GameObject cardObject = Instantiate(CardPrefab);
+            RewardsCardsList.Add(cardObject);
+            _cardSpawnPos = spawnPos;
+            cardObject.transform.position = new Vector3((_cardSpawnPos.x + _cardSpreadDistance), _cardSpawnPos.y, _cardSpawnPos.z);
             var cardController = cardObject.GetComponent<CardController>();
             cardController.SetupReward(this, card);
-            cardSpreadDistance += 0.25f;
+            _cardSpreadDistance += 0.25f;
         }
     }
     public void SpreadCards()
     {
-        for(int i = 0; i < _rewardsCardsList.Count; i++)
+        for(int i = 0; i < RewardsCardsList.Count; i++)
         {
-            _rewardsCardsList[i].transform.position = new Vector3((cardSpawnPos.x + cardSpreadDistance), cardSpawnPos.y, cardSpawnPos.z);
-            cardSpreadDistance += 0.25f;
+            RewardsCardsList[i].transform.position = new Vector3((_cardSpawnPos.x + _cardSpreadDistance), _cardSpawnPos.y, _cardSpawnPos.z);
+            _cardSpreadDistance += 0.25f;
         }
-        cardSpreadDistance = 0f;
+        _cardSpreadDistance = 0f;
     }
     public void CardSelected(GameObject cardGO)
     {
-        foreach(GameObject card in _rewardsCardsList)
+        foreach(GameObject card in RewardsCardsList)
         {
             if(card != cardGO)
             {
@@ -51,14 +51,14 @@ public class RewardsManager : MonoBehaviour
     {
         cardGO.SetActive(false);    
         SpreadCards();
-        foreach (GameObject card in _rewardsCardsList)
+        foreach (GameObject card in RewardsCardsList)
         {
             card.SetActive(true);        
         }
     }
     public void RemoveRewards()
     {
-        foreach(GameObject card in _rewardsCardsList)
+        foreach(GameObject card in RewardsCardsList)
         {
             Destroy(card);
         }

@@ -5,6 +5,4 @@ using UnityEngine;
 public interface ICardDataTransfer
 {
     void TransferCardData(CardController cardController);
-
-
 }

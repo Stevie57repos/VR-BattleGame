@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6024666216353438627}
   - component: {fileID: 6024666216353438626}
   m_Layer: 0
-  m_Name: Reward
+  m_Name: Reward Manager Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f81b9748cf341a4d95947b2d666df37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cardPrefab: {fileID: 3408342031960753097, guid: af73e19822795044187423733e655cc5,
+  CardPrefab: {fileID: 3408342031960753097, guid: af73e19822795044187423733e655cc5,
     type: 3}
-  _cardsList: []
-  _rewardsCardsList: []
+  CardsList: []
+  RewardsCardsList: []
