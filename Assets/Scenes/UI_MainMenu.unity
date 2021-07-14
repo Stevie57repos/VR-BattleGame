@@ -136,11 +136,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 279324693}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c40edec8ff4404549a2b24026c13fe5d, type: 3}
+  m_Script: {fileID: 11500000, guid: 353d6e4f5431e1f409febe2895cb5aad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameManagerBattleEvent: {fileID: 11400000, guid: 49f4caa8aa981fd41bb178c0f030aaf1,
-    type: 2}
   StartButtonGO: {fileID: 1639948508}
 --- !u!1 &305676275
 GameObject:

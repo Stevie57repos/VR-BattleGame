@@ -8,13 +8,11 @@ public class RewardsManager : MonoBehaviour
     public List<CardScriptableObject> _cardsList;
     public List<GameObject> _rewardsCardsList;
     private float cardSpreadDistance;
-    Vector3 cardSpawnPos;
-
+    private Vector3 cardSpawnPos;
     private void Awake()
     {
         cardSpreadDistance = 0f;
     }
-
     public void SpawnCards(List<CardScriptableObject> cardsList, Vector3 spawnPos)
     {
         _cardsList = cardsList;
@@ -30,7 +28,6 @@ public class RewardsManager : MonoBehaviour
             cardSpreadDistance += 0.25f;
         }
     }
-
     public void SpreadCards()
     {
         for(int i = 0; i < _rewardsCardsList.Count; i++)
@@ -40,7 +37,6 @@ public class RewardsManager : MonoBehaviour
         }
         cardSpreadDistance = 0f;
     }
-
     public void CardSelected(GameObject cardGO)
     {
         foreach(GameObject card in _rewardsCardsList)
@@ -60,7 +56,6 @@ public class RewardsManager : MonoBehaviour
             card.SetActive(true);        
         }
     }
-
     public void RemoveRewards()
     {
         foreach(GameObject card in _rewardsCardsList)

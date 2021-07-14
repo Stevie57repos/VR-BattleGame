@@ -229,7 +229,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6330816297456125847}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48a17bfd015cf6d4b9c78d8a424076f0, type: 3}
+  m_Script: {fileID: 11500000, guid: 8e75a7186fca76b4cb82816a6ec6f210, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _characterRegistry: {fileID: 11400000, guid: d574c7e257a701f40bf7bfef9748e6f9, type: 2}
@@ -289,12 +289,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 6330816297456125847}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6eb0eaa021c95d14e9af74a00069323d, type: 3}
+  m_Script: {fileID: 11500000, guid: 52c18aaea4fa6c74a9778d9b23c36145, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   RewardCards:
+  - {fileID: 11400000, guid: 379d9c7de3a74664ba0f3653010f0e41, type: 2}
   - {fileID: 11400000, guid: e3c4fdc8fa7be6243bca5bd19fd19a01, type: 2}
-  - {fileID: 11400000, guid: 87a4ac4e7ee896640965c51b61ab8260, type: 2}
   _prefabRewardCardsGO: {fileID: 6024666216353438624, guid: 09c384796e46b544fa57995e89309dec,
     type: 3}
   _characterRegistry: {fileID: 11400000, guid: d574c7e257a701f40bf7bfef9748e6f9, type: 2}
@@ -307,7 +307,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6330816297456125847}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a2227b3c434c3c40847d9b36069e179, type: 3}
+  m_Script: {fileID: 11500000, guid: 9ca13972ac8867041b9d5d7cbca04604, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   BattleFinish: {fileID: 11400000, guid: 4a154d8e0f72ec243b21110593c75387, type: 2}
@@ -449,7 +449,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6330816297456125847}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f7db1e94b4878a41831cdced90de080, type: 3}
+  m_Script: {fileID: 11500000, guid: 4512284a1241a90408bddcebc0caac94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   onTimerEnd:

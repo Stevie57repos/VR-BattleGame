@@ -303,13 +303,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1400560229}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 115631751a99a83479d52da559b388f2, type: 3}
+  m_Script: {fileID: 11500000, guid: 65f1f79c42039ae42a503d1286eeb1d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NextLevelGO: {fileID: 0}
-  battleStart: {fileID: 11400000, guid: 49f4caa8aa981fd41bb178c0f030aaf1, type: 2}
-  MainMenuGO: {fileID: 0}
-  QuitGO: {fileID: 0}
+  NextLevelGO: {fileID: 1400560231}
+  MainMenuGO: {fileID: 1402382194}
+  QuitGO: {fileID: 1588012543}
+--- !u!1 &1400560231 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 853935151677235391, guid: 03d35daac5a30dd47819282e0df9d724,
+    type: 3}
+  m_PrefabInstance: {fileID: 1400560227}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1402382194
 GameObject:
   m_ObjectHideFlags: 0
@@ -328,7 +333,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1402382195
 RectTransform:
   m_ObjectHideFlags: 0

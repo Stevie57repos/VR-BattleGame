@@ -314,9 +314,9 @@ GameObject:
   - component: {fileID: 668616033313977785}
   - component: {fileID: 1604777546927670357}
   - component: {fileID: 2135858258897877422}
-  - component: {fileID: 3849047896671463130}
   - component: {fileID: 4942132293080005810}
   - component: {fileID: 6940614635754207909}
+  - component: {fileID: 5695915997438996029}
   m_Layer: 8
   m_Name: Card_Reward
   m_TagString: Untagged
@@ -435,7 +435,7 @@ MonoBehaviour:
   CardCostLabelGO: {fileID: 1356802844863547878}
   CardValueLabelGO: {fileID: 6122069254940276407}
   CardMatManager: {fileID: 668616033313977785}
-  _rewardCardHandler: {fileID: 3849047896671463130}
+  _rewardCardHandler: {fileID: 0}
   _characterRegistry: {fileID: 11400000, guid: d574c7e257a701f40bf7bfef9748e6f9, type: 2}
 --- !u!114 &3090272066937009690
 MonoBehaviour:
@@ -646,23 +646,6 @@ MonoBehaviour:
   m_ThrowAngularVelocityScale: 1
   m_GravityOnDetach: 0
   m_RetainTransformParent: 1
---- !u!114 &3849047896671463130
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3408342031960753097}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 530dcdf565b75ec4d80691870285f2c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _cardDescriptionGO: {fileID: 6163392528386007908}
-  CardData: {fileID: 0}
-  _timer: {fileID: 4942132293080005810}
-  WonEvent: {fileID: 11400000, guid: f01c93f4f1b24db40958a695efedeaa8, type: 2}
-  _hapticsManager: {fileID: 6940614635754207909}
   _characterRegistry: {fileID: 0}
 --- !u!114 &4942132293080005810
 MonoBehaviour:
@@ -673,24 +656,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 3408342031960753097}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f7db1e94b4878a41831cdced90de080, type: 3}
+  m_Script: {fileID: 11500000, guid: e27d0e2f54ddf8143bb7c119e8c66b7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cardDescriptionGO: {fileID: 6163392528386007908}
+  CardData: {fileID: 11400000, guid: 379d9c7de3a74664ba0f3653010f0e41, type: 2}
+  _timer: {fileID: 6940614635754207909}
+  WonEvent: {fileID: 11400000, guid: f01c93f4f1b24db40958a695efedeaa8, type: 2}
+  _hapticsManager: {fileID: 5695915997438996029}
+  _characterRegistry: {fileID: 11400000, guid: d574c7e257a701f40bf7bfef9748e6f9, type: 2}
+--- !u!114 &6940614635754207909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3408342031960753097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4512284a1241a90408bddcebc0caac94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   onTimerEnd:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3849047896671463130}
-        m_MethodName: LoadWinUI
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 3408342031960753094}
+      - m_Target: {fileID: 4942132293080005810}
         m_MethodName: CardAddToDeck
         m_Mode: 1
         m_Arguments:
@@ -701,7 +691,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 3849047896671463130}
+      - m_Target: {fileID: 4942132293080005810}
+        m_MethodName: LoadWinUI
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4942132293080005810}
         m_MethodName: RewardsRemoval
         m_Mode: 1
         m_Arguments:
@@ -712,7 +713,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &6940614635754207909
+--- !u!114 &5695915997438996029
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -721,7 +722,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3408342031960753097}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a17d89ba553c4244c834730214216175, type: 3}
+  m_Script: {fileID: 11500000, guid: 58e48821c78ad644db5cc9d92b865c8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _playerSettings: {fileID: 11400000, guid: 7cc9accc7191ec3428a3b85e8bc0549d, type: 2}

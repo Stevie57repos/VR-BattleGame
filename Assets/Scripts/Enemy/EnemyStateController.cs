@@ -29,13 +29,11 @@ public class EnemyStateController : MonoBehaviour
         CubeBossAnimator = GetComponent<Animator>();
         _enemyRewardController = GetComponent<EnemyRewardController>();
     }
-
     void Start()
     {
         enemyProjectileHandler.EnemyProjectilePool = enemyManager.EnemyProjectilePool;
         currentState.EnterState(this);
     }
-
     void Update()
     {
         currentState.UpdateStateActions(this);

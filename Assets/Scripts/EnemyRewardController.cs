@@ -8,7 +8,6 @@ public class EnemyRewardController : MonoBehaviour
     public List<CardScriptableObject> RewardCards;
     [SerializeField] private GameObject _prefabRewardCardsGO;
     [SerializeField] CharacterRegistry _characterRegistry;
-
     public void TriggerRewards() 
     {
         GameObject RewardCardsGO = Instantiate(_prefabRewardCardsGO);

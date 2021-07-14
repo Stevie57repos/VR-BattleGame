@@ -23,7 +23,7 @@ public class RewardCardHandler : MonoBehaviour, ICardEffect
     {
         _cardDescriptionGO.SetActive(false);    
         _cardDescription = _cardDescriptionGO.GetComponentInChildren<TextMeshProUGUI>();
-        _cardDescription.text = "RANDOM DESCRIPTIVE TEXT";
+        _cardDescription.text = "Add this card to your deck";
         _timer = GetComponent<Timer>();
 
         if (_hapticsManager == null)
@@ -33,27 +33,22 @@ public class RewardCardHandler : MonoBehaviour, ICardEffect
     {
 
     }
-
     public void OnDeactivate()
     {
 
     }
-
     public void SetRewardsManager(RewardsManager rewardsManager)
     {
         _rewardsManager = rewardsManager;
     }
-
     public void OnHoverEntered()
     {
         _cardDescriptionGO.SetActive(true);
     }
-
     public void OnHoverExited()
     {
         _cardDescriptionGO.SetActive(false);
     }
-
     public void OnSelectEntered()
     {
         _timer.StartTimer(2f);
@@ -61,29 +56,24 @@ public class RewardCardHandler : MonoBehaviour, ICardEffect
         _rewardsManager.CardSelected(this.gameObject);
         
     }
-
     public void OnSelectExited()
     {
         _timer.stopTimer();
         _rewardsManager.CardUnselected(this.gameObject);
     }
-
     public void PassController(XRController controller)
     {
         _hapticsManager.SetController(controller);
         _hapticsManager.TriggerHaptics(0.3f, 0.3f);      
     }
-
     public void LoadWinUI()
     {
         WonEvent.RaiseEvent();
     }
-
     public void RewardsRemoval()
     {
         _rewardsManager.RemoveRewards();
     }
-
     public void CardAddToDeck()
     {
         DeckManager deckManager = _characterRegistry.Player.GetComponent<DeckManager>();
