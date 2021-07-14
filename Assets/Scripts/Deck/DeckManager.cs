@@ -180,6 +180,7 @@ public class DeckManager : MonoBehaviour
         GraveyardSO.Add(card);
         HandSO.Remove(card);
         HandCards.Remove(cardGO);
+        Destroy(cardGO);
     }
     private void BattleFinish()
     {

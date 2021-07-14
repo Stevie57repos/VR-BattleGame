@@ -7,21 +7,21 @@ public class DefenseShieldHandler : MonoBehaviour, ICardDataTransfer, ICardEffec
     [Header("Shield Settings")]
     [SerializeField] private int _currDurability = 2;
     private PlayerCharacter _playerCharacter;
-    [SerializeField] CharacterRegistry _characterRegistry;
-    [SerializeField] GameObject _shieldModelGO;
+    [SerializeField] private CharacterRegistry _characterRegistry;
+    [SerializeField] private GameObject _shieldModelGO;
     private MeshRenderer _shieldMeshRender;
     private BoxCollider _collider;
 
     [Header("Events")]
-    [SerializeField] CardEffectEventChannelSO _cardEffectEvent;
-    [SerializeField] CardSelectionEventSO _cardSelectionEvent;
+    [SerializeField] private CardEffectEventChannelSO _cardEffectEvent;
+    [SerializeField] private CardSelectionEventSO _cardSelectionEvent;
 
     [Header("Audio")]
     private AudioSource _audioSource;
-    [SerializeField] AudioClip _ShieldSummonAudioClip;
-    [SerializeField] SoundsListSO _projectileDestructionAudio;
-    [SerializeField] SoundsListSO _shieldBlockAudio;
-    [SerializeField] AudioClip _droppedSheildAudioClip;
+    [SerializeField] private AudioClip _shieldSummonAudioClip;
+    [SerializeField] private SoundsListSO _projectileDestructionAudio;
+    [SerializeField] private SoundsListSO _shieldBlockAudio;
+    [SerializeField] private AudioClip _droppedSheildAudioClip;
 
     //[SerializeField] PlayerSettings _playerSettings;
     private XRController controller;
@@ -37,7 +37,7 @@ public class DefenseShieldHandler : MonoBehaviour, ICardDataTransfer, ICardEffec
     {
         _playerCharacter = _characterRegistry.Player.GetComponent<PlayerCharacter>();
         _audioSource = GetComponent<AudioSource>();
-        _audioSource.PlayOneShot(_ShieldSummonAudioClip);
+        _audioSource.PlayOneShot(_shieldSummonAudioClip);
         _shieldMeshRender = _shieldModelGO.GetComponent<MeshRenderer>();
         _collider = _shieldModelGO.GetComponent<BoxCollider>();
         _hapticsManager = GetComponent<HapticsManager>();

@@ -179,7 +179,7 @@ MonoBehaviour:
   CardspawnSpotGO: {fileID: 1596552395}
   _cardPrefab: {fileID: 8021366866025846666, guid: 9a2a1e9d50797e740bfb778110c3f74e,
     type: 3}
-  _deckData: {fileID: 11400000, guid: 131a916b9e30fef41b6b120425a8508e, type: 2}
+  _deckData: {fileID: 11400000, guid: 01f08dcaf0a06fa4b9a75aa1252e2149, type: 2}
   _gameManagerLossEvent: {fileID: 11400000, guid: 966e4a2382709594f8e365972795baef,
     type: 2}
   _gameManagerBattleFinishEvent: {fileID: 11400000, guid: 4a154d8e0f72ec243b21110593c75387,
@@ -188,11 +188,11 @@ MonoBehaviour:
     type: 2}
   _cardEffectEvent: {fileID: 11400000, guid: da8ef699fbd93a5409d5b91caa88a6c7, type: 2}
   _characterRegistry: {fileID: 11400000, guid: d574c7e257a701f40bf7bfef9748e6f9, type: 2}
-  deck: []
-  hand: []
-  graveyard: []
-  burn: []
-  handCards: []
+  DeckSO: []
+  HandSO: []
+  GraveyardSO: []
+  BurnSO: []
+  HandCards: []
 --- !u!114 &64656115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -635,11 +635,11 @@ MonoBehaviour:
     type: 2}
   _cardEffectEvent: {fileID: 11400000, guid: da8ef699fbd93a5409d5b91caa88a6c7, type: 2}
   _characterRegistry: {fileID: 11400000, guid: d574c7e257a701f40bf7bfef9748e6f9, type: 2}
-  deck: []
-  hand: []
-  graveyard: []
-  burn: []
-  handCards: []
+  DeckSO: []
+  HandSO: []
+  GraveyardSO: []
+  BurnSO: []
+  HandCards: []
 --- !u!114 &586900880
 MonoBehaviour:
   m_ObjectHideFlags: 0

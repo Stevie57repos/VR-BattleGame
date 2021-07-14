@@ -5,33 +5,32 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class SpellDamageHandler : MonoBehaviour, ICardEffect, ICardDataTransfer
 {
+    [Header("SpellDamage Settings")]
+    [SerializeField] private int _maxAdditionalCharge = 1;
+    [SerializeField] private float _speed;
+    private int _currentSpellDamage;
+    private int _maxCharge;
+    [SerializeField] private CharacterRegistry _characterRegistry;
+    public Vector3 TargetPos;
+    private GameObject _targetGO;
+    [SerializeField] private SphereCollider _sphereCol;
+    [SerializeField] private Rigidbody _rBody;
+
+    [Header("Audio")]
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioClip _idleSpell;
+    [SerializeField] private SoundsListSO _castSpell;
+    [SerializeField] private AudioClip _chargeSpell;
+
+    [Header("Events")]
+    [SerializeField] private CardEffectEventChannelSO _cardEffectEvent;
+    [SerializeField] private CardSelectionEventSO _cardSelectionEvent;
+
+    private HapticsManager _hapticsManager;
     private CardScriptableObject _cardData = null;
     private CardController _cardInfo = null;
-    
-    [SerializeField] HapticsManager _hapticsManager;
-
-    [SerializeField] AudioSource _audioSource;
-    [SerializeField] AudioClip _idleSpell;
-    [SerializeField] SoundsListSO _castSpell;
-    [SerializeField] AudioClip _chargeSpell;
-
-    bool inAir = false;
-    public Vector3 targetPos;
-    private GameObject targetGO;
-    [SerializeField] private float speed;
-    [SerializeField] CardEffectEventChannelSO _cardEffectEvent;
-    [SerializeField] CharacterRegistry _characterRegistry;
-    [SerializeField] CardSelectionEventSO _cardSelectionEvent;
-
-    [SerializeField] SphereCollider _sphereCol;
-    [SerializeField] Rigidbody _rBody;
-    private int _currentSpellDamage;
-    [SerializeField] int maxAdditionalCharge = 1;
-    private int maxCharge;
-
     private void Awake()
     {
-        inAir = false;
         if(_hapticsManager == null)
             _hapticsManager = GetComponent<HapticsManager>();
 
@@ -42,76 +41,54 @@ public class SpellDamageHandler : MonoBehaviour, ICardEffect, ICardDataTransfer
         _audioSource.loop = true;
         _audioSource.Play();
     }
-
     public void TransferCardData(CardController cardInfo)
     {
         _cardInfo = cardInfo;
         _cardData = cardInfo.CardData;
         _currentSpellDamage = _cardData.value;
-        maxCharge = _cardData.value + maxAdditionalCharge;
+        _maxCharge = _cardData.value + _maxAdditionalCharge;
     }
-
     public void OnHoverEntered()
     {
-
     }
 
     public void OnHoverExited()
     {
-
     }
 
     public void OnSelectEntered()
     {
-        inAir = false;
     }
 
     public void OnSelectExited()
     {
-        inAir = true;
         _audioSource.Stop();
         _audioSource.loop = false;
         AudioClip randomClip = _castSpell.SoundsArray[UnityEngine.Random.Range(0, _castSpell.SoundsArray.Length)];
         _audioSource.PlayOneShot(randomClip);
-        targetGO = _characterRegistry.CurrentEnemy;
-        StartCoroutine(MoveToTargetCoroutine(targetGO));
+        _targetGO = _characterRegistry.CurrentEnemy;
+        StartCoroutine(MoveToTargetCoroutine(_targetGO));
         Timer timer = GetComponent<Timer>();
         timer.StartTimer(10f);
     }
     public void OnActivate()
     {
-
     }
-
     public void OnDeactivate()
     {
-
     }
-
-    private void FixedUpdate()
+    Vector3 FindTargetPos(GameObject _targetGO)
     {
-        //if (inAir)
-        //{
-        //    if (targetGO == null)
-        //        targetGO = _characterRegistry.CurrentEnemy;
-        //    targetPos = FindTargetPos(targetGO);
-        //    //CheckDistance(targetGO);
-        //}
-    }
-    Vector3 FindTargetPos(GameObject targetGO)
-    {
-        if(targetGO == null)
-            targetGO = _characterRegistry.CurrentEnemy;
-        Transform TargetTransform = targetGO.transform;
+        if(_targetGO == null)
+            _targetGO = _characterRegistry.CurrentEnemy;
+        Transform TargetTransform = _targetGO.transform;
         Debug.Log("findtarget pos has been called");
         return TargetTransform.position;
     }
-    IEnumerator MoveToTargetCoroutine(GameObject targetGO)
+    IEnumerator MoveToTargetCoroutine(GameObject _targetGO)
     {
         yield return new WaitForSeconds(0.5f);
-
-        var target = FindTargetPos(targetGO);
-
+        var target = FindTargetPos(_targetGO);
         while (Vector3.Distance(transform.position, target) > 0.5f)
         {
             Debug.Log("moving towards target");
@@ -119,14 +96,12 @@ public class SpellDamageHandler : MonoBehaviour, ICardEffect, ICardDataTransfer
             Quaternion newRotation = Quaternion.LookRotation(lookAtTarget, transform.up);
             transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, Time.fixedDeltaTime);
 
-
-            float step = speed * Time.fixedDeltaTime;
-            Vector3 targetPos = FindTargetPos(targetGO);
-            Vector3 updatedPos = new Vector3(targetPos.x, targetPos.y + 1f, targetPos.z);
+            float step = _speed * Time.fixedDeltaTime;
+            Vector3 TargetPos = FindTargetPos(_targetGO);
+            Vector3 updatedPos = new Vector3(TargetPos.x, TargetPos.y + 1f, TargetPos.z);
             transform.position = Vector3.MoveTowards(transform.position, updatedPos, step);
             yield return null;
         }
-
         if (Vector3.Distance(transform.position, target) < 0.5f)
         {
             Debug.Log("distance has been reached");
@@ -149,8 +124,8 @@ public class SpellDamageHandler : MonoBehaviour, ICardEffect, ICardDataTransfer
     private void ChargeSpell()
     {
         _currentSpellDamage++;
-        if(_currentSpellDamage > maxCharge)      
-            _currentSpellDamage = maxCharge;       
+        if(_currentSpellDamage > _maxCharge)      
+            _currentSpellDamage = _maxCharge;       
     }
     public void SpellProjectileDestruction()
     {
@@ -180,7 +155,7 @@ public class SpellDamageHandler : MonoBehaviour, ICardEffect, ICardDataTransfer
         enenyCharacter.TakeDamage(_currentSpellDamage);
         _cardEffectEvent.RaiseEvent(cardObject, cardData);
     }
-    void ResetPlayerCardSelection()
+    private void ResetPlayerCardSelection()
     {
         _cardSelectionEvent.RaiseEvent("None");
     }
