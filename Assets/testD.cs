@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class testD : MonoBehaviour, box_interface
+public class testD : MonoBehaviour
 {
     string Boxname;
 
