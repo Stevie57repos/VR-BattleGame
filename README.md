@@ -6,4 +6,6 @@ VR Game Description
 
 Battle in VR using magical cards that grant temporary weapons and grow stronger through defeating enemies and collecting loot. Enemies' behaviors are flexible and programmed based on either a state-machine or node based behavior tree. 
 
-Design Doc : https://docs.google.com/document/d/1SVEhYHOQEPRvPmWOYyAVXO16VR1D6nPVLMcNBgFVMKA/edit?usp=sharing
+Check out my other VR Projects
+VR Food Truck Game : https://github.com/stevie57/VR-Cooking-Training-Prototype
+My VR Web Portfolio and Blog : http://www.stevievu.com/2021/07/vr-card-battle-game-july-15th.html
