@@ -17,7 +17,7 @@ MonoBehaviour:
   value: 3
   cost: 1
   singleUse: 0
-  art: {fileID: 21300000, guid: 5c1775026e07de643bb25ca9926c995a, type: 3}
-  soundRelease: {fileID: 8300000, guid: fc652a6b49b10834daee58f30bca8ea4, type: 3}
-  soundFlying: {fileID: 8300000, guid: b8e8f3c9c7b65364e9df3c3d0b520cce, type: 3}
-  soundHit: {fileID: 8300000, guid: 3758606f4abd0eb45ac236de2ef6f656, type: 3}
+  CardSpawn: {fileID: 0}
+  soundRelease: {fileID: 0}
+  soundFlying: {fileID: 0}
+  soundHit: {fileID: 0}

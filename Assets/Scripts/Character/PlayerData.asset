@@ -15,5 +15,5 @@ MonoBehaviour:
   NameCharacter: Player
   Health: 10
   MaxHealth: 10
-  Mana: 30
-  MaxMana: 30
+  Mana: 99
+  MaxMana: 99

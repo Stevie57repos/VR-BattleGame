@@ -42,6 +42,7 @@ public class AttackSwordHandler : MonoBehaviour, ICardDataTransfer, ICardEffect
     private HapticsManager _hapticsManager;
     private CardScriptableObject _cardData = null;
     private CardController _cardInfo = null;
+    private bool isTriggered;
 
     public void TransferCardData(CardController cardInfo)
     {
@@ -57,6 +58,7 @@ public class AttackSwordHandler : MonoBehaviour, ICardDataTransfer, ICardEffect
         _swordMatHandler = GetComponent<SwordMatHandler>();
         _hapticsManager = GetComponent<HapticsManager>();
         PlaySliceSound();
+        isTriggered = false;
     }
     public void OnHoverEntered()
     {
@@ -227,16 +229,21 @@ public class AttackSwordHandler : MonoBehaviour, ICardDataTransfer, ICardEffect
     }
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.CompareTag("Ground"))
+        if (other.gameObject.CompareTag("Ground") && !isTriggered)
         {
             Reset(0f);
         }
     }
     void Reset(float SecondsBeforeDestruction)
     {
-        _cardEffectEvent.RaiseEvent(_cardInfo.gameObject, _cardData);
-        _hapticsManager.ClearController();
-        Destroy(this.gameObject, SecondsBeforeDestruction);
+        if (!isTriggered)
+        {
+            isTriggered = true;
+            Debug.Log("Reset has been called");
+            _cardEffectEvent.RaiseEvent(_cardInfo.gameObject, _cardData);
+            _hapticsManager.ClearController();
+            Destroy(this.gameObject, SecondsBeforeDestruction);
+        }
     }
     public void PassController(XRController controller)
     {
