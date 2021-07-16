@@ -12,4 +12,4 @@ Check out my other VR Projects
 
 VR Food Truck Game : https://github.com/stevie57/VR-Cooking-Training-Prototype
 
-My VR Web Portfolio and Blog : http://www.stevievu.com/2021/07/vr-card-battle-game-july-15th.html
+My VR Web Portfolio and Blog : http://www.stevievu.com/p/about-me_31.html
