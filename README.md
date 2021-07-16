@@ -1,5 +1,8 @@
 # VR Card Battle Game
 VR Single Player Battle Game - Gameplay Youtube Trailer
+
+**Click on the image below to watch a YouTube gameplay Trailer**
+
 [![Header Image](https://github.com/stevie57/VR-BattleGame/blob/main/Assets/Textures/Screen%20shot.png)](https://www.youtube.com/watch?v=IIg7JPc2Cis&t=15s)
 
 ## VR Game Description
